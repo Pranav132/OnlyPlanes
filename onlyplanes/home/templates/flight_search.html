@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+OnlyPlanes
+{% endblock %}
+
+{% block content %}
+<h1>Hello World!</h1>
+
+<form method="GET" action = '/flight_search'>
+    <input type="text" name = "originLocationCode"/>
+    <input type="text" name = "destinationLocationCode"/>
+    <input type="text" name = "departureDate"/>
+    <input type="number" name = 'adults' value=1/>
+    <input type="submit"/>
+</form>
+{% endblock %}

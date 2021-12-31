@@ -8,7 +8,6 @@ amadeus = Client(
 
 # This is to query the api and get flights
 
-
 def findFlights(**kwargs):
     try:
         response = amadeus.shopping.flight_offers_search.get(currencyCode='INR', **kwargs)
@@ -18,14 +17,43 @@ def findFlights(**kwargs):
                         'seats_available': trip['numberOfBookableSeats'],
                         'price' : trip['price']['total'] + " " + trip['price']['currency'],
                         'travelClass' : trip['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'],
+
+                        #the following entries contain the outbound and return legs. They need to be read in from a for loop. each leg contains 
+                        #multiple 'flights', each of which is a dictionary with the attributes shown below.
+
+                        #'outboundLeg' : [{'segment_id' : flight['id'],
+                                          #'flightNumber' : flight['carrierCode'] + " " + flight['number'],
+                                          #'origin' : flight['departure']['iataCode'],
+                                          #'originTerminal' : flight['departure'].get('terminal', '-'),
+                                          #'departureTime' : flight['departure']['at'][11:16] + " " + datetime.datetime(int(flight['departure']['at'][0:4]), int(flight['departure']['at'][5:7]), int(flight['departure']['at'][8:10])).strftime("%a, %d %b %Y"),
+                                          #'destination' : flight['arrival']['iataCode'],
+                                          #'destinationTerminal' : flight['arrival'].get('terminal', '-'),
+                                          #'arrivalTime' : flight['arrival']['at'][11:16] + " " + datetime.datetime(int(flight['arrival']['at'][0:4]), int(flight['arrival']['at'][5:7]), int(flight['arrival']['at'][8:10])).strftime("%a, %d %b %Y"),
+                                          #'duration' : flight['duration'][2:]
+                                          #}, .{}..{}..{}.....],
+
+                        #'returnLeg'   : [{'segment_id' : ,
+                                          #'flightNumber' : ,
+                                          #'origin' : ,
+                                          #'originTerminal' : ,
+                                          #'departureTime' :,
+                                          #'destination' : ,
+                                          #'destinationTerminal' : ,
+                                          #'arrivalTime' : ,
+                                          #'duration' : 
+                                          #}, ..{}..{}..{}.... ],
                         }
+
+
+            #getting the outbound and return Leg data:
+
 
             for i in range(len(trip['itineraries'])):
                 flights = []
 
                 for flight in trip['itineraries'][i]['segments']:
                     flights = flights[:] + [{
-                        'id' : flight['id'],
+                        'segment_id' : flight['id'],
                         'flightNumber' : flight['carrierCode'] + " " + flight['number'],
                         'origin' : flight['departure']['iataCode'],
                         'originTerminal' : flight['departure'].get('terminal', '-'),
@@ -56,7 +84,7 @@ def findFlights(**kwargs):
     except ResponseError as error: 
         print(error)
 
-    return
+    return trip_dict
 
 
 findFlights(originLocationCode='DEL', destinationLocationCode='BLR',
