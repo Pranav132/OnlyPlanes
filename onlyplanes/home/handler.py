@@ -13,7 +13,7 @@ def findFlights(**kwargs):
         response = amadeus.shopping.flight_offers_search.get(currencyCode='INR', **kwargs)
         options = []
         for trip in response.data:
-            trip_dict ={'id' : trip['id'],
+            trip_dict ={
                         'seats_available': trip['numberOfBookableSeats'],
                         'price' : trip['price']['total'] + " " + trip['price']['currency'],
                         'travelClass' : trip['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'],
@@ -84,7 +84,7 @@ def findFlights(**kwargs):
     except ResponseError as error: 
         print(error)
 
-    return trip_dict
+    return options
 
 
 findFlights(originLocationCode='DEL', destinationLocationCode='BLR',
