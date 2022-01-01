@@ -6,72 +6,243 @@ OnlyPlanes
 {% endblock %}
 
 {% block content %}
-<div style="width: 80%; margin: auto;">
-<form method="GET" action='/flight_search'>
-    <input type="text" name="originLocationCode" />
-    <input type="text" name="destinationLocationCode" />
-    <input type="text" name="departureDate" />
-    <input type="number" name='adults' value=1 />
-    <input type="submit" />
-</form>
+
+<head>
+    <style>
+
+        .card {
+            margin: auto;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            border-style: solid;
+            border-width: 0.1px;
+            border-color: #999;
+            padding: 2%;
+            padding-bottom: 2%;
+            border-radius: 25px;
+            box-shadow: 2px 5px 40px #777;
+        }
+
+        .search tr {
+            width: 100%;
+            height: 70px;
+        }
+
+        td.airportPicker {
+            margin: 0;
+            width: 25%;
+        }
+
+        .airportPicker select {
+            font-size: 40px;
+            font-weight: bold;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        td.datePicker {
+            width: 22%;
+        }
+
+        footer {
+            background-image: linear-gradient(to bottom, rgb(68, 7, 148), rgb(18, 3, 83));
+            height: 400px;
+            box-shadow: 0px 50vh 0px 50vh #000;
+        }
+
+
+
+        input,
+        select {
+            background-color: white;
+            font-size: 25px;
+            border-style: solid;
+            border-radius: 1px;
+            border-color: black;
+            border-width: 0.5px;
+            padding: 10px;
+            -webkit-appearance: none;
+            height: 60px;
+            width: 90%;
+            margin-left: 0;
+        }
+
+        input[type='number'] {
+            height: 65px;
+            text-align: center;
+        }
+
+        option {
+            padding: 2px;
+        }
+
+        button {
+            width: 180px;
+            height: 50px;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<div
+    style="width: 100%; height: 70%;  background-image: linear-gradient(to bottom right, rgb(68, 7, 148), rgb(96, 198, 245)); padding-top: 3%;">
+    <div class='card' style="width: 85%; margin-bottom: 250px;">
+        <form method="GET" action='/flight_search'>
+            <div>
+                <table style="width: 100%;" class="search">
+                    <tr style="height: 40px;">
+                        <td style="padding-left: 10px;">
+                            <h4>From:</h4>
+                        </td>
+                        <td>
+                            <h4>To:</h4>
+                        </td>
+                        <td style="width: 6%;">
+
+                        </td>
+                        <td>
+                            <h4>Depart:</h4>
+                        </td>
+                        <td>
+                            <h4>Return:</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="airportPicker">
+                            <select type="text" name="originLocationCode"
+                                style="width: 100%; height: 180px; border-radius: 30px 1px 1px 30px;">
+                                {%for airport in airports%}
+                                <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%endfor%}
+                            </select>
+                        </td>
+                        <td class="airportPicker">
+                            <select type="text" name="destinationLocationCode"
+                                style="width: 100%; height: 180px; border-radius: 1px 30px 30px 1px;">
+                                {%for airport in airports%}
+                                <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%endfor%}
+                            </select>
+                        </td>
+                        <td></td>
+                        <td class="datePicker"><input type="text" name="departureDate" class="date" /></td>
+                        <td class="datePicker"><input type="text" name="returnDate" /></td>
+
+                    </tr>
+                </table>
+            </div>
+            <div style="display:flex; justify-content: space-between; height: 50%; margin-top: 50px;width: 100%;">
+                <div style="width: 100%;display: inline-block; height: 100%; padding-left: 10px;">
+                    <table style="height: 100%; width : 100%">
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Adults:</h4>
+                                <h6 style="line-height: 2px; color: #777; font-weight: 300;">12y+</h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='adults' value=1 min=1 max=9
+                                    style="border-radius: 1px 15px 1px 1px;" /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Children:</h4>
+                                <h6 style="line-height: 2px;color: #777;font-weight: 300;font-weight: 300;">2y to 12y
+                                </h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='children' value=0 min=0 max=9 /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Infants:</h4>
+                                <h6 style="line-height: 2px;color: #777;font-weight: 300;">less than 2y</h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='infants' value=0 min=0 max=9
+                                    style="border-radius: 1px 1px 15px 1px;" /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div
+                    style="text-align: center; margin:5%; width: 30%; display: inline-block; height: 100%; position:absolute; top: 380px; left: 30%">
+                    <button type="submit"
+                        style="width: 100%; height: 30%; font-size: 50px; font-weight: bold;">SEARCH</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 {%if trip_offers%}
 <!--FILTERS FORM HERE-->
-
+<div style="width: 100%; height: 300px; margin-top: 0; box-shadow: 0 5px 50px black; margin-bottom: 100px; ">
+<h1>[FILTERS HERE]</h1>
+</div>
 <!--FILTERS FORM END HERE-->
 <!--SEARCH RESULTS HERE-->
 <div style="width: 80%; margin: auto;">
     {%for trip_offer in trip_offers%}
-    <a href = "" style="text-decoration: inherit; color: inherit;">
-    <div style="margin: 2%; border-style: solid; border-width: 0.1px; border-color: #999; padding: 3%; padding-bottom: 2%; border-radius: 25px; box-shadow: 10px 20px 20px #777;">
+    <a href="" style="text-decoration: inherit; color: inherit;">
+        <div class="card">
 
-        {%for flight in trip_offer.outboundLeg%}
-        {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
-        {%else%}
-        <div style="width: 100%; height: 5%; padding-left: 39.7%;">
-            <h2>.</h2>
-        </div>
-        {%endif%}
-        <table style="width: 100%;">
-            <tr style="height: 20px;">
-                <td style="width: 30%;"></td>
-                <td style="width: 20%; text-align: center;">
-                    <h3>{{flight.origin.iataCode}}</h3>
-                </td>
-                <td style="width: 50%; font-size: 20px;">{{flight.origin.city}}, {{flight.origin.country}}<br>{{flight.departureTime}}
-                </td>
-            </tr>
-            <tr style="height: 60px;">
-                <td style="width: 30%;">
-                    <div style="height: 100%; width: 100%; text-align: center; padding: 70px 0;">
-                        <h2>{{flight.flightNumber}}</h2>
-                    </div>
-                </td>
-                <td style="width: 20%;">
-                    <div style="width: 2px; margin: auto; height: 160px; background-color: black;"></div>
-                    
-                </td>
-                <td style="width: 50%;"></td>
-            </tr>
-            <tr style="height: 20px;">
-                <td style="width: 30%;"></td>
-                <td style="width: 20%; text-align: center;">
-                    <h3>{{flight.destination.iataCode}}</h3>
-                </td>
-                <td style="width: 50%;font-size: 20px;">{{flight.destination.city}},
-                    {{flight.destination.country}}<br>{{flight.arrivalTime}}</td>
-            </tr>
-        </table>
-        {%endfor%}
-        <div>
+            {%for flight in trip_offer.outboundLeg%}
+            {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
+            {%else%}
+            <div style="width: 100%; height: 5%; padding-left: 39.7%;">
+                <h2>.</h2>
+            </div>
+            {%endif%}
+            <table style="width: 100%;">
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.origin.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%; font-size: 30px;">{{flight.origin.city}},
+                        {{flight.origin.country}}<br>{{flight.departureTime}}
+                    </td>
+                </tr>
+                <tr style="height: 60px;">
+                    <td style="width: 30%;">
+                        <div style="height: 100%; width: 100%; text-align: center; padding: 70px 0;">
+                            <h1>{{flight.flightNumber}}</h1>
+                        </div>
+                    </td>
+                    <td style="width: 20%;">
+                        <div style="width: 2px; margin: auto; height: 160px; background-color: black;"></div>
 
+                    </td>
+                    <td style="width: 50%;"></td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.destination.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%;font-size: 30px;">{{flight.destination.city}},
+                        {{flight.destination.country}}<br>{{flight.arrivalTime}}</td>
+                </tr>
+            </table>
+            {%endfor%}
+            <div>
+
+            </div>
+            <div style="text-align: right;">
+                <h2 style="color: #273; margin: 5px; margin-top: 0;">{{trip_offer.price}}</h2>
+            </div>
         </div>
-        <div style="text-align: right;"><h2 style="color: #273; margin: 5px">{{trip_offer.price}}</h2></div>
-    </div>
     </a>
-    
+
     {%endfor%}
+</div>
+
+{%else%}
+
+<div style="width: 90%; margin:auto; padding:5%">
+    <h1>No flights match your search</h1>
 </div>
 
 {%endif%}

@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from .models import Airport
 from .handler import findFlights, makeBooking
 
 # Create your views here.
@@ -12,18 +14,30 @@ def index(request):
 
 def flight_search(request):
 
-    context = {}
+    airport_instances = Airport.objects.all().order_by('city')
+    
+    airports = []
+    for airport_instance in airport_instances:
+        airports = airports[:] + [airport_instance.__dict__]
+    for airport in airports:
+        airport['city'] = str(airport['city'])[:-7].replace("International", " ").replace("Int'l", " ")
+
+
+    context = {
+        'airports' : airports
+    }
     
     if request.GET['originLocationCode'] and request.GET['destinationLocationCode'] and request.GET['departureDate']:
         kwargs = {'max': 5 }
 
         for i in request.GET:
-            kwargs[i] = request.GET[i]
+            if request.GET[i] is not "" and request.GET[i] is not 0:
+                kwargs[i] = request.GET[i]
+        print(kwargs)
 
         context['trip_offers'] = findFlights(**kwargs)
 
         #to save a trip as a booking model:
-        trip = context['trip_offers'][0]
         #makeBooking(trip)
 
 

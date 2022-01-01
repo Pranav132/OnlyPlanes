@@ -10,10 +10,11 @@ amadeus = Client(
 
 
 def findFlights(**kwargs):
+    options = []
     try:
         response = amadeus.shopping.flight_offers_search.get(
             currencyCode='INR', **kwargs)
-        options = []
+        
         for trip in response.data:
             try: 
                 trip_dict = {
