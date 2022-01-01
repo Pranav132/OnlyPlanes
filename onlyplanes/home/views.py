@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-
-from .models import Booking, OutboundLeg, ReturnLeg, Segment
-from .handler import findFlights
+from .handler import findFlights, makeBooking
 
 # Create your views here.
 
@@ -13,33 +11,36 @@ def index(request):
 
 
 def flight_search(request):
-    if request.GET:
-        kwargs = {'max': 5}
+
+    context = {}
+    
+    if request.GET['originLocationCode'] and request.GET['destinationLocationCode'] and request.GET['departureDate']:
+        kwargs = {'max': 5 }
+
         for i in request.GET:
             kwargs[i] = request.GET[i]
-        print(kwargs)
-        response = findFlights(**kwargs)
-        trip = response[0]
-        outboundLeg = OutboundLeg.objects.create()
-        returnLeg = ReturnLeg.objects.create()
 
-        for segment in trip['outboundLeg']:
-            outboundLeg.segments.add(Segment.objects.create(**segment))
+        context['trip_offers'] = findFlights(**kwargs)
+
+        #to save a trip as a booking model:
+        trip = context['trip_offers'][0]
+        #makeBooking(trip)
 
 
-        trip.pop('outboundLeg')
-
-        print(trip)
-
-        for key in trip:
-            if key == 'returnLeg':
-                for segment in trip['returnLeg']:
-                    returnLeg.segments.add(Segment.objects.create(**segment))
-                trip.pop(key)
-
-        current_booking = Booking.objects.create(**trip)
-        current_booking.outboundLeg.add(outboundLeg)
-        current_booking.returnLeg.add(returnLeg)
+    return render(request, "flight_search.html", context=context)
 
 
-    return render(request, "flight_search.html")
+
+
+
+
+
+
+
+
+#with open("home/airport-codes.csv", "r") as file:
+        #reader = csv.reader(file)
+        #next(reader)
+        #for row in reader:
+            #City,Country ,Code,Continent
+            #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])

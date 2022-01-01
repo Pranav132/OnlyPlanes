@@ -6,13 +6,75 @@ OnlyPlanes
 {% endblock %}
 
 {% block content %}
-<h1>Hello World!</h1>
-
-<form method="GET" action = '/flight_search'>
-    <input type="text" name = "originLocationCode"/>
-    <input type="text" name = "destinationLocationCode"/>
-    <input type="text" name = "departureDate"/>
-    <input type="number" name = 'adults' value=1/>
-    <input type="submit"/>
+<div style="width: 80%; margin: auto;">
+<form method="GET" action='/flight_search'>
+    <input type="text" name="originLocationCode" />
+    <input type="text" name="destinationLocationCode" />
+    <input type="text" name="departureDate" />
+    <input type="number" name='adults' value=1 />
+    <input type="submit" />
 </form>
+</div>
+
+{%if trip_offers%}
+<!--FILTERS FORM HERE-->
+
+<!--FILTERS FORM END HERE-->
+<!--SEARCH RESULTS HERE-->
+<div style="width: 80%; margin: auto;">
+    {%for trip_offer in trip_offers%}
+    <a href = "" style="text-decoration: inherit; color: inherit;">
+    <div style="margin: 2%; border-style: solid; border-width: 0.1px; border-color: #999; padding: 3%; padding-bottom: 2%; border-radius: 25px; box-shadow: 10px 20px 20px #777;">
+
+        {%for flight in trip_offer.outboundLeg%}
+        {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
+        {%else%}
+        <div style="width: 100%; height: 5%; padding-left: 39.7%;">
+            <h2>.</h2>
+        </div>
+        {%endif%}
+        <table style="width: 100%;">
+            <tr style="height: 20px;">
+                <td style="width: 30%;"></td>
+                <td style="width: 20%; text-align: center;">
+                    <h3>{{flight.origin.iataCode}}</h3>
+                </td>
+                <td style="width: 50%; font-size: 20px;">{{flight.origin.city}}, {{flight.origin.country}}<br>{{flight.departureTime}}
+                </td>
+            </tr>
+            <tr style="height: 60px;">
+                <td style="width: 30%;">
+                    <div style="height: 100%; width: 100%; text-align: center; padding: 70px 0;">
+                        <h2>{{flight.flightNumber}}</h2>
+                    </div>
+                </td>
+                <td style="width: 20%;">
+                    <div style="width: 2px; margin: auto; height: 160px; background-color: black;"></div>
+                    
+                </td>
+                <td style="width: 50%;"></td>
+            </tr>
+            <tr style="height: 20px;">
+                <td style="width: 30%;"></td>
+                <td style="width: 20%; text-align: center;">
+                    <h3>{{flight.destination.iataCode}}</h3>
+                </td>
+                <td style="width: 50%;font-size: 20px;">{{flight.destination.city}},
+                    {{flight.destination.country}}<br>{{flight.arrivalTime}}</td>
+            </tr>
+        </table>
+        {%endfor%}
+        <div>
+
+        </div>
+        <div style="text-align: right;"><h2 style="color: #273; margin: 5px">{{trip_offer.price}}</h2></div>
+    </div>
+    </a>
+    
+    {%endfor%}
+</div>
+
+{%endif%}
+
+
 {% endblock %}

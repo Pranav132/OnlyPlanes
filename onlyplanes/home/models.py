@@ -2,8 +2,13 @@ from django.db import models
 
 # Create your models here.
 
-class Segment(models.Model):
+class Airport(models.Model):
+    iataCode = models.TextField()
+    city = models.TextField()
+    country = models.TextField()
+    continent = models.TextField()
 
+class Segment(models.Model):
     segment_id = models.TextField()
     flightNumber = models.TextField()
     origin = models.TextField()
@@ -26,5 +31,6 @@ class Booking(models.Model):
     travelClass = models.TextField()
     outboundLeg = models.ManyToManyField(OutboundLeg)
     returnLeg = models.ManyToManyField(ReturnLeg)
+
 
 
