@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<ul>
+
+{%if options%}
+<div style="margin-bottom: 5%;">
+    <ul>
+        {%for trip in options%}
+
+        <div style="display: flex; flex-direction: column; justify-content: center; margin-right: 5%;" class="flight">
+
+            {%for flight in trip.outboundLeg%}
+
+
+            <div style="justify-content: space-between; display: flex;">
+                <div style="display: inline-block; width: 30%; margin: 5%;">
+
+                    <div
+                        style="margin: 10%; text-align: center; flex-direction: column;display: flex;justify-content: center;align-content: center;">
+                        <h3>{{flight.flightNumber}}</h3>
+
+
+                    </div>
+
+                </div>
+
+                <div style="display: inline-block; width: 70%;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                        <div style="margin: 0%;">
+                            <div style="display: inline-block; width: 5%;">{{flight.origin}}</div>
+                            
+                        </div>
+
+
+                        <div style="margin-left: 2%;height: auto;width: 1px; background-color: black;" class="lines">
+                        </div>
+
+                        <div style="margin: 0%;">
+                            <div style="display: inline-block; width: 5%;">{{flight.destination}}</div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {%endfor%}
+            <div style="text-align: right; color: #272; height: 90%;">{{trip.price}} €</div>
+            
+        </div>
+
+
+
+        {%endfor%}
+    </ul>
+</div>
+{%else%}
+<p>No flights match your search</p>
+{%endif%}
+{% endblock content%}
