@@ -1,11 +1,14 @@
+import json
 from amadeus import Client, ResponseError
 import datetime
 from .models import *
+import requests
 amadeus = Client(
     client_id='QrdT9b97pTA0aaYGN57uUgR7u6RWlAEM',
     client_secret='4Z69ZYu2vJfGP8Ff'
 )
 
+google_search_API_key = "AIzaSyBJApYBKCxHj117n85GF1Ri3t63q0PKBtE"
 # This is to query the api and get flights
 
 
@@ -58,8 +61,10 @@ def findFlights(**kwargs):
 
                         ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
                         DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
+                        AIRLINE = Airline.objects.get(iataCode = flight['carrierCode'])
 
                         flights = flights[:] + [{
+                            'airline' : AIRLINE,
                             'segment_id': flight['id'],
                             'flightNumber': flight['carrierCode'] + " " + flight['number'],
                             'origin': ORIGIN,
@@ -82,8 +87,23 @@ def findFlights(**kwargs):
 
     except ResponseError as error:
         print(error)
+    
+    getAirlineLogo("Air India")
 
     return options
+
+def getAirlineLogo(name):
+    PARAMS = {
+        'key' : google_search_API_key,
+        'cx' : '6a92acc3ab711e762',
+        'q' : name,
+        'searchType' : 'image'
+    }
+    response = requests.get(url="https://www.googleapis.com/customsearch/v1", params=PARAMS)
+ 
+    result = response.json()
+    for i in result['items']:
+        print(i['title'], i['link'])
 
 
 def makeBooking(trip):

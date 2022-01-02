@@ -426,11 +426,13 @@ OnlyPlanes
             {%for flight in trip_offer.outboundLeg%}
             {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
             {%else%}
+            
             <div style="width: 100%; height: 5%; padding-left: 39.7%;">
                 <h2>.</h2>
             </div>
             {%endif%}
             <table style="width: 100%;">
+                <div style="position: absolute;">{{flight.airline.name}}</div>
                 <tr style="height: 20px;">
                     <td style="width: 30%;"></td>
                     <td style="width: 20%; text-align: center;">

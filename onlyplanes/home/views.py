@@ -1,6 +1,6 @@
+import pathlib
 from django.shortcuts import render, redirect
-
-from .models import Airport
+from .models import Airline, Airport
 from .handler import findFlights, makeBooking
 
 # Create your views here.
@@ -25,11 +25,11 @@ def flight_search(request):
 
     context = {
         'airports' : airports,
-        'search_details' : request.GET
+        'search_details' : request.GET,
     }
     
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 5 }
+        kwargs = {'max': 30 }
 
         for i in request.GET:
             if request.GET[i] is not "" and request.GET[i] is not 0:

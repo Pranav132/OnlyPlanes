@@ -2,6 +2,11 @@ from django.db import models
 
 # Create your models here.
 
+class Airline(models.Model):
+    iataCode = models.TextField()
+    icaoCode = models.TextField()
+    name = models.TextField()
+
 class Airport(models.Model):
     iataCode = models.TextField()
     city = models.TextField()
