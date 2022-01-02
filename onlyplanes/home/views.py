@@ -15,7 +15,7 @@ def index(request):
 def flight_search(request):
 
     airport_instances = Airport.objects.all().order_by('city')
-    
+
     airports = []
     for airport_instance in airport_instances:
         airports = airports[:] + [airport_instance.__dict__]
@@ -24,15 +24,17 @@ def flight_search(request):
 
 
     context = {
-        'airports' : airports
+        'airports' : airports,
+        'search_details' : request.GET
     }
     
-    if request.GET['originLocationCode'] and request.GET['destinationLocationCode'] and request.GET['departureDate']:
+    if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
         kwargs = {'max': 5 }
 
         for i in request.GET:
             if request.GET[i] is not "" and request.GET[i] is not 0:
                 kwargs[i] = request.GET[i]
+        kwargs.pop('searchType')
         print(kwargs)
 
         context['trip_offers'] = findFlights(**kwargs)
