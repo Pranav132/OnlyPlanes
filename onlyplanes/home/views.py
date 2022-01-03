@@ -20,7 +20,7 @@ def flight_search(request):
     for airport_instance in airport_instances:
         airports = airports[:] + [airport_instance.__dict__]
     for airport in airports:
-        airport['city'] = str(airport['city'])[:-7].replace("International", " ").replace("Int'l", " ")
+        airport['city'] = str(airport['city'])[:-7].replace("International", "").replace(" Int'l", "")
 
 
     context = {

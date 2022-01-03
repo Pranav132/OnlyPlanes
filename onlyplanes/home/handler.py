@@ -61,10 +61,14 @@ def findFlights(**kwargs):
 
                         ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
                         DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
+                        print('airport data here')
                         AIRLINE = Airline.objects.get(iataCode = flight['carrierCode'])
+                        print(AIRLINE.icaoCode)
+                        print('airline data here')
 
                         flights = flights[:] + [{
                             'airline' : AIRLINE,
+                            'logo' : "/static/logos/" + str(AIRLINE.icaoCode) + ".png",
                             'segment_id': flight['id'],
                             'flightNumber': flight['carrierCode'] + " " + flight['number'],
                             'origin': ORIGIN,
@@ -75,6 +79,7 @@ def findFlights(**kwargs):
                             'arrivalTime': flight['arrival']['at'][11:16] + " " + datetime.datetime(int(flight['arrival']['at'][0:4]), int(flight['arrival']['at'][5:7]), int(flight['arrival']['at'][8:10])).strftime("%a, %d %b %Y"),
                             'duration': flight['duration'][2:].replace("H", "h ").replace("M", "m ")
                         }]
+                        print("/static/logos/" + str(AIRLINE.icaoCode) + ".png")
 
                     trip_dict['outboundLeg' if (i == 0) else 'returnLeg'] = flights
 

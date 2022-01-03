@@ -162,13 +162,14 @@ OnlyPlanes
 
         i {
             cursor: pointer;
-            
+
         }
     </style>
 </head>
 <div
     style="width: 100%; height: 70%;  background-image: linear-gradient(to bottom right, rgb(72, 45, 109), rgb(79, 140, 168)); padding-top: 3%;">
-    <div style="width: 280px;height: 100px; position: relative; margin:auto; padding: 0;" onclick="myFunction()" id="toggleSearch">
+    <div style="width: 280px;height: 100px; position: relative; margin:auto; padding: 0;" onclick="myFunction()"
+        id="toggleSearch">
         <div style="width: 100%;height: 100px; opacity: 0.5; position: absolute; padding: 0;" class="card"></div>
         <div style="position: absolute;width: 50%; background-color: white; height: 100px; opacity: 1;top: 6%;"
             class="slider sld-hover " id="slider"></div>
@@ -426,13 +427,13 @@ OnlyPlanes
             {%for flight in trip_offer.outboundLeg%}
             {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
             {%else%}
-            
+
             <div style="width: 100%; height: 5%; padding-left: 39.7%;">
                 <h2>.</h2>
             </div>
             {%endif%}
             <table style="width: 100%;">
-                <div style="position: absolute;">{{flight.airline.name}}</div>
+
                 <tr style="height: 20px;">
                     <td style="width: 30%;"></td>
                     <td style="width: 20%; text-align: center;">
@@ -445,6 +446,12 @@ OnlyPlanes
                 <tr style="height: 60px;">
                     <td style="width: 30%;">
                         <div style="height: 100%; width: 100%; text-align: center; padding: 70px 0;">
+                            <div style="position: relative; bottom: 20px; left: 10%;">
+                                <div style="position: absolute;"><img src={{flight.logo}} style="height: 80px;"></div>
+                            </div>
+                            <div style="position: relative; top:70px; left: 10%; width: 80px;">
+                                <div style="position: absolute; font-size: 9px; text-align: center; width: 100%;">{{flight.airline.name}}</div>
+                            </div>
                             <h1>{{flight.flightNumber}}</h1>
                         </div>
                     </td>
