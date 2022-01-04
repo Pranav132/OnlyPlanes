@@ -77,11 +77,13 @@ def findFlights(**kwargs):
                             'destination': DESTINATION,
                             'destinationTerminal': flight['arrival'].get('terminal', '-'),
                             'arrivalTime': flight['arrival']['at'][11:16] + " " + datetime.datetime(int(flight['arrival']['at'][0:4]), int(flight['arrival']['at'][5:7]), int(flight['arrival']['at'][8:10])).strftime("%a, %d %b %Y"),
-                            'duration': flight['duration'][2:].replace("H", "h ").replace("M", "m ")
+                            'duration': flight['duration'][2:].replace("H", "h ").replace("M", "m ").replace("D", "d ")
                         }]
                         print("/static/logos/" + str(AIRLINE.icaoCode) + ".png")
 
                     trip_dict['outboundLeg' if (i == 0) else 'returnLeg'] = flights
+                    trip_dict['outboundLegStops' if (i == 0) else 'returnLegStops'] = len(flights)
+                    trip_dict['outboundLegColor' if (i == 0) else 'returnLegColor'] = '#5c5' if (len(flights) == 1) else ('#d93' if (len(flights) == 2) else '#c55')
 
                 options = options[:] + [trip_dict]
                 print('option validated')
@@ -93,22 +95,9 @@ def findFlights(**kwargs):
     except ResponseError as error:
         print(error)
     
-    getAirlineLogo("Air India")
 
     return options
 
-def getAirlineLogo(name):
-    PARAMS = {
-        'key' : google_search_API_key,
-        'cx' : '6a92acc3ab711e762',
-        'q' : name,
-        'searchType' : 'image'
-    }
-    response = requests.get(url="https://www.googleapis.com/customsearch/v1", params=PARAMS)
- 
-    result = response.json()
-    for i in result['items']:
-        print(i['title'], i['link'])
 
 
 def makeBooking(trip):

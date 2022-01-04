@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-def flight_search(request):
+def search(request):
 
     airport_instances = Airport.objects.all().order_by('city')
 
@@ -29,7 +29,7 @@ def flight_search(request):
     }
     
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 30 }
+        kwargs = {'max': 10 }
 
         for i in request.GET:
             if request.GET[i] is not "" and request.GET[i] is not 0:
@@ -43,7 +43,7 @@ def flight_search(request):
         #makeBooking(trip)
 
 
-    return render(request, "flight_search.html", context=context)
+    return render(request, "search_page/search.html", context=context)
 
 
 

@@ -1,0 +1,252 @@
+
+
+{%block search_form%}
+
+<div style="width: 280px;height: 100px; position: relative; margin:auto; padding: 0;" onclick="myFunction()"
+    id="toggleSearch">
+
+    <div style="width: 280px;height: 100px; opacity: 0.5; position: absolute; padding: 0;" class="card"></div>
+    <div style="position: absolute;width: 50%; background-color: white; height: 100px; opacity: 1;top: 6%;"
+        class="slider sld-hover " id="slider"></div>
+
+
+    <i class='material-icons' style="font-size: 70px;position: absolute; left: 15%; top:15%">flight</i>
+    <i class='material-icons' style="font-size: 80px;position: absolute; left: 63%; top:9.5%">hotel</i>
+</div>
+<div class='card' style="width: 85%; margin-bottom: 250px;">
+    {%if search_details.searchType == "flight" or search_details.searchType is None%}
+
+    <form method="GET" action='/search' id='flight-search'>
+
+    {%else%}
+
+    <form method="GET" action='/search' id='flight-search' style="display: none;">        
+
+    {%endif%}
+            <input style="display: none; position: absolute;" name="searchType" value="flight">
+            <div>
+                <table style="width: 100%;" class="search">
+                    <tr style="height: 40px;">
+                        <td style="padding-left: 10px;">
+                            <h4>From:</h4>
+                        </td>
+                        <td>
+                            <h4>To:</h4>
+                        </td>
+                        <td style="width: 6%;">
+
+                        </td>
+                        <td>
+                            <h4>Depart:</h4>
+                        </td>
+                        <td>
+                            <h4>Return:</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="airportPicker">
+                            <select type="text" name="originLocationCode"
+                                style="width: 100%; height: 150px; border-radius: 30px 1px 1px 30px;">
+                                <option value="" disabled selected>Select</option>
+                                {%for airport in airports%}
+                                {%if airport.iataCode == search_details.originLocationCode%}
+                                <option value={{airport.iataCode}} selected>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%else%}
+                                <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%endif%}
+
+                                {%endfor%}
+                            </select>
+                        </td>
+                        <td class="airportPicker">
+                            <select type="text" name="destinationLocationCode"
+                                style="width: 100%; height: 150px; border-radius: 1px 30px 30px 1px;">
+                                <option value="" disabled selected>Select</option>
+                                {%for airport in airports%}
+                                {%if airport.iataCode == search_details.destinationLocationCode%}
+                                <option value={{airport.iataCode}} selected>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%else%}
+                                <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
+                                    ({{airport.iataCode}})
+                                </option>
+                                {%endif%}
+
+                                {%endfor%}
+                            </select>
+                        </td>
+                        <td></td>
+                        <td class="datePicker"><input type="text" name="departureDate" class="date"
+                                style="width: 100%; height: 150px; border-radius: 30px 1px 1px 30px;" /></td>
+                        <td class="datePicker"><input type="text" name="returnDate"
+                                style="width: 100%; height: 150px; border-radius: 1px 30px 30px 1px;" /></td>
+
+                    </tr>
+                </table>
+            </div>
+            <div style="display:flex; justify-content: space-between; height: 50%; margin-top: 50px;width: 100%;">
+                <div style="width: 100%;display: inline-block; height: 100%; padding-left: 10px;">
+                    <table style="height: 100%; width : 100%">
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Adults:</h4>
+                                <h6 style="line-height: 2px; color: #777; font-weight: 300;">12y+</h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='adults' value=1 min=1 max=9
+                                    style="border-radius: 1px 15px 1px 1px;" /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Children:</h4>
+                                <h6 style="line-height: 2px;color: #777;font-weight: 300;font-weight: 300;">2y to
+                                    12y
+                                </h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='children' value=0 min=0 max=9 /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 18%;">
+                                <h4>Infants:</h4>
+                                <h6 style="line-height: 2px;color: #777;font-weight: 300;">less than 2y</h6>
+                            </td>
+                            <td style="width: 5%;"><input type="number" name='infants' value=0 min=0 max=9
+                                    style="border-radius: 1px 1px 15px 1px;" /></td>
+                            <td style="width: 60%;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div
+                    style="text-align: center; margin:5%; width: 30%; display: inline-block; height: 100%; position:absolute; top: 370px; left: 30%">
+                    <button type="submit" style="width: 100%; height: 20%; font-size: 50px; font-weight: bold;"
+                        class="btn-hover zoom">SEARCH</button>
+                </div>
+            </div>
+        </form>
+        {%if search_details.searchType == "hotel" %}
+
+        <form method="GET" action='/search' id='hotel-search'>
+
+        {%else%}
+
+        <form method="GET" action='/search' id='hotel-search' style="display: none;">
+
+        {%endif%}
+                <input style="display: none; position: absolute;" name="searchType" value="hotel">
+                <div>
+                    <table style="width: 100%;" class="search">
+                        <tr style="height: 40px;">
+                            <td style="padding-left: 10px;">
+                                <h4>City:</h4>
+                            </td>
+                            <td>
+                                <h4></h4>
+                            </td>
+                            <td style="width: 6%;">
+
+                            </td>
+                            <td>
+                                <h4>Check-in:</h4>
+                            </td>
+                            <td>
+                                <h4>Check-out:</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="airportPicker" style="width: 48%;">
+                                <select type="text" name="hotelCity"
+                                    style="width: 100%; height: 150px; border-radius: 30px 30px 30px 30px;">
+                                    {%for airport in airports%}
+                                    <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
+                                    </option>
+                                    {%endfor%}
+                                </select>
+                            </td>
+                            <td class="airportPicker" style="width: 0;">
+                            </td>
+                            <td></td>
+                            <td class="datePicker"><input type="text" name="checkIn" class="date"
+                                    style="width: 100%; height: 150px; border-radius: 30px 1px 1px 30px;" /></td>
+                            <td class="datePicker"><input type="text" name="checkOut"
+                                    style="width: 100%; height: 150px; border-radius: 1px 30px 30px 1px;" /></td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div style="display:flex; justify-content: space-between; height: 50%; margin-top: 50px;width: 100%;">
+                    <div style="width: 100%;display: inline-block; height: 100%; padding-left: 10px;">
+                        <table style="height: 100%; width : 100%">
+                            <tr>
+                                <td style="width: 18%;">
+                                    <h4>Adults:</h4>
+                                    <h6 style="line-height: 2px; color: #777; font-weight: 300;">12y+</h6>
+                                </td>
+                                <td style="width: 5%;"><input type="number" name='adults' value=1 min=1 max=9
+                                        style="border-radius: 1px 15px 1px 1px;" /></td>
+                                <td style="width: 60%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%;">
+                                    <h4>Children:</h4>
+                                    <h6 style="line-height: 2px;color: #777;font-weight: 300;font-weight: 300;">2y
+                                        to 12y
+                                    </h6>
+                                </td>
+                                <td style="width: 5%;"><input type="number" name='children' value=0 min=0 max=9 />
+                                </td>
+                                <td style="width: 60%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%;">
+                                    <h4>Infants:</h4>
+                                    <h6 style="line-height: 2px;color: #777;font-weight: 300;">less than 2y</h6>
+                                </td>
+                                <td style="width: 5%;"><input type="number" name='infants' value=0 min=0 max=9
+                                        style="border-radius: 1px 1px 15px 1px;" /></td>
+                                <td style="width: 60%;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div
+                        style="text-align: center; margin:5%; width: 30%; display: inline-block; height: 100%; position:absolute; top: 370px; left: 30%">
+
+                        <button type="submit" style="width: 100%; height: 20%; font-size: 50px; font-weight: bold;"
+                            class="btn-hover zoom">SEARCH</button>
+                    </div>
+                </div>
+            </form>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("flight-search");
+        var y = document.getElementById("hotel-search");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+</script>
+
+{%if search_details.searchType == "hotel" %}
+<script>
+    $('.slider').toggleClass('slide-right');
+</script>
+{%endif%}
+
+<script>$("#toggleSearch").click(function () {
+        $('.slider').toggleClass('slide-right');
+
+    });
+</script>
+
+{%endblock%}

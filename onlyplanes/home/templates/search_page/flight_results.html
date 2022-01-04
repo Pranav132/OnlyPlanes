@@ -1,0 +1,161 @@
+{%block flight_results%}
+
+
+<div style="width: 80%; margin: auto;">
+    {%for trip_offer in trip_offers%}
+    <a href="/search" style="text-decoration: inherit; color: inherit;">
+        <div class="card" style="border-radius: 0; padding-top: 4%;">
+
+            {%for flight in trip_offer.outboundLeg%}
+            {%if flight.flightNumber == trip_offer.outboundLeg.0.flightNumber%}
+            {%else%}
+
+            <div style="width: 100%; height: 5%;">
+                <div style="width: 30%; height:100%;display: inline-block; min-width: 240px;"></div>
+                <div style="width: 19.5%; display: inline-block; position: relative;"><div style="margin: auto; max-width: max-content; position: relative;">
+                {% with "font-size: 30px; position: asbsolute;color: "|add:trip_offer.outboundLegColor as color%}
+                <i class='material-icons' style="{{color}}">radio_button_checked</i></div>
+                </div>
+                {%endwith%}
+                
+            </div>
+            {%endif%}
+            <table style="width: 100%;">
+
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.origin.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%; font-size: 25px;">{{flight.origin.city}},
+                        {{flight.origin.country}}<br>{{flight.departureTime}}
+                    </td>
+                </tr>
+                <tr style="height: 60px;">
+                    <td style="width: 30%;">
+                        <div style="height: 100%; width: 100%; position: relative; min-width: 250px;">
+                            <div style="margin: auto;max-width: max-content;">
+                                <div style="display: inline-block; width: 100px;">
+                                    <div style="position: relative; bottom: 70px; left: 10%;">
+                                        <div style="position: absolute;height: 80px; padding: 2px;"><img src={{flight.logo}}
+                                                style="margin-bottom: 3px; max-width: 80px;">
+                                            <div
+                                                style="position: absolute; font-size: 15px; text-align: center; width: 100%;">
+                                                {{flight.airline.name}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center; display: inline-block; margin-left: 10px;">
+                                    <div><h1 style="font-size: 30px;">{{flight.flightNumber}}</h1></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 20%;">
+                        {% with "width: 4px; margin: auto; height: 160px; border-radius: 2px; opacity: 0.8;background-color: "|add:trip_offer.outboundLegColor as line_color %}
+                        <div style="{{ line_color }}"></div>
+                        {%endwith%}
+
+                    </td>
+                    <td style="width: 50%;"><div style="position: relative; width: 100%;text-align: right; color: rgb(88, 28, 4); padding-right: 3%; font-size: 25px;">{{flight.duration}}</div></td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.destination.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%;font-size: 25px;">{{flight.destination.city}},
+                        {{flight.destination.country}}<br>{{flight.arrivalTime}}
+                        </td>
+                </tr>
+            </table>
+            {%endfor%}
+
+            {%if trip_offer.returnLeg%}
+            <div style="width: 96%; height: 3px; background-color: black; opacity: 0.3; margin: 40px auto 40px auto"></div>
+            {%endif%}
+
+
+
+            {%for flight in trip_offer.returnLeg%}
+            {%if flight.flightNumber == trip_offer.returnLeg.0.flightNumber%}
+            {%else%}
+
+            <div style="width: 100%; height: 5%;">
+                <div style="width: 30%; height:100%;display: inline-block; min-width: 240px;"></div>
+                <div style="width: 19.5%; display: inline-block; position: relative;"><div style="margin: auto; max-width: max-content; position: relative;">
+                {% with "font-size: 30px; position: asbsolute;color: "|add:trip_offer.outboundLegColor as color%}
+                <i class='material-icons' style="{{color}}">radio_button_checked</i></div>
+                </div>
+                {%endwith%}
+                
+            </div>
+            {%endif%}
+            <table style="width: 100%;">
+
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.origin.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%; font-size: 25px;">{{flight.origin.city}},
+                        {{flight.origin.country}}<br>{{flight.departureTime}}
+                    </td>
+                </tr>
+                <tr style="height: 60px;">
+                    <td style="width: 30%;">
+                        <div style="height: 100%; width: 100%; position: relative; min-width: 250px;">
+                            <div style="margin: auto;max-width: max-content;">
+                                <div style="display: inline-block; width: 100px;">
+                                    <div style="position: relative; bottom: 70px; left: 10%;">
+                                        <div style="position: absolute;height: 80px; padding: 2px;"><img src={{flight.logo}}
+                                                style="margin-bottom: 3px; max-width: 80px;">
+                                            <div
+                                                style="position: absolute; font-size: 15px; text-align: center; width: 100%;">
+                                                {{flight.airline.name}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center; display: inline-block; margin-left: 10px;">
+                                    <div><h1 style="font-size: 30px;">{{flight.flightNumber}}</h1></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 20%;">
+                        {% with "width: 4px; margin: auto; height: 160px; border-radius: 2px; opacity: 0.8;background-color: "|add:trip_offer.returnLegColor as line_color %}
+                        <div style="{{ line_color }}"></div>
+                        {%endwith%}
+
+                    </td>
+                    <td style="width: 50%;"><div style="position: relative; width: 100%;text-align: right; color: rgb(88, 28, 4); padding-right: 3%; font-size: 25px;">{{flight.duration}}</div></td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td style="width: 30%;"></td>
+                    <td style="width: 20%; text-align: center;">
+                        <h2>{{flight.destination.iataCode}}</h2>
+                    </td>
+                    <td style="width: 50%;font-size: 25px;">{{flight.destination.city}},
+                        {{flight.destination.country}}<br>{{flight.arrivalTime}}
+                    </td>
+                </tr>
+            </table>
+            {%endfor%}
+            <div>
+
+            </div>
+            <div style="width: 96%; height: 3px; background-color: black; opacity: 0; margin: 40px auto 20px auto"></div>
+            <div  style="justify-content: space-between;">
+            <div style="text-align: right;">
+                <h2 style="color: #273; margin: 2%; margin-top: 0;display: inline-block;">{{trip_offer.price}}</h2>
+            </div>
+            <div style="position: relative; display: inline-block; bottom: 50px; width: 60px;"><img src = "/static/logos/SEAT.png" style="width: 60px; position: absolute;"></div>
+            <div style="display: inline-block; margin-left: 10px; padding-bottom: 20px; position: relative; bottom: 10px; font-size: 20px;">{{trip_offer.seats_available}} {{trip_offer.travelClass}} class seats available</div>
+            </div>
+        </div>
+    </a>
+
+    {%endfor%}
+</div>
+
+{%endblock%}

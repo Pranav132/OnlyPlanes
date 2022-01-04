@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
@@ -36,6 +38,7 @@ class Booking(models.Model):
     travelClass = models.TextField()
     outboundLeg = models.ManyToManyField(OutboundLeg)
     returnLeg = models.ManyToManyField(ReturnLeg)
+    user = models.ForeignKey(User, null=True, on_delete=CASCADE)
 
 
 
