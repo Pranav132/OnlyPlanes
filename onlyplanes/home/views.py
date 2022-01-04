@@ -14,6 +14,7 @@ def index(request):
 
 def search(request):
 
+
     airport_instances = Airport.objects.all().order_by('city')
 
     airports = []
@@ -42,6 +43,7 @@ def search(request):
         #to save a trip as a booking model:
         #makeBooking(trip)
 
+    print(len(airports))
 
     return render(request, "search_page/search.html", context=context)
 

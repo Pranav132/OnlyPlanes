@@ -58,13 +58,17 @@ def findFlights(**kwargs):
                     flights = []
 
                     for flight in trip['itineraries'][i]['segments']:
-
-                        ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
-                        DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
-                        print('airport data here')
+                        print(flight['departure']['iataCode'], ", ",flight['arrival']['iataCode'])
+                        print(flight)
                         AIRLINE = Airline.objects.get(iataCode = flight['carrierCode'])
                         print(AIRLINE.icaoCode)
                         print('airline data here')
+                        DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
+                        print('airport data here')
+                        ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
+                        print("origin data here")
+                        
+                        
 
                         flights = flights[:] + [{
                             'airline' : AIRLINE,

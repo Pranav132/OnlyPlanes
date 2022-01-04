@@ -51,7 +51,7 @@
                                 {%for airport in airports%}
                                 {%if airport.iataCode == search_details.originLocationCode%}
                                 <option value={{airport.iataCode}} selected>{{airport.city}}, {{airport.country}}
-                                    ({{airport.iataCode}})
+                                    ({{airport.iataCode}}) {{airport.id}}
                                 </option>
                                 {%else%}
                                 <option value={{airport.iataCode}}>{{airport.city}}, {{airport.country}}
