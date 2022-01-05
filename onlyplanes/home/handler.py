@@ -67,10 +67,20 @@ def findFlights(**kwargs):
                         print('airport data here')
                         ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
                         print("origin data here")
-                        
+                        bags_allowed = ""
+                        for segmentInfo in trip['travelerPricings'][0]['fareDetailsBySegment']:
+                            if segmentInfo["segmentId"] == flight['id']:
+                                bags_allowed = str(segmentInfo["includedCheckedBags"]["weight"]) + segmentInfo["includedCheckedBags"]["weightUnit"]
+
+                        aircraft_code = flight['aircraft']['code']
+
+                        aircraft = Aircraft.objects.get(iataCode = aircraft_code).name
+
                         
 
                         flights = flights[:] + [{
+                            'aircraft' : aircraft,
+                            'baggageAllowance' : bags_allowed, 
                             'airline' : AIRLINE,
                             'logo' : "/static/logos/" + str(AIRLINE.icaoCode) + ".png",
                             'segment_id': flight['id'],

@@ -119,6 +119,11 @@ class Hotel(models.Model):
        null=False, blank=False)
 
 
+class Aircraft(models.Model):
+    iataCode = models.CharField(max_length=3)
+    icaoCode = models.CharField(max_length=4)
+    name = models.TextField()
+
 
 
 

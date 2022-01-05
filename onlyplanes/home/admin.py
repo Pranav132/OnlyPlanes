@@ -12,5 +12,6 @@ admin.site.register(RoomCategories)
 admin.site.register(Amenities)
 admin.site.register(Room)
 admin.site.register(Hotel)
+admin.site.register(Aircraft)
 
 # Register your models here.

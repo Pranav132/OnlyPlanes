@@ -1,6 +1,7 @@
 import pathlib
+import csv
 from django.shortcuts import render, redirect
-from .models import Airline, Airport
+from .models import Aircraft, Airline, Airport
 from .handler import findFlights, makeBooking
 
 # Create your views here.
@@ -13,6 +14,8 @@ def index(request):
 
 
 def search(request):
+
+   
 
 
     airport_instances = Airport.objects.all().order_by('city')
@@ -30,7 +33,7 @@ def search(request):
     }
     
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 10 }
+        kwargs = {'max': 50 }
 
         for i in request.GET:
             if request.GET[i] is not "" and request.GET[i] is not 0:
