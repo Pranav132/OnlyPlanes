@@ -17,10 +17,57 @@ OnlyPlanes
     </div>
 </div>
 
-<div class="test" style = "height:200vh;"></div>
+<div class = "wrapper">
+    <div class="movie_card" id="bright">
+      <div class="info_section">
+        <div class="movie_header">
+          <h1>Hotels</h1>
+       
+        </div>
+        <div class="movie_desc">
+          <p class="text">
+            Brought to you by the founders of OnlySmells, OnlyPlans allows you to book your dream hotel destination with a few clicks, all from the comfort of your own home. 
+          </p>
+        </div>
+        <div class = "movie_social">
+          <a href="/">
+            <button class="bn54">
+              <span class="bn54span"><i class="fa fa-hotel" style = "font-size: 30px;"></i></span>
+            </button>
+          </a>
+        </div>
+      </div>
+      <div class="blur_back bright_back"></div>
+    </div>
+    
+    <div class="movie_card" id="tomb">
+      <div class="info_section">
+        <div class="movie_header">
+          <h1>Flights</h1>
+        </div>
+        <div class="movie_desc">
+          <p class="text">
+            Have you wanted to fly to your dream destination, but flight ticket prices were too high? With OnlyPlans, you can find the best flight ticket that fits your needs, at a price that you prefer.
+          </p>
+        </div>
+        <div class = "movie_social">
+            <a href="/">
+                <button class="bn54">
+                  <span class="bn54span"><i class="fa fa-plane" style = "font-size: 30px;"></i></span>
+                </button>
+              </a>
+        </div>
+      </div>
+      <div class="blur_back tomb_back"></div>
+    </div>
+    </div>
+
+
+  
 
   <script>
       const text = document.querySelectorAll(".content")
+      const cards = document.querySelectorAll(".movie_card")
 
       const observer = new IntersectionObserver(
           entries => {
@@ -34,5 +81,6 @@ OnlyPlanes
 
 
       text.forEach(item => {observer.observe(item);});
+      cards.forEach(item => {observer.observe(item);});
   </script>
 {% endblock %}

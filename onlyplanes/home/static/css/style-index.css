@@ -6,6 +6,10 @@
   --powder-blue: #caf0f8ff;
 }
 
+html {
+  background: black;
+}
+
 .hero {
   height: 100vh;
   width: 100vw;
@@ -40,4 +44,227 @@
 .hero .content p {
   font-family: "Poppins", sans-serif;
   font-size: 2.5vmax;
+}
+
+.wrapper {
+  background-image: radial-gradient(
+    ellipse farthest-corner at center top,
+    #f3faff 0%,
+    #abeff2 100%
+  );
+  font-family: "Montserrat", helvetica, arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 7.5vh 0;
+}
+
+.movie_card {
+  position: relative;
+  display: block;
+  width: 800px;
+  height: 350px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.4s;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  transition: 1s ease;
+  transform: translateX(-20px);
+}
+
+#bright {
+  margin-bottom: 50px;
+}
+
+#tomb {
+  margin-top: 100px;
+}
+
+.movie_card.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.movie_card:hover {
+  transform: scale(1.02);
+  transition: all 0.4s;
+}
+.movie_card .info_section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-blend-mode: multiply;
+  z-index: 2;
+  border-radius: 10px;
+}
+.movie_card .info_section .movie_header {
+  position: relative;
+  padding: 25px;
+  height: 25%;
+}
+.movie_card .info_section .movie_header h1 {
+  color: #111;
+  font-weight: 400;
+  font-size: 2.5rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+.movie_card .info_section .movie_desc {
+  padding: 25px;
+  height: 50%;
+}
+.movie_card .info_section .movie_desc .text {
+  color: #111;
+  font-size: 1rem;
+}
+.movie_card .info_section .movie_social {
+  height: 10%;
+  padding-left: 25px;
+  padding-bottom: 20px;
+}
+.movie_card .blur_back {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+  right: 0;
+  background-size: cover;
+  border-radius: 11px;
+}
+
+@media screen and (min-width: 768px) {
+  .movie_header {
+    width: 60%;
+  }
+
+  .movie_desc {
+    width: 50%;
+  }
+
+  .info_section {
+    background: linear-gradient(to right, #f0f8ff 50%, transparent 100%);
+  }
+
+  .blur_back {
+    width: 80%;
+    background-position: -100% 10% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .movie_card {
+    width: 95%;
+    margin: 70px auto;
+    min-height: 350px;
+    height: auto;
+  }
+
+  .blur_back {
+    width: 100%;
+    background-position: 50% 50% !important;
+  }
+
+  .movie_header {
+    width: 100%;
+    margin-top: 85px;
+  }
+
+  .movie_desc {
+    width: 100%;
+  }
+
+  .info_section {
+    background: linear-gradient(to top, #f0f8ff 50%, transparent 100%);
+    display: inline-grid;
+  }
+}
+#bright {
+  box-shadow: 0px 0px 150px -45px black;
+}
+#bright:hover {
+  box-shadow: 0px 0px 120px -55px black;
+}
+
+.bright_back {
+  background: url("https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+}
+
+#tomb {
+  box-shadow: 0px 0px 150px -45px black;
+}
+#tomb:hover {
+  box-shadow: 0px 0px 120px -55px black;
+}
+
+.tomb_back {
+  background: url("https://images.pexels.com/photos/163792/model-planes-airplanes-miniatur-wunderland-hamburg-163792.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+}
+
+.bn54 {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.bn54 .bn54span {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+}
+
+.bn54:hover {
+  animation: bn54rotate 0.7s ease-in-out both;
+}
+
+.bn54:hover .bn54span {
+  animation: bn54storm 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+@keyframes bn54rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bn54storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
 }
