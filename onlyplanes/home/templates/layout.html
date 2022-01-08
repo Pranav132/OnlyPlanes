@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- ADD FONTS HERE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
     <!--  -->
 
     <!-- Bootstrap CSS -->
@@ -32,26 +38,96 @@
     
     <title>{% block title %}{% endblock %}</title>
 </head>
-<header>
-    <!-- NAVBAR -->
-    <div style="height: 30vh;background: red;"><h1>[HEADER]</h1></div>
-    <!--  -->
-</header>
 <body>
+
+    <!-- HEADER -->
+    <header class="main_h">
+
+      <div class="row">
+          <p class="logo">OnlyPlans</p>
+  
+          <div class="mobile-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+  
+          <nav>
+              <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Flights</a></li>
+                  <li><a href="#">Hotels</a></li>
+                  <li><a href="#">Your Account</a></li>
+                  <li><a href="#">Contact</a></li>
+              </ul>
+          </nav>
+  
+      </div> <!-- / row -->
+  
+  </header>
+    <!--  -->
 
     <!-- use this for main html -->
     {% block content %}
     {% endblock %}
 
+    <!-- FOOTER -->
+<div class="footer-basic">
+    <footer>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Home</a></li>
+            <li class="list-inline-item"><a href="#">Flights</a></li>
+            <li class="list-inline-item"><a href="#">Hotels</a></li>
+            <li class="list-inline-item"><a href="#">Account</a></li>
+            <li class="list-inline-item"><a href="#">contact</a></li>
+        </ul>
+        <p style= "color: #778da9ff; text-align: center; padding-top: 20px; text-decoration: underline;">Made by Angad, Aditya and Pranav</p>
+    </footer>
+  </div>
+
     <!-- EXTRA SCRIPTS FOR BOOTSTRAP -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        // Sticky Header
+$(window).scroll(function() {
+
+    if ($(window).scrollTop() > 100) {
+        $('.main_h').addClass('sticky');
+    } else {
+        $('.main_h').removeClass('sticky');
+    }
+});
+
+// Mobile Navigation
+$('.mobile-toggle').click(function() {
+    if ($('.main_h').hasClass('open-nav')) {
+        $('.main_h').removeClass('open-nav');
+    } else {
+        $('.main_h').addClass('open-nav');
+    }
+});
+
+$('.main_h li a').click(function() {
+    if ($('.main_h').hasClass('open-nav')) {
+        $('.navigation').removeClass('open-nav');
+        $('.main_h').removeClass('open-nav');
+    }
+});
+
+// navigation scroll 
+$('nav a').click(function(event) {
+    var id = $(this).attr("href");
+    var offset = 70;
+    var target = $(id).offset().top - offset;
+    $('html, body').animate({
+        scrollTop: target
+    }, 500);
+    event.preventDefault();
+});
+    </script>
     <!--  -->
 </body>
-<footer>
-<!-- FOOTER -->
-<div style="height: 30vh;background: red;"><h1>[FOOTER]</h1></div>
-    <!--  -->
-</footer>
+
 </html>

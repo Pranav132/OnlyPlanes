@@ -1,0 +1,43 @@
+:root {
+  --navy-blue: #03045eff;
+  --star-command-blue: #0077b6ff;
+  --cerulean-crayola: #00b4d8ff;
+  --sky-blue-crayola: #90e0ef;
+  --powder-blue: #caf0f8ff;
+}
+
+.hero {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background: url("https://images.pexels.com/photos/5032264/pexels-photo-5032264.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero .content {
+  position: absolute;
+  bottom: 15%;
+  left: 5vw;
+  color: #fff;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 1);
+  opacity: 0;
+  transition: 1s ease;
+}
+
+.content.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.hero .content h2 {
+  font-size: 12vmax;
+  padding: 2% 0;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.hero .content p {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5vmax;
+}

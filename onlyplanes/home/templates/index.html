@@ -1,10 +1,38 @@
 {% extends "layout.html" %}
 {% load static %}
 
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/style-index.css' %}">
+{% endblock %}
+
 {% block title %}
 OnlyPlanes
 {% endblock %}
 
 {% block content %}
-<h1>Hello World!</h1>
+<div class="hero">
+    <div class="content">
+        <h2>OnlyPlans</h2>
+        <p>The <strong>Only</strong> site you need to make all your travel <strong>Plans</strong> become a reality.</p>
+    </div>
+</div>
+
+<div class="test" style = "height:200vh;"></div>
+
+  <script>
+      const text = document.querySelectorAll(".content")
+
+      const observer = new IntersectionObserver(
+          entries => {
+              entries.forEach(entry => 
+                entry.target.classList.toggle("show", entry.isIntersecting)
+              )},
+          {
+              threshold: 0.5,
+          }
+      );
+
+
+      text.forEach(item => {observer.observe(item);});
+  </script>
 {% endblock %}
