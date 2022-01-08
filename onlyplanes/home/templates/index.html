@@ -67,7 +67,8 @@ OnlyPlanes
 
   <script>
       const text = document.querySelectorAll(".content")
-      const cards = document.querySelectorAll(".movie_card")
+      const bright = document.querySelectorAll("#bright")
+      const tomb = document.querySelectorAll("#tomb")
 
       const observer = new IntersectionObserver(
           entries => {
@@ -81,6 +82,7 @@ OnlyPlanes
 
 
       text.forEach(item => {observer.observe(item);});
-      cards.forEach(item => {observer.observe(item);});
+      bright.forEach(item => {observer.observe(item);});
+      tomb.forEach(item => {observer.observe(item);});
   </script>
 {% endblock %}

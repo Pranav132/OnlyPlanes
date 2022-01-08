@@ -68,20 +68,28 @@ html {
   border-radius: 10px;
   transition: all 0.4s;
   font-family: "Poppins", sans-serif;
+}
+
+#bright {
+  margin-bottom: 50px;
   opacity: 0;
   transition: 1s ease;
   transform: translateX(-20px);
 }
 
-#bright {
-  margin-bottom: 50px;
+#bright.show {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 #tomb {
   margin-top: 100px;
+  opacity: 0;
+  transition: 1s ease;
+  transform: translateX(20px);
 }
 
-.movie_card.show {
+#tomb.show {
   transform: translateX(0);
   opacity: 1;
 }
