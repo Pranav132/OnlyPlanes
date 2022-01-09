@@ -322,6 +322,14 @@ html {
   position: relative;
   background: none;
   border: none;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 1s ease;
+}
+
+.card.show {
+  transform: translateY(0px);
+  opacity: 1;
 }
 
 .card:before {
