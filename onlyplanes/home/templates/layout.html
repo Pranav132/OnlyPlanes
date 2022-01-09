@@ -57,7 +57,7 @@
   
           <nav>
               <ul>
-                  <li><a href="#">Home</a></li>
+                  <li><a href="/">Home</a></li>
                   <li><a href="#">Flights</a></li>
                   <li><a href="#">Hotels</a></li>
                   {% if user.is_authenticated %}
@@ -65,7 +65,7 @@
                   {% else %}
                     <li><a href="{% provider_login_url 'google' %}">Login</a></li>
                   {% endif %}
-                  <li><a href="#">Contact</a></li>
+                  <li><a href="{% url 'contact' %}">Contact</a></li>
               </ul>
           </nav>
   
@@ -82,11 +82,11 @@
 <div class="footer-basic">
     <footer>
         <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Home</a></li>
+            <li class="list-inline-item"><a href="/">Home</a></li>
             <li class="list-inline-item"><a href="#">Flights</a></li>
             <li class="list-inline-item"><a href="#">Hotels</a></li>
             <li class="list-inline-item"><a href="#">Account</a></li>
-            <li class="list-inline-item"><a href="#">contact</a></li>
+            <li class="list-inline-item"><a href="{% url 'contact' %}">contact</a></li>
         </ul>
         <p style= "color: #222; text-align: center; padding-top: 20px; text-decoration: underline;">Made by Angad, Aditya and Pranav</p>
     </footer>
