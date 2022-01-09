@@ -6,6 +6,12 @@
   --space-cadet-2: #1e2749ff;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .main_h {
   position: fixed;
   top: 0px;
@@ -58,6 +64,7 @@
 @media only screen and (max-width: 766px) {
   .logo {
     float: none;
+    margin-left: 5%;
   }
 }
 
