@@ -73,6 +73,7 @@ class Room(models.Model):
    available_rooms = models.IntegerField("availability")
    max_occupancy = models.IntegerField("occupants")
    amenities = models.ManyToManyField(Amenities)
+
  
  
 class Hotel(models.Model):
@@ -117,7 +118,7 @@ class Hotel(models.Model):
    starrating = models.IntegerField("Rating", default=1, validators=[
        MaxValueValidator(5), MinValueValidator(1)],
        null=False, blank=False)
-
+    
 
 class Aircraft(models.Model):
     iataCode = models.CharField(max_length=3)
