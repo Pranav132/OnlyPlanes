@@ -35,20 +35,20 @@ Contact
           <div class="screen-body-item">
             <div class="app-form">
               <div class="app-form-group">
-                <input class="app-form-control" placeholder="NAME" value="">
+                <input class="app-form-control" placeholder="NAME" value="" required>
               </div>
               <div class="app-form-group">
-                <input class="app-form-control" placeholder="EMAIL">
+                <input class="app-form-control" placeholder="EMAIL" required type="email">
               </div>
               <div class="app-form-group">
-                <input class="app-form-control" placeholder="CONTACT NO">
+                <input class="app-form-control" placeholder="CONTACT NO" required type="number">
               </div>
               <div class="app-form-group message">
-                <input class="app-form-control" placeholder="MESSAGE">
+                <input class="app-form-control" placeholder="MESSAGE" required>
               </div>
               <div class="app-form-group buttons">
                 <button class="app-form-button" onclick="window.location.reload();">CANCEL</button>
-                <button class="app-form-button" onclick="alert('We have received your message');window.location.replace('/');">SEND</button>
+                <button class="app-form-button" type = "submit" onclick="alert('We have received your message');window.location.replace('/');">SEND</button>
               </div>
             </div>
           </div>

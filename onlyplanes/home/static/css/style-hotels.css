@@ -1,0 +1,220 @@
+/* styling for all products page,
+product search page and wishlist  */
+
+:root {
+  --platinum: #222;
+  --navy-blue: #03045eff;
+  --star-command-blue: #eee;
+  --cerulean-crayola: #00b4d8;
+  --sky-blue-crayola: #57ddf5;
+  --powder-blue: rgb(178, 236, 248);
+  --background-dark: #2d3548;
+}
+
+.wrapperproducts {
+  background: var(--powder-blue);
+  min-height: 100vh;
+}
+
+.stars {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  text-decoration: none;
+  transition: 0.5s;
+  backdrop-filter: blur(2px);
+}
+
+.outofstock {
+  filter: grayscale(100%) blur(1px);
+}
+
+.product-title {
+  height: 30vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 4em;
+  color: #eee;
+  text-shadow: 2px 2px 5px #000;
+  font-weight: 800;
+  font-family: "Poppins", sans-serif;
+  padding-bottom: 5vh;
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 0% 85%);
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(auto, 60px));
+  grid-gap: 40px;
+  padding: 2%;
+  padding-bottom: 5%;
+  background: var(--powder-blue);
+}
+
+.cards {
+  grid-column: 2 / span 24;
+  display: grid;
+  grid-template-columns: repeat(24, minmax(auto, 60px));
+  grid-gap: 40px;
+  padding-bottom: 5%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+.text--medium {
+  font-size: 1em;
+  line-height: 10px;
+  font-weight: 500;
+  color: var(--platinum);
+  background: var(--star-command-blue);
+  font-family: "Poppins", sans-serif;
+}
+
+/*CARDS*/
+
+.card {
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 1);
+  grid-column-end: span 6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease 0s;
+  background: var(--star-command-blue);
+  border-radius: 25px;
+}
+
+.card_image-container {
+  width: 100%;
+  padding-top: 56.25%;
+  object-fit: contain;
+  overflow: hidden;
+  position: relative;
+  background: var(--star-command-blue);
+}
+
+.card_image-container img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--star-command-blue);
+}
+
+.card_content {
+  background: var(--star-command-blue);
+  padding: 30px 20px;
+  height: 100%;
+}
+
+.card_title {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  background: var(--star-command-blue);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.card_info {
+  display: flex;
+  align-self: end;
+  align-items: center;
+  color: var(--platinum);
+  background: var(--star-command-blue);
+  margin-top: 5%;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 1000px) {
+  .product-title {
+    height: 50vh;
+  }
+  main {
+    grid-template-columns: 10px repeat(6, 1fr) 10px;
+    grid-gap: 10px;
+  }
+
+  .card {
+    grid-column-end: span 6;
+  }
+
+  .cards {
+    grid-column: 2 / span 6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  main {
+    padding-left: 3.5%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  main {
+    grid-template-columns: 10px repeat(6, 1fr) 10px;
+    grid-gap: 10px;
+  }
+
+  .card {
+    grid-column-end: span 6;
+  }
+
+  .cards {
+    grid-column: 2 / span 6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  main {
+    grid-template-columns: 10px repeat(6, 1fr) 10px;
+    grid-gap: 10px;
+  }
+
+  .cards {
+    grid-column: 2 / span 6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 20px;
+  }
+
+  .card {
+    grid-column-end: span 6;
+  }
+}
+
+.button {
+  padding: 1em 2em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  position: absolute;
+  font-family: "Poppins", sans-serif;
+  right: 1em;
+  bottom: 1.5em;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.button:hover {
+  background-color: #221;
+  box-shadow: 0px 15px 20px rgba(17, 18, 26, 0.1);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.button:active {
+  transform: translateY(-1px);
+}

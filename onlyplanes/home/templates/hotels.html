@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/style-hotels.css' %}">
+{% endblock %}
+
+{% block title %}
+Book Hotels
+{% endblock %}
+
+{% block content %}
+<div class="wrapperproducts">
+
+    <div class="product-title">
+      HOTELS 
+    </div>
+
+    <br>
+  <section class = "cards">
+    <!-- Rendering every product and data -->
+    {% for hotel in hotels %}
+      <div class="card">
+        <div class="card_image-container">
+            <img src = "{{ hotel.exterior_picture.url }}">
+        </div>
+        <div class="card_content">
+            <p class = "card_title text--medium">
+                {{ hotel.name }}
+            </p>
+            <div class="card_info">
+                <span class="stars">
+                    {% for i in '012345'|make_list %}
+                        {% if forloop.counter <= hotel.starrating %}
+                            <i class="bi bi-star-fill" style = "color: orange; text-shadow: 2px 2px 2px #000;font-size:1em;"></i>
+                        {% endif %}
+                    {% endfor %}
+                </span>
+                <p class = "text--medium">{{ hotel.location }}</p>
+                <a href = "#"><button class = "button text-medium">View</button></a>
+            </div>
+        </div>
+    </div>
+    </ul>
+    {% endfor %} 
+  </section>
+  </main>
+  </div>
+{% endblock %}

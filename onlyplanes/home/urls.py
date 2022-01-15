@@ -15,6 +15,7 @@ urlpatterns = [
     path("search/", views.search),
     path("contact/", views.contact, name="contact"),
     path('accounts/', include('allauth.urls')),
+    path('hotels/', views.hotels, name="hotels"),
     path('logout', LogoutView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # static media url and root to serve images uploaded through imagefield

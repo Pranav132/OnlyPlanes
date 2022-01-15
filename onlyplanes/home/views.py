@@ -1,7 +1,7 @@
 import pathlib
 import csv
 from django.shortcuts import render, redirect
-from .models import Aircraft, Airline, Airport
+from .models import Aircraft, Airline, Airport, Hotel, Room
 from .handler import findFlights, makeBooking
 
 # Create your views here.
@@ -15,6 +15,12 @@ def index(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+
+def hotels(request):
+    hotels = Hotel.objects.all()
+    print(hotels)
+    return render(request, 'hotels.html', {"hotels": hotels})
 
 
 def search(request):
@@ -37,7 +43,7 @@ def search(request):
         kwargs = {'max': 50}
 
         for i in request.GET:
-            if request.GET[i] is not "" and request.GET[i] is not 0:
+            if request.GET[i] != "" and request.GET[i] != 0:
                 kwargs[i] = request.GET[i]
         kwargs.pop('searchType')
         print(kwargs)

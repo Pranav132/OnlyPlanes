@@ -59,7 +59,7 @@
               <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="#">Flights</a></li>
-                  <li><a href="#">Hotels</a></li>
+                  <li><a href="/hotels">Hotels</a></li>
                   {% if user.is_authenticated %}
                     <li><a href="#">Your Account</a></li>
                   {% else %}
@@ -84,7 +84,7 @@
         <ul class="list-inline">
             <li class="list-inline-item"><a href="/">Home</a></li>
             <li class="list-inline-item"><a href="#">Flights</a></li>
-            <li class="list-inline-item"><a href="#">Hotels</a></li>
+            <li class="list-inline-item"><a href="/hotels">Hotels</a></li>
             <li class="list-inline-item"><a href="#">Account</a></li>
             <li class="list-inline-item"><a href="{% url 'contact' %}">contact</a></li>
         </ul>
