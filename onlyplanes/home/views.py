@@ -19,8 +19,8 @@ def contact(request):
 
 def hotels(request):
     hotels = Hotel.objects.all()
-    print(hotels)
-    return render(request, 'hotels.html', {"hotels": hotels})
+    rooms = Room.objects.filter(roomcategory=2)
+    return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
 
 
 def search(request):

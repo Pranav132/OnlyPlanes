@@ -72,6 +72,12 @@ main {
   font-family: "Poppins", sans-serif;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 /*CARDS*/
 
 .card {
