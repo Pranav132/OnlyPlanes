@@ -40,11 +40,11 @@ Book Hotels
                 {% if room.hotelcategory == hotel.category %}
                 <div class="content">
                   <p class = "text--medium">{{ hotel.location }}</p>
-                  <p class = "text--medium" style = "color: gray;font-size: 0.9em; padding-top: 5%;">From {{ room.price }}</p>
+                  <p class = "text--medium" style = "color: gray;font-size: 0.9em; padding-top: 5%;">From ₹{{ room.price }}</p>
                 </div>
                 {% endif %}
                 {% endfor %}
-                <a href = "#"><button class = "button text-medium">View</button></a>
+                <a href = "{% url 'eachhotel' hotel_id=hotel.id %}"><button class = "button text-medium">View</button></a>
             </div>
         </div>
     </div>

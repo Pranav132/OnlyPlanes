@@ -23,6 +23,11 @@ def hotels(request):
     return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
 
 
+def eachhotel(request, hotel_id):
+    hotel = Hotel.objects.filter(id=hotel_id).first()
+    return render(request, 'eachhotel.html', {"hotel": hotel})
+
+
 def search(request):
 
     airport_instances = Airport.objects.all().order_by('city')

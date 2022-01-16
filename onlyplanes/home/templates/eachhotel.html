@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/hotel-page.css' %}">
+{% endblock %}
+
+{% block title %}
+{{hotel.name}}
+{% endblock %}
+
+{% block content %}
+{% if hotel.inventory == 0 %}
+<div class="alert alert-dark" role="alert">
+    This item is out of stock!
+  </div>
+{% endif %}
+<div class="container">
+   <div class="card-container">
+        <div class="image-area" style = "background: url({{hotel.exterior_picture.url}})  no-repeat center #e8e8e8;">
+        </div>
+        <div class="text-area">
+            <div class="heading-area">
+                <h2>{{hotel.name}}</h2>
+                <h4>{{hotel.category}}</h4>
+            </div>
+
+                <p class="paragraph-area">
+                    {{hotel.description}}
+                </p>
+
+                
+                <div class="ratings">
+                   <span>
+                    {% for i in '01234'|make_list %}
+                        {% if forloop.counter <= hotel.starrating %}
+                            <i class="bi bi-star-fill" style = "color: orange; text-shadow: 2px 2px 2px #000;font-size:1em;"></i>
+                        {% else %}
+                            <i class="bi bi-star-fill" style = "text-shadow: 2px 2px 2px #000;font-size:1em;"></i>
+                        {% endif %}
+                    {% endfor %}
+                   </span>
+                </div>
+            <div class="price-and-buy">
+                <h2 class="price-1">{{hotel.detailed_address}}</h2>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
