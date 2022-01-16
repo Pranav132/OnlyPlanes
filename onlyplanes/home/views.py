@@ -25,7 +25,8 @@ def hotels(request):
 
 def eachhotel(request, hotel_id):
     hotel = Hotel.objects.filter(id=hotel_id).first()
-    return render(request, 'eachhotel.html', {"hotel": hotel})
+    rooms = Room.objects.filter(hotelcategory=hotel.category)
+    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms})
 
 
 def search(request):

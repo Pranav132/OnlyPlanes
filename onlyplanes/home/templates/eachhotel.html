@@ -10,11 +10,6 @@
 {% endblock %}
 
 {% block content %}
-{% if hotel.inventory == 0 %}
-<div class="alert alert-dark" role="alert">
-    This item is out of stock!
-  </div>
-{% endif %}
 <div class="container">
    <div class="card-container">
         <div class="image-area" style = "background: url({{hotel.exterior_picture.url}})  no-repeat center #e8e8e8;">
@@ -48,4 +43,73 @@
     </div>
     
 </div>
+
+<div class = "cardwrapper">  
+    <div class="blog-card">
+        <div class="meta">
+          <div class="photo" style="background-image: url({{hotel.cheaproom_picture.url}})"></div>
+        </div>
+        <div class="description">
+          <h1>{{hotel.cheaproom_name}}</h1>
+          <h2>₹ {{rooms.2.price}} / night</h2>
+          <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
+          <p> <span>
+            {% for amenity in rooms.0.amenities.all %}
+            {%if forloop.counter == rooms.0.amentities.all|length %}
+            {{amenity}}
+            {%else%}
+            {{amenity}}, 
+            {%endif%}
+            {% endfor %}
+        </span></p>
+          <p class="read-more">
+            <a href="#">Book</a>
+          </p>
+        </div>
+      </div>
+      <div class="blog-card alt">
+        <div class="meta">
+          <div class="photo" style="background-image: url({{hotel.mediumroom_picture.url}})"></div>
+        </div>
+        <div class="description">
+          <h1>{{hotel.middleroom_name}}</h1>
+          <h2>₹ {{rooms.1.price}} / night</h2>
+          <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
+          <p> <span>
+            {% for amenity in rooms.0.amenities.all %}
+            {%if forloop.counter == rooms.0.amentities.all|length %}
+            {{amenity}}
+            {%else%}
+            {{amenity}}, 
+            {%endif%}
+            {% endfor %}
+        </span></p>
+          <p class="read-more">
+            <a href="#">Book</a>
+          </p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="meta">
+          <div class="photo" style="background-image: url({{hotel.expensiveroom_picture.url}})"></div>
+        </div>
+        <div class="description">
+          <h1>{{hotel.expensiveroom_name}}</h1>
+          <h2>₹ {{rooms.0.price}} / night</h2>
+          <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
+          <p> <span>
+            {% for amenity in rooms.0.amenities.all %}
+            {%if forloop.counter == rooms.0.amentities.all|length %}
+            {{amenity}}
+            {%else%}
+            {{amenity}}, 
+            {%endif%}
+            {% endfor %}
+        </span></p>
+          <p class="read-more">
+            <a href="#">Book</a>
+          </p>
+        </div>
+      </div>
+    </div>
 {% endblock %}
