@@ -12,7 +12,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path("home/", views.index, name="index"),
     path("index/", views.index, name="index"),
-    path("search/", views.search),
+    path("search/", views.search, name='search'),
     path("contact/", views.contact, name="contact"),
     path('accounts/', include('allauth.urls')),
     path('hotels/', views.hotels, name="hotels"),

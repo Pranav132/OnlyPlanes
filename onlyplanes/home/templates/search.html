@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/style-search.css' %}">
+{% endblock %}
+
+{% block title %}
+Book a Flight
+{% endblock %}
+
+{% block content %}
+<div class="head">
+    <h1>Book a Flight</h1>
+</div>
+<div class="searchform">
+    <form class="pick-animation my-4">
+        <div class="form-row">
+          <div class="col-5 m-auto">
+            <label for="originLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">FROM:</label>
+            <select class="form-control" name = "originLocationCode" required>
+                <option value="" disabled selected>Departure Airport</option>
+                {% for airport in airports %}
+                    <option value="{{airport.iataCode}}">{{airport.iataCode}}, {{airport.city}}</option>
+                {% endfor %}
+            </select>            
+          </div>
+          <div class="col-5 m-auto">
+              <label for="destinationLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">TO:</label>
+                <select class="form-control" name = "destinationLocationCode" required>
+                <option value="" disabled selected>Arrival Airport</option>
+                {% for airport in airports %}
+                    <option value="{{airport.iataCode}}">{{airport.iataCode}}, {{airport.city}}</option>
+                {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-5 m-auto">
+                <label for="departureDate" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Departure Date:</label>
+                <input type="date" name="departureDate" class="form-control" required>
+            </div>
+            <div class="col-5 m-auto">
+                <label for="arrivalDate" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Arrival Date:</label>
+                <input type="date" name="arrivalDate" class="form-control">
+            </div>
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-5 m-auto">
+                <label for="adults" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of Adults:</label>
+                <input type="number" class="form-control" min="1" max="10" name = "adults" required>
+            </div>
+           
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-5 m-auto">
+                <label for="children" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of Children:</label>
+                <input type="number" class="form-control" min="0" max="10" name = "children">
+            </div>
+           
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-5 m-auto">
+                <label for="infants" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of Infants:</label>
+                <input type="number" class="form-control" min="0" max="10" name = "infants">
+            </div>
+           
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-5 m-auto">
+                <label for="travelClass" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Cabin Class:</label>
+                <select class="form-control" name = "travelClass">
+                    <option value="" disabled selected>Cabin Class</option>
+                    <option value = "ECONOMY">Economy</option>
+                    <option value = "PREMIUM_ECONOMY">Premium Economy</option>
+                    <option value = "BUSINESS">Business</option>
+                    <option value = "FIRST">First Class</option>
+                </select>
+            </div>
+           
+        </div>
+        <div class="padding" style = "height: 2vh;"></div>
+        <div class="form-row">
+            <div class="col-1 m-auto">
+        <button type = "submit" class = "btn btn-primary">Search</button>
+        </div>  
+        </div>  
+      </form>
+</div>
+<div class="results"></div>
+{% endblock %}

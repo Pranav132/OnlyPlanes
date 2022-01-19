@@ -1,0 +1,41 @@
+:root {
+  --platinum: #222;
+  --navy-blue: #03045eff;
+  --star-command-blue: #eee;
+  --cerulean-crayola: #00b4d8;
+  --sky-blue-crayola: #57ddf5;
+  --powder-blue: rgb(178, 236, 248);
+  --background-dark: #2d3548;
+}
+
+body {
+  background: var(--powder-blue);
+}
+
+.head {
+  height: 30vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 4em;
+  color: #eee;
+  text-shadow: 2px 2px 5px #000;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  padding-bottom: 5vh;
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 0% 85%);
+}
+
+.searchform {
+  background-image: radial-gradient(
+    ellipse farthest-corner at center top,
+    #ddd 0%,
+    #fff 100%
+  );
+  margin: 2%;
+  padding: 2% 0;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+}

@@ -58,7 +58,7 @@
           <nav>
               <ul>
                   <li><a href="/">Home</a></li>
-                  <li><a href="#">Flights</a></li>
+                  <li><a href="{% url 'search' %}">Flights</a></li>
                   <li><a href="/hotels">Hotels</a></li>
                   {% if user.is_authenticated %}
                     <li><a href="#">Your Account</a></li>
@@ -83,7 +83,7 @@
     <footer>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="/">Home</a></li>
-            <li class="list-inline-item"><a href="#">Flights</a></li>
+            <li class="list-inline-item"><a href="{% url 'search' %}">Flights</a></li>
             <li class="list-inline-item"><a href="/hotels">Hotels</a></li>
             <li class="list-inline-item"><a href="#">Account</a></li>
             <li class="list-inline-item"><a href="{% url 'contact' %}">contact</a></li>
@@ -133,6 +133,7 @@ $('nav a').click(function(event) {
     }, 500);
     event.preventDefault();
 });
+
     </script>
     <!--  -->
 </body>

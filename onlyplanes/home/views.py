@@ -31,42 +31,60 @@ def eachhotel(request, hotel_id):
 
 def search(request):
 
-    airport_instances = Airport.objects.all().order_by('city')
+    if request.method == 'POST':
 
-    airports = []
-    for airport_instance in airport_instances:
-        airports = airports[:] + [airport_instance.__dict__]
-    for airport in airports:
-        airport['city'] = str(airport['city'])[
-            :-7].replace("International", "").replace(" Int'l", "")
+        airport_instances = Airport.objects.all().order_by('city')
 
-    context = {
-        'airports': airports,
-        'search_details': request.GET,
-    }
+        airports = []
+        for airport_instance in airport_instances:
+            airports = airports[:] + [airport_instance.__dict__]
+        for airport in airports:
+            airport['city'] = str(airport['city'])[
+                :-7].replace("International", "").replace(" Int'l", "")
 
-    if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 50}
+        context = {
+            'airports': airports,
+            'search_details': request.GET,
+        }
 
-        for i in request.GET:
-            if request.GET[i] != "" and request.GET[i] != 0:
-                kwargs[i] = request.GET[i]
-        kwargs.pop('searchType')
-        print(kwargs)
+        if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
+            kwargs = {'max': 50}
 
-        context['trip_offers'] = findFlights(**kwargs)
+            for i in request.GET:
+                if request.GET[i] != "" and request.GET[i] != 0:
+                    kwargs[i] = request.GET[i]
+            kwargs.pop('searchType')
+            print(kwargs)
 
-        # to save a trip as a booking model:
-        # makeBooking(trip)
+            context['trip_offers'] = findFlights(**kwargs)
 
-    print(len(airports))
+            # to save a trip as a booking model:
+            # makeBooking(trip)
 
-    return render(request, "search_page/search.html", context=context)
+        # print(len(airports))
 
+        return render(request, "search.html", context=context)
 
-# with open("home/airport-codes.csv", "r") as file:
-    #reader = csv.reader(file)
-    # next(reader)
-    # for row in reader:
-    #City,Country ,Code,Continent
-    #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
+    elif request.method == 'GET':
+
+        airport_instances = Airport.objects.all().order_by('city')
+
+        airports = []
+        for airport_instance in airport_instances:
+            airports = airports[:] + [airport_instance.__dict__]
+        for airport in airports:
+            airport['city'] = str(airport['city'])[
+                :-7].replace("International", "").replace(" Int'l", "")
+
+        context = {
+            'airports': airports,
+            'search_details': request.GET,
+        }
+        return render(request, "search.html", context=context)
+
+        # with open("home/airport-codes.csv", "r") as file:
+        #reader = csv.reader(file)
+        # next(reader)
+        # for row in reader:
+        #City,Country ,Code,Continent
+        #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])

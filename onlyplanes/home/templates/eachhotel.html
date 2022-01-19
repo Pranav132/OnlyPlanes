@@ -54,12 +54,11 @@
           <h2>₹ {{rooms.2.price}} / night</h2>
           <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
           <p> <span>
-            {% for amenity in rooms.0.amenities.all %}
-            {%if forloop.counter == rooms.0.amentities.all|length %}
-            {{amenity}}
-            {%else%}
-            {{amenity}}, 
-            {%endif%}
+            {{rooms.2.amenities.all|first}}
+            {% for amenity in rooms.2.amenities.all %}
+              {% if forloop.counter != 1 %}
+              , {{amenity}}
+              {% endif %}
             {% endfor %}
         </span></p>
           <p class="read-more">
@@ -76,12 +75,11 @@
           <h2>₹ {{rooms.1.price}} / night</h2>
           <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
           <p> <span>
-            {% for amenity in rooms.0.amenities.all %}
-            {%if forloop.counter == rooms.0.amentities.all|length %}
-            {{amenity}}
-            {%else%}
-            {{amenity}}, 
-            {%endif%}
+            {{rooms.1.amenities.all|first}}
+            {% for amenity in rooms.1.amenities.all %}
+              {% if forloop.counter != 1 %}
+              , {{amenity}}
+              {% endif %}
             {% endfor %}
         </span></p>
           <p class="read-more">
@@ -98,12 +96,11 @@
           <h2>₹ {{rooms.0.price}} / night</h2>
           <p style = "text-decoration: underline;"><strong>Amenities</strong></p>
           <p> <span>
+            {{rooms.0.amenities.all|first}}
             {% for amenity in rooms.0.amenities.all %}
-            {%if forloop.counter == rooms.0.amentities.all|length %}
-            {{amenity}}
-            {%else%}
-            {{amenity}}, 
-            {%endif%}
+              {% if forloop.counter != 1 %}
+              , {{amenity}}
+              {% endif %}
             {% endfor %}
         </span></p>
           <p class="read-more">
