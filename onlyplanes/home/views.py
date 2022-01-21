@@ -3,6 +3,7 @@ import csv
 from django.shortcuts import render, redirect
 from .models import Aircraft, Airline, Airport, Hotel, Room
 from .handler import findFlights, makeBooking
+from .forms import *
 
 # Create your views here.
 
@@ -20,13 +21,52 @@ def contact(request):
 def hotels(request):
     hotels = Hotel.objects.all()
     rooms = Room.objects.filter(roomcategory=2)
+
     return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
 
 
+def hotel_search(request):
+
+    if request.method == 'GET':
+        search = request.GET['searched']
+        rooms = Room.objects.filter(roomcategory=2)
+
+        # Primary search term will be location mostly, nobody searches using Hotel name
+        # We need to accommodate for people putting in hotel names also, in case they don't listen to the placeholder text
+        # Other than that, there is no such requirement that can be searched for, the rest will be in the sorting and filtering forms
+
+        location_search = Hotel.objects.filter(location__icontains=search)
+        name_search = Hotel.objects.filter(name__icontains=search)
+
+        unsorted_hotel = location_search | name_search
+
+        hotels = []
+
+        for hotel in unsorted_hotel:
+            if hotel in hotels:
+                continue
+            else:
+                hotels.append(hotel)
+
+        # form for sorting and filtering to be put here
+
+    return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
+
+    # # initializing the form and setting the default value to be relevance
+    # filter_form = FilterForm(
+    #     initial={'name': 'relevance', 'price': 'zero', 'gender': 'none', 'types': 'nothing', 'use': 'useless'})
+    # return render(request, 'product_search.html', {"product": product, "search": search, "filter_form": filter_form})
+
+
 def eachhotel(request, hotel_id):
+    all_hotels = Hotel.objects.all()
     hotel = Hotel.objects.filter(id=hotel_id).first()
     rooms = Room.objects.filter(hotelcategory=hotel.category)
-    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms})
+    print(hotel.location)
+
+    # hotel reccommendations based on the location of the hotel in question
+    reccos = Hotel.objects.filter(location=hotel.location).exclude(id=hotel_id)
+    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms, 'hotel_reccos': reccos})
 
 
 def search(request):

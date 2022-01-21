@@ -16,6 +16,7 @@ urlpatterns = [
     path("contact/", views.contact, name="contact"),
     path('accounts/', include('allauth.urls')),
     path('hotels/', views.hotels, name="hotels"),
+    path('hotel_search/', views.hotel_search, name="hotel_search"),
     path('hotel/<int:hotel_id>', views.eachhotel, name="eachhotel"),
     path('logout', LogoutView.as_view()),
 
