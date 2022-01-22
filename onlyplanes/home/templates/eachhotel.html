@@ -3,6 +3,7 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'css/hotel-page.css' %}">
+<link type="text/css" rel="stylesheet" href="{% static 'css/lighslider.css' %}" /> 
 {% endblock %}
 
 {% block title %}
@@ -109,4 +110,38 @@
         </div>
       </div>
     </div>
+
+    <!-- carousel -->
+<div class="reco-wrapper">
+  <h1 class = "reco-title"> Recommended Hotels</h1>
+  <section class = "slider">
+  <ul id="autoWidth" class="cs-hidden" style = " height: 100vh;">
+  {% for recommend in hotel_reccos %}
+  <li>
+  <div class="box">
+      <!-- image -->
+      <div class="slide-img">
+          <img src = "{{ recommend.exterior_picture.url }}" alt = "{{recommend.name}}">
+      </div>
+
+      <!-- overlay -->
+      <div class="overlay">
+          <a href = "{% url 'eachhotel' hotel_id=recommend.id %}" class = "buy-btn">View</a>
+      </div>
+
+      <!-- Details -->
+      <div class="detail-box">
+          <!-- Name-->
+          <div class="type">
+              <a href = "#">{{ recommend.name }}</a>
+          </div>
+          <!--price -->
+          <a href = "#" class="price">{{ recommend.location }}</a>
+      </div>
+  </div>
+  </li>
+  {% endfor %}
+</ul>
+  </section>
+</div>
 {% endblock %}
