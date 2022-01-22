@@ -125,6 +125,19 @@ class Aircraft(models.Model):
     icaoCode = models.CharField(max_length=4)
     name = models.TextField()
 
+class ReviewsRatings(models.Model):
+
+    # includes a user foreign key and project foreign key, not null, to link who has reviewed which product
+    # has a rating which cannot be null, validated for a range of 1 to 5 (will be stars)
+    # has a review field which can be blank, as some people may just rate and not review
+
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, null=False, on_delete=models.CASCADE)
+    rating = models.IntegerField("Rating", default=1, validators=[
+        MaxValueValidator(5), MinValueValidator(1)],
+        null=False, blank=False)
+    review = models.CharField("Review", max_length=250, blank=True, null=True)
+
 
 
 
