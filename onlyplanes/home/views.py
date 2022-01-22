@@ -71,7 +71,6 @@ def eachhotel(request, hotel_id):
 
 def search(request):
 
-    if request.method == 'POST':
 
         airport_instances = Airport.objects.all().order_by('city')
 
@@ -93,8 +92,8 @@ def search(request):
             for i in request.GET:
                 if request.GET[i] != "" and request.GET[i] != 0:
                     kwargs[i] = request.GET[i]
-            kwargs.pop('searchType')
             print(kwargs)
+            
 
             context['trip_offers'] = findFlights(**kwargs)
 
@@ -103,9 +102,8 @@ def search(request):
 
         # print(len(airports))
 
-        return render(request, "search.html", context=context)
+       
 
-    elif request.method == 'GET':
 
         airport_instances = Airport.objects.all().order_by('city')
 

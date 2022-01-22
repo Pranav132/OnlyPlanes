@@ -100,7 +100,7 @@ Book a Flight
             
             <div class="card_heading">
     
-                <h2><span>{{offer.logo}}</span>&nbsp;{{offer.airline}}</h2>	
+                <h2><span>{{offer.0.logo}}</span>&nbsp;{{offer.0.airline}}</h2>	
                 
             </div>
             
@@ -114,7 +114,7 @@ Book a Flight
                 
                 <div class="trip_from">
                     
-                    <h1>{{offer.origin}}</h1>
+                    <h1>{{offer.outboubLeg.0.origin}}</h1>
                     
                     <h2>{{offer.originTerminal}}</h2>
                     

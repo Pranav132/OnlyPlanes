@@ -109,7 +109,8 @@ def findFlights(**kwargs):
     except ResponseError as error:
         print(error)
     
-
+    print('worked')
+    print(options)
     return options
 
 
