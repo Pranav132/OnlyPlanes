@@ -92,5 +92,116 @@ Book a Flight
         </div>  
       </form>
 </div>
-<div class="results"></div>
+
+<div class="results">
+    <div class="cards_wrapper">
+	{% for offer in trip_offers %}
+        <div class="card">
+            
+            <div class="card_heading">
+    
+                <h2><span>{{offer.logo}}</span>&nbsp;{{offer.airline}}</h2>	
+                
+            </div>
+            
+            <!-- <div class="card_thumbnail">
+                
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/553328/Egypt.jpg" />
+                
+            </div> -->
+            
+            <div class="card_trip">
+                
+                <div class="trip_from">
+                    
+                    <h1>{{offer.origin}}</h1>
+                    
+                    <h2>{{offer.originTerminal}}</h2>
+                    
+                </div>
+                
+                <div class="trip_icon">
+                    
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/553328/From.png" />
+                    
+                </div>
+                
+                <div class="trip_to">
+                    
+                    <h1>{{offer.destination}}</h1>
+                    
+                    <h2>{{offer.destinationTerminal}}</h2>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="card_divider">
+                
+                <!-- <div class="divider_left divider_hole">
+                    
+                </div>
+                 -->
+                <div class="divider">
+                    
+                </div>
+<!--                 
+                <div class="divider_right divider_hole">
+                    
+                </div> -->
+                
+            </div>
+            
+            <div class="card_seating">
+                
+                <div class="seating_passenger">
+                    
+                    <h2>Cabin Class</h2>
+                    
+                    <h3>Insert Cabin Class</h3>
+                    
+                </div>
+                
+                <div class="seating_seat">
+                    
+                    <h2>Seat</h2>
+                    
+                    <h3>1A</h3>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="card_details">
+                
+                <div class="details_flight">
+                    
+                    <h2>Flight</h2>
+                    
+                    <h3>{{offer.flightNumber}}</h3>
+                    
+                </div>
+                
+                <div class="details_date">
+                    
+                    <h2>Depart</h2>
+                    
+                    <h3>{{offer.departureTime}}</h3>
+                    
+                </div>
+                
+                <div class="details_time">
+                    
+                    <h2>Arrival</h2>
+                    
+                    <h3>{{offer.arrivalTime}}</h3>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        {% endfor %}
+</div>
+</div>
 {% endblock %}

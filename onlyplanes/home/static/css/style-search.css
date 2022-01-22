@@ -4,7 +4,7 @@
   --star-command-blue: #eee;
   --cerulean-crayola: #00b4d8;
   --sky-blue-crayola: #57ddf5;
-  --powder-blue: rgb(178, 236, 248);
+  --powder-blue: #c5d8e6;
   --background-dark: #2d3548;
 }
 
@@ -38,4 +38,163 @@ body {
   padding: 2% 0;
   border-radius: 20px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+}
+
+.cards_wrapper {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.card {
+  width: 320px;
+  border-radius: 20px;
+  background: #344451;
+  display: inline-block;
+  margin: 10px;
+}
+.card_heading {
+  padding-top: 25px;
+}
+.card_heading h2 {
+  text-align: center;
+}
+.card_thumbnail {
+  min-height: 150px;
+  margin-top: -15px;
+}
+.card_thumbnail img {
+  width: 100%;
+  height: auto;
+}
+.card_trip {
+  text-align: center;
+  width: 85%;
+  margin: 30px auto;
+  display: flex;
+}
+.card_trip div {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.card_trip div h1 {
+  margin: 0px;
+}
+.card_trip div h2 {
+  margin: 0px;
+  letter-spacing: 2px;
+}
+.card_trip div.trip_from {
+  text-align: left;
+  width: 35%;
+}
+.card_trip div.trip_from h2 {
+  padding-left: 2px;
+}
+.card_trip div.trip_icon {
+  width: 30%;
+}
+.card_trip div.trip_icon img {
+  padding-top: 20px;
+  opacity: 1;
+  width: 25px;
+}
+.card_trip div.trip_to {
+  text-align: right;
+  width: 35%;
+}
+.card_trip div.trip_to h2 {
+  padding-right: 3px;
+}
+.card_divider {
+  position: relative;
+  width: 100%;
+}
+.card_divider .divider_left {
+  left: -15px;
+}
+.card_divider .divider_hole {
+  position: absolute;
+  top: -12px;
+  padding: 0px;
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  background: #c5d8e6;
+}
+.card_divider .divider {
+  width: 85%;
+  margin: auto;
+  height: 2px;
+  background: linear-gradient(to right, #c5d8e6 50%, transparent 50%);
+  background-size: 10px 8px, 100% 2px;
+  opacity: 0.2;
+}
+.card_divider .divider_right {
+  right: -15px;
+}
+.card_seating {
+  width: 85%;
+  margin: 30px auto;
+  display: flex;
+}
+.card_seating div {
+  display: inline-block;
+  width: 50%;
+}
+.card_seating div.seating_passenger {
+  text-align: left;
+}
+.card_seating div.seating_seat {
+  text-align: right;
+}
+.card_details {
+  width: 85%;
+  margin: 30px auto;
+  display: flex;
+  padding-bottom: 30px;
+}
+.card_details div {
+  display: inline-block;
+  width: 33%;
+}
+.card_details div.details_flight {
+  text-align: left;
+}
+.card_details div.details_date {
+  text-align: center;
+}
+.card_details div.details_time {
+  text-align: right;
+}
+
+.results {
+  background: #c5d8e6;
+  font-family: helvetica, arial;
+  text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+.results h1 {
+  color: #c5d8e6;
+  font-weight: 200;
+  font-size: 2.1em;
+  margin: 0px;
+}
+
+.results h2 {
+  color: #c5d8e6;
+  opacity: 0.5;
+  font-weight: 100;
+  font-size: 0.9em;
+  margin: 0px;
+}
+
+.results h3 {
+  color: #c5d8e6;
+  opacity: 0.8;
+  font-weight: 100;
+  font-size: 0.9em;
+  margin: 0px;
 }
