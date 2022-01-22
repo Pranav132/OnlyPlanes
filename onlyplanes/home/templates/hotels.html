@@ -17,6 +17,20 @@ Book Hotels
     </div>
 
     <br>
+
+    <div class="searchwrap">
+<form class = "form" action="{% url 'hotel_search' %}">
+  <label for="search" class = "label">Search</label>
+  <input id="search" type="search" pattern=".*\S.*" required name = "searched" class = "input">
+  <span class="caret"></span>
+</form>
+    </div>
+    
+
+    <br>
+    <br>
+    <br>
+  {% if hotels %}
   <section class = "cards">
     <!-- Rendering every product and data -->
     {% for hotel in hotels %}
@@ -51,6 +65,10 @@ Book Hotels
     </ul>
     {% endfor %} 
   </section>
+  {% else %}
+  <div class="no" style = "display: grid; place-items: center; height: 100%; font-size: 2em;">No hotels found, please search again!</div>
+  {% endif %}
   </main>
   </div>
+
 {% endblock %}

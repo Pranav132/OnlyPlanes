@@ -50,7 +50,7 @@ def hotel_search(request):
 
         # form for sorting and filtering to be put here
 
-    return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
+        return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
 
     # # initializing the form and setting the default value to be relevance
     # filter_form = FilterForm(
