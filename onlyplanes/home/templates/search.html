@@ -17,7 +17,7 @@ Book a Flight
     <form class="pick-animation my-4">
         <div class="form-row">
           <div class="col-5 m-auto">
-            <label for="originLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">FROM:</label>
+            <label for="originLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">FROM:*</label>
             <select class="form-control" name = "originLocationCode" required>
                 <option value="" disabled selected>Departure Airport</option>
                 {% for airport in airports %}
@@ -26,7 +26,7 @@ Book a Flight
             </select>            
           </div>
           <div class="col-5 m-auto">
-              <label for="destinationLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">TO:</label>
+              <label for="destinationLocationCode" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">TO:*</label>
                 <select class="form-control" name = "destinationLocationCode" required>
                 <option value="" disabled selected>Arrival Airport</option>
                 {% for airport in airports %}
@@ -38,7 +38,7 @@ Book a Flight
         <div class="padding" style = "height: 2vh;"></div>
         <div class="form-row">
             <div class="col-5 m-auto">
-                <label for="departureDate" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Departure Date:</label>
+                <label for="departureDate" style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Departure Date:*</label>
                 <input type="date" name="departureDate" class="form-control" required>
             </div>
             <div class="col-5 m-auto">
@@ -49,7 +49,7 @@ Book a Flight
         <div class="padding" style = "height: 2vh;"></div>
         <div class="form-row">
             <div class="col-5 m-auto">
-                <label for="adults" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of Adults:</label>
+                <label for="adults" class="form-label"  style = "font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of Adults:*</label>
                 <input type="number" class="form-control" min="1" max="10" name = "adults" required>
             </div>
            
