@@ -1,7 +1,7 @@
 import pathlib
 import csv
 from django.shortcuts import render, redirect
-from .models import Aircraft, Airline, Airport, Hotel, Room
+from .models import *
 from .handler import findFlights, makeBooking
 from .forms import *
 
@@ -66,7 +66,11 @@ def eachhotel(request, hotel_id):
 
     # hotel reccommendations based on the location of the hotel in question
     reccos = Hotel.objects.filter(location=hotel.location).exclude(id=hotel_id)
-    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms, 'hotel_reccos': reccos})
+
+    #hotel reviews 
+    ratings = ReviewsRatings.objects.filter(hotel=hotel_id).all()
+
+    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms, 'hotel_reccos': reccos, 'ratings': ratings})
 
 
 def search(request):

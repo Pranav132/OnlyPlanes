@@ -144,4 +144,77 @@
 </ul>
   </section>
 </div>
+
+
+
+
+
+
+{% if ratings %}
+<div class="allratings">
+{% for rating in ratings %}
+<!-- first the stars
+then user name
+then if there is description, description -->
+<br>
+<div class="rates">
+<div class="stars">
+{% for i in checker %}
+  {% if forloop.counter0 < rating.rating %}
+  <span class="fa fa-star" style="color: orange;"></span>
+{% else %}
+  <span class="fa fa-star"></span>
+{% endif %}
+{% endfor %}
+</div>
+<div class="username">{{rating.user}}</div>
+{% if rating.review %}
+  <div class = "review">{{rating.review}}</div>
+  
+{% endif %}
+<div class="delete">
+{% if user == rating.user %}
+  <i class="bi bi-trash-fill" onclick="togglePopup('{{rating.id}}')"></i>
+{% endif %}
+</div>
+</div>
+
+<br>
+
+{% endfor %}
+</div>
+{% else %}
+<div class = "noreviews"><div class="rates" style="font-size:2em; font-family:'Poppins', sans-serif; font-weight:bold; display:flex; justify-content:center; align-items:center; padding-top:5vh;">No reviews yet, be the first to write a review!</a></div></div>
+{% endif %}
+
+<div class="write">
+</div>
+
+{% for rating in ratings %}
+<section class = "popup" id = "{{rating.id}}">
+  <div class = overlay></div>
+  <div class="content">
+      <div class="close-btn" onclick="togglePopup('{{rating.id}}')">&times;</div>
+      <div class="text">
+          Are you sure you want to delete this review?
+      </div>
+      <div class="form">
+          <form method = "POST" >
+              {% csrf_token %}
+              <input type="hidden" name="product_id" value="{{product.id}}" />
+              <input type = "submit" value = "Delete" class = "submitbutton" onclick = "alert('Review deleted successfully')" />
+          </form>
+      </div>
+  </div>
+</section>
+{% endfor%}
+
+<script>
+  function togglePopup(idname)
+  {
+      document.getElementById(idname).classList.toggle("active");
+  }
+</script>
+
+
 {% endblock %}
