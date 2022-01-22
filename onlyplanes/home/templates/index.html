@@ -32,7 +32,7 @@ OnlyPlans
           </p>
         </div>
         <div class = "movie_social">
-          <a href="/">
+          <a href="{% url 'hotels' %}">
             <button class="bn54">
               <span class="bn54span"><i class="fa fa-hotel" style = "font-size: 30px;"></i></span>
             </button>
@@ -53,7 +53,7 @@ OnlyPlans
           </p>
         </div>
         <div class = "movie_social">
-            <a href="/">
+            <a href="{% url 'search' %}">
                 <button class="bn54">
                   <span class="bn54span"><i class="fa fa-plane" style = "font-size: 30px;"></i></span>
                 </button>
@@ -67,7 +67,7 @@ OnlyPlans
 
     <section class="hero-section">
       <div class="card-grid">
-        <a class="card" href="#">
+        <a class="card" href="/hotel_search?searched=Cairns">
           <div class="card__background" style="background-image: url('https://images.pexels.com/photos/3390587/pexels-photo-3390587.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500')"></div>
           <div class="card__content">
             <p class="card__category">Fly to the</p>

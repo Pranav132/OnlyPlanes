@@ -21,6 +21,7 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" /> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" /> 
 
     <!-- ADD FONTS HERE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,6 +138,22 @@ $('nav a').click(function(event) {
 
     </script>
     <!--  -->
+    <script>
+        $(document).ready(function() {
+        $('#autoWidth').lightSlider({
+            autoWidth:true,
+            loop:true,
+            onSliderLoad: function() {
+                $('#autoWidth').removeClass('cS-hidden');
+            } 
+        });  
+      });
+    </script>
+<script src = "{% static 'scripts/lightslider.js' %}"></script>
+
+
+
+
 </body>
 
 </html>

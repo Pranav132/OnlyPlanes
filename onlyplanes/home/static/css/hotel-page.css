@@ -320,3 +320,153 @@
     padding-left: 25px;
   }
 }
+
+.reco-wrapper {
+  margin: 0px;
+  padding: 0px;
+  background-color: #ccd6dd;
+  position: relative;
+  min-height: 50vh;
+  width: 100vw;
+}
+
+.reco-wrapper a {
+  text-decoration: none;
+}
+
+.box {
+  width: 300px;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background: var(--platinum);
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  margin: 25px;
+}
+
+.slide-img {
+  height: 350px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+}
+
+.slide-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-sizing: border-box;
+  border-radius: 20px 20px 0 0;
+}
+
+.detail-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.type {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.type a {
+  color: #222222;
+  margin: 5px 0px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding-right: 8px;
+  font-size: 0.9em;
+}
+
+.type span {
+  color: rgba(26, 26, 26, 0.5);
+  font-size: 0.8rem;
+}
+
+.price {
+  color: var(--shadow-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 101%;
+  background-color: rgba(125, 159, 203, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buy-btn {
+  width: 160px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  color: #252525;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 20px;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.5);
+}
+
+.buy-btn:hover {
+  color: #fff;
+  background-color: rgb(125, 159, 203);
+  transition: all ease 0.3s;
+}
+
+.overlay {
+  visibility: hidden;
+}
+
+.box:hover .overlay {
+  visibility: visible;
+  animation: fade 0.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slider {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reco-title {
+  padding-top: 5vh;
+  padding-bottom: 2vh;
+  /* padding-bottom: 5vh; */
+  font-size: 3vmax;
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+  text-decoration: underline;
+  animation: fade 3s ease-in-out;
+  text-transform: uppercase;
+}
