@@ -9,52 +9,13 @@
 Contact
 {% endblock %}
 
+
+
 {% block content %}
-<div class="background">
-    <div class="container">
-      <div class="screen">
-        <div class="screen-header">
-          <div class="screen-header-left">
-            <div class="screen-header-button maximize"></div>
-            <div class="screen-header-button minimize"></div>
-          </div>
-          <div class="screen-header-right">
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-          </div>
-        </div>
-        <div class="screen-body">
-          <div class="screen-body-item left">
-            <div class="app-title">
-              <span>CONTACT</span>
-              <span>US</span>
-            </div>
-            <div class="app-contact">EMAIL US: contact@onlyplans.com</div>
-          </div>
-          <div class="screen-body-item">
-            <div class="app-form">
-              <div class="app-form-group">
-                <input class="app-form-control" placeholder="NAME" value="" required>
-              </div>
-              <div class="app-form-group">
-                <input class="app-form-control" placeholder="EMAIL" required type="email">
-              </div>
-              <div class="app-form-group">
-                <input class="app-form-control" placeholder="CONTACT NO" required type="number">
-              </div>
-              <div class="app-form-group message">
-                <input class="app-form-control" placeholder="MESSAGE" required>
-              </div>
-              <div class="app-form-group buttons">
-                <button class="app-form-button" onclick="window.location.reload();">CANCEL</button>
-                <button class="app-form-button" type = "submit" onclick="alert('We have received your message');window.location.replace('/');">SEND</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ <!-- abstracted by mailchimp -->
+<iframe src="https://us20.list-manage.com/contact-form?u=e62ffb20c90571f696bbc7cf5&form_id=e06b560a65498c6915510dc6d31acda7" style="height: 1700px;; width:100%;border:none;">
+    Your browser doesn't support iframes
+</iframe>
+
   
 {% endblock %}
