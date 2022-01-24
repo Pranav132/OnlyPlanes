@@ -8,25 +8,26 @@ class FilterForm(forms.Form):
     # Setting choices for users to choose from for each kind of input
 
     CHOICES = [
-        ('popularity', 'Popularity'),
         ('low2high', 'Price: Low to High'),
         ('high2low', 'Price: High to Low')
     ]
 
     RANGES = [
         ('zero', 'No price filter'),
-        ('five', 'Below ₹500'),
-        ('ten', 'Below ₹1000'),
-        ('twenty', 'Below ₹2000'),
-        ('thirty', 'Below ₹3000'),
-        ('fourty', 'Below ₹4000'),
-        ('fifty', 'Below ₹5000'),
-        ('sixty', 'Below ₹6000'),
-        ('seventy', 'Below ₹7000'),
-        ('eighty', 'Below ₹8000'),
+        ('point', 'below ₹1000'),
+        ('one', '₹1000 - ₹9999'),
+        ('ten', '₹10,000 - ₹19,999'),
+        ('twenty', '₹20,000 - ₹29,999'),
+        ('thirty', '₹30,000 - ₹39,999'),
+        ('fourty', '₹40,000 - ₹49,999'),
+        ('fifty', '₹50,000 - ₹59,999'),
+        ('sixty', '₹60,000 - ₹69,999'),
+        ('seventy', '₹70,000 - ₹79,999'),
+        ('eighty', '₹80,000 and above'),
     ]
 
     RATING = [
+        ('none', 'no rating filter'),
         ('five', '5-star'),
         ('four', '4-star and above'),
         ('three', '3-star and above'),

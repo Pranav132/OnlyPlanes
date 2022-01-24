@@ -3,6 +3,12 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'css/style-hotels.css' %}">
+<style>
+  .dropdown1{
+    padding-left: 2vw;
+    margin: 0.5vh 0vh;
+  }
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -26,6 +32,37 @@ Book Hotels
 </form>
     </div>
     
+    <!-- Form starts here -->
+    <form action={% url 'hotels' %} method="POST">
+      {% csrf_token %}
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortbutton">
+          {{ filter_form.name }}
+        </div>
+      </div>
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterpricebutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter by price
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterpricebutton">
+          {{ filter_form.price }}
+        </div>
+      </div>
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterusebutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter by rating
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterusebutton">
+          {{ filter_form.rating }}
+        </div>
+      </div>
+      <button type="submit" style= "margin-left: 2vw; margin-top: 1vh;">Save settings</button>
+      <input type = "hidden" id = "filter_searched_form" name = "searched" value = "">
+    </form>
+    <!-- Form ends here -->
 
     <br>
     <br>
