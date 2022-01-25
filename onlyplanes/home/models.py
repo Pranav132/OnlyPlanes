@@ -134,7 +134,7 @@ class ReviewsRatings(models.Model):
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     hotel = models.ForeignKey(Hotel, null=False, on_delete=models.CASCADE)
     rating = models.IntegerField("Rating", default=1, validators=[
-        MaxValueValidator(5), MinValueValidator(1)],
+        MaxValueValidator(10), MinValueValidator(1)],
         null=False, blank=False)
     review = models.CharField("Review", max_length=250, blank=True, null=True)
 
