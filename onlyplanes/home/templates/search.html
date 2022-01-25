@@ -110,20 +110,15 @@ Book a Flight
 <div class="results">
     <div class="cards_wrapper">
         {% for offer in trip_offers %}
-        <div class="card">
+        <div class="card" style = "padding: 5%; margin: 5%; border-radius: 50px; position: relative;">
             
             {% for flight in offer.outboundLeg %}
             <div class="card_heading">
 
-                <h2><span>{{flight.logo}}</span>&nbsp;{{flight.airline.name}}</h2>
+                <h2><span><img src = {{flight.logo}} style = "height: 100px; width: 100px;"></span>&nbsp;{{flight.airline.name}}</h2>
 
             </div>
 
-            <!-- <div class="card_thumbnail">
-                
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/553328/Egypt.jpg" />
-                
-            </div> -->
 
             <div class="card_trip">
 
@@ -173,15 +168,15 @@ Book a Flight
 
                     <h2>Cabin Class</h2>
 
-                    <h3>Insert Cabin Class</h3>
+                    <h3>{{offer.travelClass}}</h3>
 
                 </div>
 
                 <div class="seating_seat">
 
-                    <h2>Seat</h2>
+                    <h2>Price</h2>
 
-                    <h3>1A</h3>
+                    <h3>{{offer.price}}</h3>
 
                 </div>
 
@@ -294,7 +289,7 @@ Book a Flight
 
                     <h2>Cabin Class</h2>
 
-                    <h3>Insert Cabin Class</h3>
+                    <h3>{{offer.travelClass}}</h3>
 
                 </div>
 
@@ -336,7 +331,11 @@ Book a Flight
 
             </div>
             {% endfor %}
+            <div class="book" style = "position:absolute; left: 42.5vw; bottom: 1em; ">
+                <a href="#" class="bn13">Book</a>
+            </div>
         </div>
+        
         {% endfor %}
     </div>
 </div>

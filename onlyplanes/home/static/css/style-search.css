@@ -40,6 +40,10 @@ body {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
 }
 
+.card {
+  background: #111;
+}
+
 .cards_wrapper {
   text-align: center;
   padding-top: 20px;
@@ -163,21 +167,21 @@ body {
 }
 
 .results {
-  background: #c5d8e6;
+  background: #eee;
   font-family: helvetica, arial;
   text-transform: uppercase;
   box-sizing: border-box;
 }
 
 .results h1 {
-  color: #c5d8e6;
+  color: #eee;
   font-weight: 200;
   font-size: 2.1em;
   margin: 0px;
 }
 
 .results h2 {
-  color: #c5d8e6;
+  color: #eee;
   opacity: 0.5;
   font-weight: 100;
   font-size: 0.9em;
@@ -185,9 +189,55 @@ body {
 }
 
 .results h3 {
-  color: #c5d8e6;
+  color: #eee;
   opacity: 0.8;
   font-weight: 100;
   font-size: 0.9em;
   margin: 0px;
+}
+
+.bn13 {
+  display: inline-block;
+  padding: 0.65em 1.6em;
+  border: 3px solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.2s;
+  animation: bn13bouncy 5s infinite linear;
+  position: relative;
+}
+
+.bn13:hover {
+  background-color: white;
+  color: #000000;
+}
+
+@keyframes bn13bouncy {
+  0% {
+    top: 0em;
+  }
+  40% {
+    top: 0em;
+  }
+  43% {
+    top: -0.9em;
+  }
+  46% {
+    top: 0em;
+  }
+  48% {
+    top: -0.4em;
+  }
+  50% {
+    top: 0em;
+  }
+  100% {
+    top: 0em;
+  }
 }
