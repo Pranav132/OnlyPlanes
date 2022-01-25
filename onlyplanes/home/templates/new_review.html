@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+New review for {{hotel.name}}
+{% endblock %}
+
+
+
+{% block content %}
+<style>
+.title {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vmax;
+    font-family: "Poppins", sans-serif;
+    background-color: #dad6d6;
+    color: #000;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding-top: 5vh;
+  }
+  
+  .wrapform{
+      display: grid;
+      place-items: center;
+      min-height: 50vh;
+  }
+  
+  .form-group{
+      width: 100%;
+      padding-left: 5vw;
+      padding-right: 5vw;
+     }
+  
+     label{
+    padding: 1vh 0;
+  }
+  </style>
+  
+  
+  <div class="title">
+      Submit your new review!
+  </div>
+  
+  <div class="wrapform">
+  <form action="" method="post" class="form-group">
+      {% csrf_token %}
+      <textarea class="form-control" id="textarea" placeholder = "Write your review here" rows="3" name ="review" required></textarea>
+      <input type="submit" value="Submit review!" class="btn btn-primary mb-2" style = "margin-top:2vh;" onclick = "alert('Your review has been submitted');">
+  </form>
+  </div>
+  
+
+  
+{% endblock %}

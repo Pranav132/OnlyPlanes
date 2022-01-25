@@ -1,6 +1,7 @@
 import pathlib
 import csv
 from unicodedata import category
+from black import re
 from django.shortcuts import render, redirect
 from .models import *
 from .handler import findFlights, makeBooking
@@ -214,7 +215,7 @@ def eachhotel(request, hotel_id):
     # hotel reviews
     ratings = ReviewsRatings.objects.filter(hotel=hotel_id).all()
 
-    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms, 'hotel_reccos': reccos, 'ratings': ratings})
+    return render(request, 'eachhotel.html', {"hotel": hotel, 'rooms': rooms, 'hotel_reccos': reccos, 'ratings': ratings, 'user': request.user})
 
 
 def search(request):
@@ -269,3 +270,28 @@ def search(request):
     # for row in reader:
     #City,Country ,Code,Continent
     #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
+
+
+def newreview(request, hotel_id):
+    if request.method == "POST":
+        review = request.POST.get('review')
+        hotel = Hotel.objects.get(id=hotel_id)
+        new_review = ReviewsRatings.objects.create(
+            user=request.user, hotel=hotel, rating=10, review=review)
+        new_review.save()
+        return redirect('eachhotel', hotel_id=hotel_id)
+
+    if request.method == "GET":
+        hotel = Hotel.objects.get(id=hotel_id)
+        return render(request, "new_review.html", {"hotel": hotel})
+
+
+def deleteReview(request, reviewsRatings_id):
+    review = ReviewsRatings.objects.filter(id=reviewsRatings_id)
+    print(review)
+    # if delete button posted
+    if request.method == "POST":
+        hotel_id = request.POST.get("hotel_id")
+        review.delete()
+        # deleting review
+        return redirect('eachhotel', hotel_id=hotel_id)

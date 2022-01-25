@@ -18,6 +18,9 @@ urlpatterns = [
     path('hotels/', views.hotels, name="hotels"),
     path('hotel_search/', views.hotel_search, name="hotel_search"),
     path('hotel/<int:hotel_id>', views.eachhotel, name="eachhotel"),
+    path('newreview/<int:hotel_id>', views.newreview, name="newreview"),
+    path("deleteReview/<int:reviewsRatings_id>",
+         views.deleteReview, name="deleteReview"),
     path('logout', LogoutView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # static media url and root to serve images uploaded through imagefield
