@@ -46,13 +46,6 @@ body {
   padding-bottom: 20px;
 }
 
-.card {
-  width: 320px;
-  border-radius: 20px;
-  background: #344451;
-  display: inline-block;
-  margin: 10px;
-}
 .card_heading {
   padding-top: 25px;
 }

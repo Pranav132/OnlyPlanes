@@ -242,6 +242,7 @@ def search(request):
         print(kwargs)
 
         context['trip_offers'] = findFlights(**kwargs)
+        print("find flights done")
 
         # to save a trip as a booking model:
         # makeBooking(trip)
@@ -257,10 +258,6 @@ def search(request):
         airport['city'] = str(airport['city'])[
             :-7].replace("International", "").replace(" Int'l", "")
 
-    context = {
-        'airports': airports,
-        'search_details': request.GET,
-    }
     return render(request, "search.html", context=context)
 
     # with open("home/airport-codes.csv", "r") as file:
