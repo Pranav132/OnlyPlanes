@@ -59,36 +59,12 @@ def hotels(request):
         if price == 'zero':
             max_price = 100000.00
             min_price = 0.00
-        elif price == 'point':
-            max_price = 999.00
-            min_price = 0.00
         elif price == 'one':
             max_price = 9999.00
             min_price = 1000.00
         elif price == 'ten':
-            max_price = 19999.00
+            max_price = 20000.00
             min_price = 10000.00
-        elif price == 'twenty':
-            max_price = 29999.00
-            min_price = 20000.00
-        elif price == 'thirty':
-            max_price = 39999.00
-            min_price = 30000.00
-        elif price == 'fourty':
-            max_price = 49999.00
-            min_price = 40000.00
-        elif price == 'fifty':
-            max_price = 59999.00
-            min_price = 50000.00
-        elif price == 'sixty':
-            max_price = 69999.00
-            min_price = 60000.00
-        elif price == 'seventy':
-            max_price = 79999.00
-            min_price = 70000.00
-        elif price == 'eighty':
-            max_price = 100000.00
-            min_price = 80000.00
 
         print(min_price)
         print(max_price)
@@ -156,16 +132,20 @@ def hotels(request):
         rooms = unsorted_rooms.filter(hotelcategory__in=hotelCategoryList)
         hotels = unsorted_hotels.filter(category__in=roomHotelCategoryList)
         print(rooms)
+        print(hotels)
 
-        print(unsorted_hotels)
+        # Since hotel category is directly related to room prices, sorting according to hotel category would give us a reliable
+        # sorting method.
+        # High to low and low to high.
 
-        # I REALLY WANTED TO DO THIS but I can't fuck w Pranav, sorry pranav.
-        # if name == 'low2high':
-        #     hotels = "Balls bro, earn some money"
+        economy_hotels = hotels.filter(category=2)
+        boutique_hotels = hotels.filter(category=1)
+        luxury_hotels = hotels.filter(category=0)
 
-        # I haven't figured out sorting yet because price is in a different place than hotels so it's a little bit of a brain
-        # require-er. It's probably damn simple for all you people but it's not for me okay, so chill.
-        # I'll figure it out, dw. But for now play around with the filters.
+        if name == 'low2high':
+            hotels = economy_hotels | boutique_hotels | luxury_hotels
+        elif name == 'high2low':
+            hotels = luxury_hotels | boutique_hotels | economy_hotels
 
         return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms, 'filter_form': filter_form})
 

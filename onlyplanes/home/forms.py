@@ -14,16 +14,8 @@ class FilterForm(forms.Form):
 
     RANGES = [
         ('zero', 'No price filter'),
-        ('point', 'below ₹1000'),
         ('one', '₹1000 - ₹9999'),
-        ('ten', '₹10,000 - ₹19,999'),
-        ('twenty', '₹20,000 - ₹29,999'),
-        ('thirty', '₹30,000 - ₹39,999'),
-        ('fourty', '₹40,000 - ₹49,999'),
-        ('fifty', '₹50,000 - ₹59,999'),
-        ('sixty', '₹60,000 - ₹69,999'),
-        ('seventy', '₹70,000 - ₹79,999'),
-        ('eighty', '₹80,000 and above'),
+        ('ten', '₹10,000 - ₹20,000'),
     ]
 
     RATING = [
