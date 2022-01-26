@@ -39,3 +39,10 @@ class FilterForm(forms.Form):
 
     rating = forms.MultipleChoiceField(
         required=False, widget=forms.RadioSelect(attrs={'class': 'dropdown-item'}), choices=RATING)
+
+
+class BookingForm (forms.Form):
+    date_from = forms.DateField()
+    date_to = forms.DateField()
+    rooms = forms.IntegerField()
+    guests = forms.IntegerField()

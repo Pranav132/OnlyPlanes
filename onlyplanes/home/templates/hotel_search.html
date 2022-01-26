@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/style-hotels.css' %}">
+<script>document.addEventListener("DOMContentLoaded", function(){
+  var searched = document.getElementById('searched').innerText;
+  document.getElementById("filter_searched_form").value = searched;});</script>
+<style>
+  .dropdown1{
+    padding-left: 2vw;
+    margin: 0.5vh 0vh;
+  }
+    </style>
+{% endblock %}
+
+{% block title %}
+{{search_term}} - Search Hotels
+{% endblock %}
+
+{% block content %}
+<div class="wrapperproducts">
+
+  <span id="searched" style="display: none;">{{ search_term }}</span>
+
+    <div class="product-title">
+      HOTELS 
+    </div>
+
+    <br>
+
+    <div class="searchwrap">
+<form class = "form" action="{% url 'hotel_search' %}">
+  <label for="search" class = "label">Search</label>
+  <input id="search" type="search" pattern=".*\S.*" required name = "searched" class = "input">
+  <span class="caret"></span>
+</form>
+    </div>
+    
+    <!-- Form starts here -->
+    <form action={% url 'hotel_search' %} method="POST">
+      {% csrf_token %}
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort by
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortbutton">
+          {{ filter_form.name }}
+        </div>
+      </div>
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterpricebutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter by price
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterpricebutton">
+          {{ filter_form.price }}
+        </div>
+      </div>
+      <div class="dropdown1">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterusebutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filter by rating
+        </button>
+        <div class="dropdown-menu" aria-labelledby="filterusebutton">
+          {{ filter_form.rating }}
+        </div>
+      </div>
+      <button type="submit" style= "margin-left: 2vw; margin-top: 1vh;">Save settings</button>
+      <input type = "hidden" id = "filter_searched_form" name = "searched" value = "">
+    </form>
+    <!-- Form ends here -->
+
+    <br>
+    <br>
+    <br>
+  {% if hotels %}
+  <section class = "cards">
+    <!-- Rendering every product and data -->
+    {% for hotel in hotels %}
+      <div class="card">
+        <div class="card_image-container">
+            <img src = "{{ hotel.exterior_picture.url }}">
+        </div>
+        <div class="card_content">
+            <p class = "card_title text--medium">
+                {{ hotel.name }}
+            </p>
+            <div class="card_info">
+                <span class="stars">
+                    {% for i in '012345'|make_list %}
+                        {% if forloop.counter <= hotel.starrating %}
+                            <i class="bi bi-star-fill" style = "color: orange; text-shadow: 2px 2px 2px #000;font-size:1em;"></i>
+                        {% endif %}
+                    {% endfor %}
+                </span>
+                {% for room in rooms %}
+                {% if room.hotelcategory == hotel.category %}
+                <div class="content">
+                  <p class = "text--medium">{{ hotel.location }}</p>
+                  <p class = "text--medium" style = "color: gray;font-size: 0.9em; padding-top: 5%;">From ₹{{ room.price }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <a href = "{% url 'eachhotel' hotel_id=hotel.id %}"><button class = "button text-medium">View</button></a>
+            </div>
+        </div>
+    </div>
+    </ul>
+    {% endfor %} 
+  </section>
+  {% else %}
+  <div class="no" style = "display: grid; place-items: center; height: 100%; font-size: 2em;">No hotels found, please search again!</div>
+  {% endif %}
+  </main>
+  </div>
+
+{% endblock %}

@@ -154,7 +154,11 @@ def hotel_search(request):
 
     if request.method == 'GET':
         search = request.GET['searched']
+        print("THE SEARCH TERM IS: ", search)
         rooms = Room.objects.filter(roomcategory=2)
+
+        filter_form = FilterForm(
+            initial={'name': 'high2low', 'price': 'zero', 'rating': 'none'})
 
         # Primary search term will be location mostly, nobody searches using Hotel name
         # We need to accommodate for people putting in hotel names also, in case they don't listen to the placeholder text
@@ -175,7 +179,139 @@ def hotel_search(request):
 
         # form for sorting and filtering to be put here
 
-        return render(request, 'hotels.html', {"hotels": hotels, 'rooms': rooms})
+        return render(request, 'hotel_search.html', {"hotels": hotels, 'rooms': rooms, 'filter_form': filter_form, 'search_term': search})
+
+    if request.method == 'POST':
+        search = request.POST.get('searched')
+        print("THE SEARCH TERM IS: ", search)
+        rooms = Room.objects.filter(roomcategory=2)
+
+        filter_form = FilterForm(
+            initial={'name': 'high2low', 'price': 'zero', 'rating': 'none'})
+
+        # Primary search term will be location mostly, nobody searches using Hotel name
+        # We need to accommodate for people putting in hotel names also, in case they don't listen to the placeholder text
+        # Other than that, there is no such requirement that can be searched for, the rest will be in the sorting and filtering forms
+
+        location_search = Hotel.objects.filter(location__icontains=search)
+        name_search = Hotel.objects.filter(name__icontains=search)
+
+        unsorted_hotel = location_search | name_search
+
+        # getting all the required values from the form
+        name = request.POST.get('name')
+        price = request.POST.get('price')
+        rating = request.POST.get('rating')
+
+        # returning Filter Form with the selected parameters
+        filter_form = FilterForm(
+            initial={'name': name, 'price': price, 'rating': rating})
+
+        # Now, we will do filtering first, and then do sorting
+
+        # FILTERS
+
+        # Check all values
+        print("THE NAME IS: ", name)
+        print("THE PRICE IS: ", price)
+        print("THE RATING IS: ", rating)
+
+        max_price = 0.00
+        min_price = 0.00
+
+        # assign value to min_price and max_price
+        if price == 'zero':
+            max_price = 100000.00
+            min_price = 0.00
+        elif price == 'one':
+            max_price = 9999.00
+            min_price = 1000.00
+        elif price == 'ten':
+            max_price = 20000.00
+            min_price = 10000.00
+
+        print(min_price)
+        print(max_price)
+
+        max_rating = 5.00
+        min_rating = 0.00
+
+        # assign value to min_rating
+
+        if rating == 'none':
+            min_rating = 0.00
+        elif rating == 'five':
+            min_rating = 5.00
+        elif rating == 'four':
+            min_rating = 4.00
+        elif rating == 'three':
+            min_rating = 3.00
+        elif rating == 'two':
+            min_rating = 2.00
+        elif rating == 'one':
+            min_rating = 1.00
+
+        print(min_rating)
+        print(max_rating)
+
+        unsorted_hotels = unsorted_hotel
+        room = Room.objects.filter(roomcategory=2)
+
+        # The idea is to filter the rooms by price and then filter the rooms based on only those which have the same hotel
+        # category as the hotels in unsorted_hotels so that we have hotels of a particular rating and THEN of a particular
+        # price range.
+
+        unsorted_rooms = room.filter(
+            Q(price__gte=min_price),
+            Q(price__lte=max_price),
+        )
+
+        unsorted_hotels = unsorted_hotels.filter(
+            Q(starrating__gte=min_rating),
+            Q(starrating__lte=max_rating),
+        )
+
+        # making a list of all the hotel categories in the unsorted_hotels hotels
+        hotelCategoryList = []
+        roomHotelCategoryList = []
+
+        for hotel in unsorted_hotels:
+            if hotel.category in hotelCategoryList:
+                continue
+            else:
+                hotelCategoryList.append(hotel.category)
+
+        for room in unsorted_rooms:
+            if room.hotelcategory in roomHotelCategoryList:
+                continue
+            else:
+                roomHotelCategoryList.append(room.hotelcategory)
+
+        print("HOTEL", hotelCategoryList)
+        print("ROOM", roomHotelCategoryList)
+
+        # Now, we have all rooms within the price range required, and a list of the hotel categories to choose from
+        # We need to filter the rooms based on the hotel categories.
+
+        rooms = unsorted_rooms.filter(hotelcategory__in=hotelCategoryList)
+        hotels = unsorted_hotels.filter(category__in=roomHotelCategoryList)
+        print(rooms)
+        print(hotels)
+
+        # Since hotel category is directly related to room prices, sorting according to hotel category would give us a reliable
+        # sorting method.
+        # High to low and low to high.
+
+        economy_hotels = hotels.filter(category=2)
+        boutique_hotels = hotels.filter(category=1)
+        luxury_hotels = hotels.filter(category=0)
+
+        if name == 'low2high':
+            hotels = economy_hotels | boutique_hotels | luxury_hotels
+        elif name == 'high2low':
+            hotels = luxury_hotels | boutique_hotels | economy_hotels
+
+        return render(request, 'hotel_search.html', {"hotels": hotels, 'rooms': rooms, 'filter_form': filter_form, 'search_term': search})
 
     # # initializing the form and setting the default value to be relevance
     # filter_form = FilterForm(
