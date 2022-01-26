@@ -13,7 +13,7 @@
 {% block content %}
 <div class="container">
    <div class="card-container">
-        <div class="image-area" style = "background: url({{hotel.exterior_picture.url}})  no-repeat center #e8e8e8;">
+        <div class="image-area demo-trigger" style = "background: url({{hotel.exterior_picture.url}})  no-repeat center #e8e8e8;">
         </div>
         <div class="text-area">
             <div class="heading-area">
@@ -154,8 +154,8 @@
     {% for review in ratings %}
    <div class="eachreview">
      <div class="userinfo">
-      <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" />
-      <p>{{user.get_username}}</p>
+      <img src="{{ review.user.socialaccount_set.all.0.get_avatar_url }}" />
+      <p>{{review.user}}</p>
       </div>
       <div class="mainreview">
         {{review.review}}
@@ -204,4 +204,5 @@
       document.getElementById(idname).classList.toggle("active");
   }
 </script>
+
 {% endblock %}

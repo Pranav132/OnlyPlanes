@@ -173,3 +173,13 @@ class BookFlight(models.Model):
     DepartureLocation = models.TextField()
     departureDate = models.DateField()
     arrivalLocation = models.TextField()
+
+
+class bookingFlight(models.Model):
+    people = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=20)
+    cabinClass = models.TextField()
+    DepartureLocation = models.TextField()
+    departureDate = models.DateField()
+    arrivalLocation = models.TextField()
+    user = models.ForeignKey(User, null=False, on_delete=CASCADE)
