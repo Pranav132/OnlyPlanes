@@ -17,11 +17,13 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('hotels/', views.hotels, name="hotels"),
     path('flight_booking/', views.flight_booking, name="flight_booking"),
+    path('hotel_booking/', views.hotel_booking, name="hotel_booking"),
     path('hotel_search/', views.hotel_search, name="hotel_search"),
     path('hotel/<int:hotel_id>', views.eachhotel, name="eachhotel"),
     path('newreview/<int:hotel_id>', views.newreview, name="newreview"),
     path("deleteReview/<int:reviewsRatings_id>",
          views.deleteReview, name="deleteReview"),
+    path('checkout/', views.checkout, name="checkout"),
     path('logout', LogoutView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # static media url and root to serve images uploaded through imagefield

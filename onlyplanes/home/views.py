@@ -395,6 +395,84 @@ def flight_booking(request):
     return render(request, 'flight_booking.html')
 
 
+def hotel_booking(request, hotel_id, room_id):
+    if request.method == 'GET':
+        hotel = Hotel.object.get(id=hotel_id)
+        room = Room.object.get(id=room_id)
+
+        booking_form = BookingForm()
+
+        context = {
+            'hotel': hotel,
+            'room': room,
+            'booking_form': booking_form,
+        }
+
+        return render(request, 'hotel_booking.html', context=context)
+
+    if request.method == 'POST':
+        context = {
+            'booking_hotel': True,
+            'booking_form': BookingForm(request.POST),
+            'date_from': request.POST.get('date_from'),
+            'date_to': request.POST.get('date_to'),
+            'rooms': request.POST.get('rooms'),
+            'guests': request.POST.get('guests'),
+        }
+
+        if context['guests']/context['rooms'] > 2:
+            hotel = Hotel.object.get(id=hotel_id)
+            room = Room.object.get(id=room_id)
+
+            booking_form = BookingForm()
+
+            context = {
+                'hotel': hotel,
+                'room': room,
+                'booking_form': booking_form,
+                'message': "Number of guests per room should be 2 or below."
+            }
+
+            return render(request, 'hotel_booking.html', context=context)
+
+        return render(request, 'checkout.html', context=context)
+
+
+def checkout(request):
+    if request.method == 'POST':
+        room_id = request.POST.get('room_id')
+        if room_id:
+            room_selected = Room.objects.get(id=room_id)
+            checkInDate = request.POST.get('checkInDate')
+            checkOutDate = request.POST.get('checkOutDate')
+            user = request.user
+            hotel = request.POST.get('hotel')
+            guests = request.POST.get('guests')
+            price = request.POST.get('price')
+            numberOfNights = request.POST.get('nights')
+            booking = HotelBooking(
+                checkInDate=checkInDate,
+                checkOutDate=checkOutDate,
+                user=user,
+                hotel=hotel,
+                room_selected=room_selected,
+                numberOfGuests=guests,
+                totalPrice=price,
+                numberOfNights=numberOfNights
+            )
+            HotelBooking.save(booking)
+
+            context = {
+                'message': "You're all set for a good time!"
+            }
+
+            return redirect('index.html', context=context)
+        else:
+            flight_id = request.POST.get('flight_id')
+
+    pass
+
+
 def newreview(request, hotel_id):
     if request.method == "POST":
         review = request.POST.get('review')
