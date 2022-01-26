@@ -63,6 +63,7 @@ def findFlights(**kwargs):
                         AIRLINE = Airline.objects.get(iataCode = flight['carrierCode'])
                         print(AIRLINE.icaoCode)
                         print('airline data here')
+                        print(flight['arrival']['iataCode'])
                         DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
                         print('airport data here')
                         ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
@@ -103,6 +104,7 @@ def findFlights(**kwargs):
                 print('option validated')
 
             except:
+                
                 print('error fetching airport data')
 
 

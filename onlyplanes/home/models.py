@@ -34,13 +34,15 @@ class OutboundLeg(models.Model):
 class ReturnLeg(models.Model):
     segments = models.ManyToManyField(Segment)
 
-class Booking(models.Model):
+class FlightBooking(models.Model):
     seats_available = models.TextField()
     price = models.TextField()
     travelClass = models.TextField()
     outboundLeg = models.ManyToManyField(OutboundLeg)
     returnLeg = models.ManyToManyField(ReturnLeg)
-    user = models.ForeignKey(User, null=True, on_delete=CASCADE)
+    user = models.ForeignKey(User, null=False, on_delete=CASCADE)
+
+
 
 class HotelCategories(models.Model):
  
@@ -140,8 +142,12 @@ class ReviewsRatings(models.Model):
 
 
 
-
-
-
-
-
+class HotelBooking(models.Model):
+    checkInDate = models.DateField()
+    checkOutDate  = models.DateField()
+    user = models.ForeignKey(User, null = False, on_delete=CASCADE)
+    hotel =  models.ForeignKey(Hotel, null = False, on_delete=CASCADE)
+    room_selected = models.ForeignKey(Room, null=False, on_delete=CASCADE)
+    numberOfNights = models.IntegerField()
+    numberOfGuests =  models.IntegerField()
+    totalPrice =   models.DecimalField(decimal_places=2, max_digits=10)

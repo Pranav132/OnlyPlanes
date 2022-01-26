@@ -231,7 +231,7 @@ Book a Flight
             {% for flight in offer.returnLeg %}
             <div class="card_heading">
 
-                <h2><span>{{flight.logo}}</span>&nbsp;{{flight.airline.name}}</h2>
+                <h2><span><img src = {{flight.logo}} style = "height: 100px; width: 100px;"></span>&nbsp;{{flight.airline.name}}</h2>
 
             </div>
 
