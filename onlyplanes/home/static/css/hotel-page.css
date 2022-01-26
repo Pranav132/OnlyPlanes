@@ -433,6 +433,10 @@
   transition: all ease 0.3s;
 }
 
+.overlay {
+  visibility: hidden;
+}
+
 .box:hover .overlay {
   visibility: visible;
   animation: fade 0.5s;
@@ -534,7 +538,7 @@
   transition: 0.5s;
 }
 
-.popup .overlay {
+.popup .overlay1 {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -577,7 +581,7 @@
   border-radius: 50%;
 }
 
-.popup.active .overlay {
+.popup.active .overlay1 {
   display: block;
 }
 
