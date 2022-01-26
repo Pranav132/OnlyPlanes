@@ -470,12 +470,13 @@ def flight_booking(request):
         context = {
             'booking_flight': True,
             'people': int(request.POST.get('people')),
-            'price': float(request.POST.get('price')),
+            'price': (request.POST.get('price')),
             'cabinClass': request.POST.get('cabinClass'),
             'departureDate': request.POST.get('departureDate'),
             'destination': request.POST.get('destination'),
             'origin': request.POST.get('origin'),
         }
+        print(context)
         return render(request, 'checkout.html', context=context)
 
 
@@ -578,8 +579,10 @@ def checkout(request):
                     price=price,
                     cabinClass=cabinClass,
                     departureDate=departureDate,
-                    destination=destination,
-                    origin=origin,
+                    arrivalLocation=destination,
+                    DepartureLocation=origin,
+                    user= request.user, 
+
                 )
                 bookingFlight.save(booking)
                 print("BOOKED ONE SEAT ON FLIGHT")
