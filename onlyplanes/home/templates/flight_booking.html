@@ -21,12 +21,12 @@ Book a Flight
 
 <form method="POST" action="">
     {% csrf_token %}
-    <input type="hidden" name='people' value='people'>
-    <input type="hidden" name='price' value='price'>
-    <input type="hidden" name='cabinClass' value='cabinClass'>
-    <input type="hidden" name='departureDate' value='departureDate'>
-    <input type="hidden" name='destination' value='destination'>
-    <input type="hidden" name='origin' value='origin'>
+    <input type="hidden" name='people' value='{{people}}'>
+    <input type="hidden" name='price' value='{{price}}'>
+    <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
+    <input type="hidden" name='departureDate' value='{{departureDate}}'>
+    <input type="hidden" name='destination' value='{{destination}}'>
+    <input type="hidden" name='origin' value='{{origin}}'>
     <button type="submit">Proceed to Payment</button>
 </form>
 {% endblock %}
