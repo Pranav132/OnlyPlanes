@@ -107,6 +107,9 @@ def hotels(request):
             Q(starrating__lte=max_rating),
         )
 
+        print("THE 3 STAR HOTELS BEFORE LIST ARE: ",
+              unsorted_hotels.filter(starrating=3))
+
         # making a list of all the hotel categories in the unsorted_hotels hotels
         hotelCategoryList = []
         roomHotelCategoryList = []
@@ -138,9 +141,12 @@ def hotels(request):
         # sorting method.
         # High to low and low to high.
 
-        economy_hotels = hotels.filter(category=2)
-        boutique_hotels = hotels.filter(category=1)
-        luxury_hotels = hotels.filter(category=0)
+        economy_hotels = hotels.filter(category=3)
+        # print("ECONOMY HOTELS: ", economy_hotels)
+        boutique_hotels = hotels.filter(category=2)
+        # print("BOUTIQUE HOTELS: ", boutique_hotels)
+        luxury_hotels = hotels.filter(category=1)
+        # print("LUXURY HOTELS: ", luxury_hotels)
 
         if name == 'low2high':
             hotels = economy_hotels | boutique_hotels | luxury_hotels
@@ -302,9 +308,9 @@ def hotel_search(request):
         # sorting method.
         # High to low and low to high.
 
-        economy_hotels = hotels.filter(category=2)
-        boutique_hotels = hotels.filter(category=1)
-        luxury_hotels = hotels.filter(category=0)
+        economy_hotels = hotels.filter(category=3)
+        boutique_hotels = hotels.filter(category=2)
+        luxury_hotels = hotels.filter(category=1)
 
         if name == 'low2high':
             hotels = economy_hotels | boutique_hotels | luxury_hotels
@@ -384,9 +390,11 @@ def search(request):
     #City,Country ,Code,Continent
     #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
 
+
 def flight_booking(request):
     return render(request, 'flight_booking.html')
-    
+
+
 def newreview(request, hotel_id):
     if request.method == "POST":
         review = request.POST.get('review')
