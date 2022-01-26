@@ -16,6 +16,7 @@ urlpatterns = [
     path("contact/", views.contact, name="contact"),
     path('accounts/', include('allauth.urls')),
     path('hotels/', views.hotels, name="hotels"),
+    path('flight_booking/', views.flight_booking, name="flight_booking"),
     path('hotel_search/', views.hotel_search, name="hotel_search"),
     path('hotel/<int:hotel_id>', views.eachhotel, name="eachhotel"),
     path('newreview/<int:hotel_id>', views.newreview, name="newreview"),

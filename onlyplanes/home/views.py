@@ -384,7 +384,9 @@ def search(request):
     #City,Country ,Code,Continent
     #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
 
-
+def flight_booking(request):
+    return render(request, 'flight_booking.html')
+    
 def newreview(request, hotel_id):
     if request.method == "POST":
         review = request.POST.get('review')
