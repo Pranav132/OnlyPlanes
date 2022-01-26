@@ -40,17 +40,12 @@ class ReturnLeg(models.Model):
 
 
 class FlightBooking(models.Model):
-    # people --  HAVE
-    # price -- HAVE
-    # cabinClass
-    # DepartureLocation  -- HAVE
-    # departureDate -- HAVE
-    # arrivalLocation -- HAVE
-    people = models.IntegerField()
-    price = models.DecimalField()
-    cabinClass = models.TextField()
-    DepartureLocation = models.TextField()
-    departureDate = models.DateField()
+    seats_available = models.TextField()
+    price = models.TextField()
+    travelClass = models.TextField()
+    outboundLeg = models.ManyToManyField(OutboundLeg)
+    returnLeg = models.ManyToManyField(ReturnLeg)
+    user = models.ForeignKey(User, null=False, on_delete=CASCADE)
 
 
 class HotelCategories(models.Model):
@@ -163,3 +158,18 @@ class HotelBooking(models.Model):
     numberOfNights = models.IntegerField()
     numberOfGuests = models.IntegerField()
     totalPrice = models.DecimalField(decimal_places=2, max_digits=10)
+
+
+class BookFlight(models.Model):
+    # people --  HAVE
+    # price -- HAVE
+    # cabinClass
+    # DepartureLocation  -- HAVE
+    # departureDate -- HAVE
+    # arrivalLocation -- HAVE
+    people = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=20)
+    cabinClass = models.TextField()
+    DepartureLocation = models.TextField()
+    departureDate = models.DateField()
+    arrivalLocation = models.TextField()

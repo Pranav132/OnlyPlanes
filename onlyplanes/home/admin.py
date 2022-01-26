@@ -15,5 +15,6 @@ admin.site.register(Hotel)
 admin.site.register(Aircraft)
 admin.site.register(ReviewsRatings)
 admin.site.register(HotelBooking)
+admin.site.register(BookFlight)
 
 # Register your models here.

@@ -359,14 +359,20 @@ def search(request):
         airport['city'] = str(airport['city'])[
             :-7].replace("International", "").replace(" Int'l", "")
 
-    context = {
-        'airports': airports,
-        'search_details': request.GET,
-        'people': request.GET['adults'],
-        'origin': request.GET['originLocationCode'],
-        'destination': request.GET['destinationLocationCode'],
-        'departureDate': request.GET['departureDate']
-    }
+    try:
+        context = {
+            'airports': airports,
+            'search_details': request.GET,
+            'people': request.GET['adults'],
+            'origin': request.GET['originLocationCode'],
+            'destination': request.GET['destinationLocationCode'],
+            'departureDate': request.GET['departureDate']
+        }
+    except:
+        context = {
+            'airports': airports,
+            'search_details': request.GET,
+        }
 
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
         kwargs = {'max': 25}
@@ -439,7 +445,22 @@ def flight_booking(request):
         else:
             cabinClass += params[i]
 
-    return render(request, 'flight_booking.html')
+    context = {
+        # people --  HAVE
+        # price -- HAVE
+        # cabinClass
+        # DepartureLocation  -- HAVE
+        # departureDate -- HAVE
+        # arrivalLocation -- HAVE
+        'people': int(people),
+        'price': float(price),
+        'cabinClass': cabinClass,
+        'departureDate': departureDate,
+        'destination': destination,
+        'origin': origin,
+    }
+
+    return render(request, 'flight_booking.html', context=context)
 
 
 def hotel_booking(request, hotel_id, room_id):
