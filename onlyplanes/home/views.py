@@ -7,6 +7,7 @@ from .models import *
 from .handler import findFlights, makeBooking
 from .forms import *
 from django.db.models import Q
+# from urllib.parse import unquote
 
 # Create your views here.
 
@@ -341,6 +342,16 @@ def eachhotel(request, hotel_id):
 
 
 def search(request):
+    
+
+
+    # offerdetails = request.POST.get('offerdetails')
+    # if offerdetails:
+    #     print('lol')
+    #     print(offerdetails)
+    #     print('lol')
+    #     return render(request, 'flight_booking.html', {'offer': offerdetails})
+
 
     airport_instances = Airport.objects.all().order_by('city')
 
@@ -357,7 +368,7 @@ def search(request):
     }
 
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 50}
+        kwargs = {'max': 1}
 
         for i in request.GET:
             if request.GET[i] != "" and request.GET[i] != 0:
@@ -392,6 +403,10 @@ def search(request):
 
 
 def flight_booking(request):
+
+    params = request.GET
+    print(params)
+    
     return render(request, 'flight_booking.html')
 
 

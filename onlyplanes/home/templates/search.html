@@ -295,12 +295,11 @@ Book a Flight
 
                 <div class="seating_seat">
 
-                    <h2>Seat</h2>
+                    <h2>Price</h2>
 
-                    <h3>1A</h3>
+                    <h3>{{offer.price}}</h3>
 
                 </div>
-
             </div>
 
             <div class="card_details">
@@ -332,12 +331,20 @@ Book a Flight
             </div>
             {% endfor %}
             <div class="book" style = "position:absolute; left: 42.5vw; bottom: 1em; ">
-                <a href="#" class="bn13">Book</a>
+                <a class="bn13" href = "/flight_booking/?offer={{offer}}" >Book</a>
+                
             </div>
         </div>
         
         {% endfor %}
     </div>
 </div>
+
+<!-- <script>
+    function storeDetails(val){
+        console.log(val)
+        sessionStorage.setItem('offer',val)
+    }
+</script> -->
 
 {% endblock %}
