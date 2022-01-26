@@ -1,5 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block links %}
+<!-- <link rel="stylesheet" href="{% static 'css/style-search.css' %}"> -->
+{% endblock %}
+
+{% block title %}
+Book a Hotel
+{% endblock %}
+
+{% block content %}
+
 {% if message %}
 <script>
-    alert({{message}});
+    alert("{{message}}");
 </script>
 {% endif %}
+
+<h1>{{hotel.name}}</h1>
+<h1>{{hotel.location}}</h1>
+<h1>{{roomname}}</h1>
+<h1>{{room.price}}</h1>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{booking_form}}
+    <button type="submit">Proceed to Payment</button>
+</form>
+{% endblock %}

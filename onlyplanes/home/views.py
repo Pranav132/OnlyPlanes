@@ -7,6 +7,7 @@ from .models import *
 from .handler import findFlights, makeBooking
 from .forms import *
 from django.db.models import Q
+from datetime import datetime
 # from urllib.parse import unquote
 
 # Create your views here.
@@ -411,68 +412,85 @@ def search(request):
 
 def flight_booking(request):
 
-    params = request.GET['offer']
-    params += '\'}'
+    if request.method == 'GET':
 
-    print("\n\n\n\n\n")
-    print(params)
-    print("\n\n\n\n\n")
+        params = request.GET['offer']
+        params += '\'}'
 
-    people = request.GET['people']
-    origin = request.GET['origin']
-    destination = request.GET['destination']
-    departureDate = request.GET['departureDate']
-    # people --  HAVE
-    # price -- HAVE
-    # cabinClass
-    # DepartureLocation  -- HAVE
-    # departureDate -- HAVE
-    # arrivalLocation -- HAVE
+        print("\n\n\n\n\n")
+        print(params)
+        print("\n\n\n\n\n")
 
-    price = ""
-
-    for i in range(params.index('price')+9, len(params)):
-        if params[i] == ' ':
-            break
-        else:
-            price += params[i]
-
-    cabinClass = ""
-
-    for i in range(params.index('travelClass')+15, len(params)):
-        if params[i] == '\'':
-            break
-        else:
-            cabinClass += params[i]
-
-    context = {
+        people = request.GET['people']
+        origin = request.GET['origin']
+        destination = request.GET['destination']
+        departureDate = request.GET['departureDate']
         # people --  HAVE
         # price -- HAVE
         # cabinClass
         # DepartureLocation  -- HAVE
         # departureDate -- HAVE
         # arrivalLocation -- HAVE
-        'people': int(people),
-        'price': float(price),
-        'cabinClass': cabinClass,
-        'departureDate': departureDate,
-        'destination': destination,
-        'origin': origin,
-    }
 
-    return render(request, 'flight_booking.html', context=context)
+        price = ""
+
+        for i in range(params.index('price')+9, len(params)):
+            if params[i] == ' ':
+                break
+            else:
+                price += params[i]
+
+        cabinClass = ""
+
+        for i in range(params.index('travelClass')+15, len(params)):
+            if params[i] == '\'':
+                break
+            else:
+                cabinClass += params[i]
+
+        context = {
+            # people --  HAVE
+            # price -- HAVE
+            # cabinClass
+            # DepartureLocation  -- HAVE
+            # departureDate -- HAVE
+            # arrivalLocation -- HAVE
+            'people': int(people),
+            'price': float(price),
+            'cabinClass': cabinClass,
+            'departureDate': departureDate,
+            'destination': destination,
+            'origin': origin,
+        }
+
+        return render(request, 'flight_booking.html', context=context)
+
+    if request.method == 'POST':
+
+        context = {
+            'booking_flight': True,
+            'people': int(request.POST.get('people')),
+            'price': float(request.POST.get('price')),
+            'cabinClass': request.POST.get('cabinClass'),
+            'departureDate': request.POST.get('departureDate'),
+            'destination': request.POST.get('destination'),
+            'origin': request.POST.get('origin'),
+        }
+        return render(request, 'checkout.html', context=context)
 
 
-def hotel_booking(request, hotel_id, room_id):
+def hotel_booking(request, hotel_id, room_id, room_name):
     if request.method == 'GET':
-        hotel = Hotel.object.get(id=hotel_id)
-        room = Room.object.get(id=room_id)
+        hotel = Hotel.objects.get(id=hotel_id)
+        room = Room.objects.get(id=room_id)
+        roomname = room_name
 
         booking_form = BookingForm()
 
         context = {
             'hotel': hotel,
             'room': room,
+            'roomname': roomname,
             'booking_form': booking_form,
         }
 
@@ -481,16 +499,18 @@ def hotel_booking(request, hotel_id, room_id):
     if request.method == 'POST':
         context = {
             'booking_hotel': True,
-            'booking_form': BookingForm(request.POST),
             'date_from': request.POST.get('date_from'),
             'date_to': request.POST.get('date_to'),
-            'rooms': request.POST.get('rooms'),
-            'guests': request.POST.get('guests'),
+            'rooms': int(request.POST.get('rooms')),
+            'guests': int(request.POST.get('guests')),
+            'hotel': Hotel.objects.get(id=hotel_id),
+            'room': Room.objects.get(id=room_id),
+            'roomname': room_name,
         }
 
         if context['guests']/context['rooms'] > 2:
-            hotel = Hotel.object.get(id=hotel_id)
-            room = Room.object.get(id=room_id)
+            hotel = Hotel.objects.get(id=hotel_id)
+            room = Room.objects.get(id=room_id)
 
             booking_form = BookingForm()
 
@@ -514,21 +534,27 @@ def checkout(request):
             checkInDate = request.POST.get('checkInDate')
             checkOutDate = request.POST.get('checkOutDate')
             user = request.user
-            hotel = request.POST.get('hotel')
-            guests = request.POST.get('guests')
-            price = request.POST.get('price')
-            numberOfNights = request.POST.get('nights')
-            booking = HotelBooking(
-                checkInDate=checkInDate,
-                checkOutDate=checkOutDate,
-                user=user,
-                hotel=hotel,
-                room_selected=room_selected,
-                numberOfGuests=guests,
-                totalPrice=price,
-                numberOfNights=numberOfNights
-            )
-            HotelBooking.save(booking)
+            hotel_id = request.POST.get('hotel_id')
+            hotel = Hotel.objects.get(id=hotel_id)
+            guests = int(request.POST.get('guests'))
+            price = float(request.POST.get('price'))
+            rooms = int(request.POST.get('rooms'))
+            print(rooms)
+            numberOfNights = 4
+
+            for i in range(0, rooms):
+                booking = HotelBooking(
+                    checkInDate=checkInDate,
+                    checkOutDate=checkOutDate,
+                    user=user,
+                    hotel=hotel,
+                    room_selected=room_selected,
+                    numberOfGuests=guests,
+                    totalPrice=price,
+                    numberOfNights=numberOfNights
+                )
+                HotelBooking.save(booking)
+                print('MADE ONE ROOM BOOKING')
 
             context = {
                 'message': "You're all set for a good time!"
@@ -536,9 +562,33 @@ def checkout(request):
 
             return redirect('index.html', context=context)
         else:
-            flight_id = request.POST.get('flight_id')
+            people = int(request.POST.get('people'))
+            price = float(request.POST.get('price'))
+            cabinClass = request.POST.get('cabinClass')
+            departureDate = request.POST.get('departureDate')
+            destination = request.POST.get('destination')
+            origin = request.POST.get('origin')
 
-    pass
+            departureDate = datetime.fromisoformat(departureDate).date()
+            print(departureDate)
+
+            for i in range(0, people):
+                booking = bookingFlight(
+                    people=people,
+                    price=price,
+                    cabinClass=cabinClass,
+                    departureDate=departureDate,
+                    destination=destination,
+                    origin=origin,
+                )
+                bookingFlight.save(booking)
+                print("BOOKED ONE SEAT ON FLIGHT")
+
+            context = {
+                'message': "You're all set for a good time!"
+            }
+
+            return redirect('index.html', context=context)
 
 
 def newreview(request, hotel_id):

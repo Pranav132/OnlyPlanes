@@ -63,7 +63,7 @@
             {% endfor %}
         </span></p>
           <p class="read-more">
-            <a href="#">Book</a>
+            <a href="{% url 'hotel_booking' hotel_id=hotel.id room_id=rooms.2.id room_name=hotel.cheaproom_name %}">Book</a>
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@
             {% endfor %}
         </span></p>
           <p class="read-more">
-            <a href="#">Book</a>
+            <a href="{% url 'hotel_booking' hotel_id=hotel.id room_id=rooms.1.id room_name=hotel.middleroom_name %}">Book</a>
           </p>
         </div>
       </div>
@@ -105,7 +105,7 @@
             {% endfor %}
         </span></p>
           <p class="read-more">
-            <a href="#">Book</a>
+            <a href="{% url 'hotel_booking' hotel_id=hotel.id room_id=rooms.0.id room_name=hotel.expensiveroom_name %}">Book</a>
           </p>
         </div>
       </div>

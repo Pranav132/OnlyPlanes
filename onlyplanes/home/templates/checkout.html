@@ -1,7 +1,12 @@
+{% extends "layout.html" %}
+{% load static %}
 <!-- {% if booking_hotel %}
     {{hotel.name}}
-{% if booking_flight %}
-    {{flight.name}} -->
+{% elif booking_flight %}
+    {{flight.name}} 
+{% endif %}-->
+
+
 
 <!-- Make a hidden thing for all these things -->
     <!-- room_selected = Room.objects.get(id=room_id)
@@ -12,3 +17,63 @@
     guests = request.POST.get('guests')
     price = request.POST.get('price')
     numberOfNights = request.POST.get('nights') -->
+
+
+
+{% block links %}
+<!-- <link rel="stylesheet" href="{% static 'css/style-search.css' %}"> -->
+{% endblock %}
+
+{% block title %}
+Complete Booking
+{% endblock %}
+
+{% block content %}
+
+{% if booking_hotel %}
+
+<h1>{{hotel.name}}</h1>
+<h1>{{hotel.detailed_address}}</h1>
+<h1>{{roomname}}</h1>
+<h1>{{room.price}}</h1>
+<h1>{{date_from}}</h1>
+<h1>{{date_to}}</h1>
+<h1>{{guests}}</h1>
+<h1>{{rooms}}</h1>
+
+
+<form action="{% url 'checkout' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name='room_id' value="{{room.id}}">
+    <input type="hidden" name='checkInDate' value="{{date_from}}">
+    <input type="hidden" name='checkOutDate' value="{{date_to}}">
+    <input type="hidden" name='hotel_id' value="{{hotel.id}}">
+    <input type="hidden" name='price' value="{{room.price}}">
+    <input type="hidden" name='guests' value="{{guests}}">
+    <input type="hidden" name='rooms' value="{{rooms}}">
+    <input type="hidden" name='numberOfNights' value="4">
+    <button type="submit">Pay and confirm booking</button>
+</form>
+
+{% elif booking_flight %}
+
+<h1>{{people}}</h1>
+<h1>{{price}}</h1>
+<h1>{{cabinClass}}</h1>
+<h1>{{departureDate}}</h1>
+<h1>{{destination}}</h1>
+<h1>{{origin}}</h1>
+
+<form action="{% url 'checkout' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name='people' value='people'>
+    <input type="hidden" name='price' value='price'>
+    <input type="hidden" name='cabinClass' value='cabinClass'>
+    <input type="hidden" name='departureDate' value='departureDate'>
+    <input type="hidden" name='destination' value='destination'>
+    <input type="hidden" name='origin' value='origin'>
+    <button type="submit">Pay and confirm booking</button>
+</form>
+
+{% endif %}
+{% endblock %}
