@@ -17,38 +17,38 @@ def findFlights(**kwargs):
     try:
         response = amadeus.shopping.flight_offers_search.get(
             currencyCode='INR', **kwargs)
-        
+
         for trip in response.data:
-            try: 
+            try:
                 trip_dict = {
                     'seats_available': trip['numberOfBookableSeats'],
                     'price': trip['price']['total'] + " " + trip['price']['currency'],
                     'travelClass': trip['travelerPricings'][0]['fareDetailsBySegment'][0]['cabin'],
 
-                # the following entries contain the outbound and return legs. They need to be read in from a for loop. each leg contains
-                # multiple 'flights', each of which is a dictionary with the attributes shown below.
+                    # the following entries contain the outbound and return legs. They need to be read in from a for loop. each leg contains
+                    # multiple 'flights', each of which is a dictionary with the attributes shown below.
 
-                # 'outboundLeg' : [{'segment_id' : flight['id'],
-                # 'flightNumber' : flight['carrierCode'] + " " + flight['number'],
-                # 'origin' : flight['departure']['iataCode'],
-                # 'originTerminal' : flight['departure'].get('terminal', '-'),
-                # 'departureTime' : flight['departure']['at'][11:16] + " " + datetime.datetime(int(flight['departure']['at'][0:4]), int(flight['departure']['at'][5:7]), int(flight['departure']['at'][8:10])).strftime("%a, %d %b %Y"),
-                # 'destination' : flight['arrival']['iataCode'],
-                # 'destinationTerminal' : flight['arrival'].get('terminal', '-'),
-                # 'arrivalTime' : flight['arrival']['at'][11:16] + " " + datetime.datetime(int(flight['arrival']['at'][0:4]), int(flight['arrival']['at'][5:7]), int(flight['arrival']['at'][8:10])).strftime("%a, %d %b %Y"),
-                # 'duration' : flight['duration'][2:]
-                # }, .{}..{}..{}.....],
+                    # 'outboundLeg' : [{'segment_id' : flight['id'],
+                    # 'flightNumber' : flight['carrierCode'] + " " + flight['number'],
+                    # 'origin' : flight['departure']['iataCode'],
+                    # 'originTerminal' : flight['departure'].get('terminal', '-'),
+                    # 'departureTime' : flight['departure']['at'][11:16] + " " + datetime.datetime(int(flight['departure']['at'][0:4]), int(flight['departure']['at'][5:7]), int(flight['departure']['at'][8:10])).strftime("%a, %d %b %Y"),
+                    # 'destination' : flight['arrival']['iataCode'],
+                    # 'destinationTerminal' : flight['arrival'].get('terminal', '-'),
+                    # 'arrivalTime' : flight['arrival']['at'][11:16] + " " + datetime.datetime(int(flight['arrival']['at'][0:4]), int(flight['arrival']['at'][5:7]), int(flight['arrival']['at'][8:10])).strftime("%a, %d %b %Y"),
+                    # 'duration' : flight['duration'][2:]
+                    # }, .{}..{}..{}.....],
 
-                # 'returnLeg'   : [{'segment_id' : ,
-                # 'flightNumber' : ,
-                # 'origin' : ,
-                # 'originTerminal' : ,
-                # 'departureTime' :,
-                # 'destination' : ,
-                # 'destinationTerminal' : ,
-                # 'arrivalTime' : ,
-                # 'duration' :
-                # }, ..{}..{}..{}.... ],
+                    # 'returnLeg'   : [{'segment_id' : ,
+                    # 'flightNumber' : ,
+                    # 'origin' : ,
+                    # 'originTerminal' : ,
+                    # 'departureTime' :,
+                    # 'destination' : ,
+                    # 'destinationTerminal' : ,
+                    # 'arrivalTime' : ,
+                    # 'duration' :
+                    # }, ..{}..{}..{}.... ],
                 }
 
             # getting the outbound and return Leg data:
@@ -58,32 +58,36 @@ def findFlights(**kwargs):
                     flights = []
 
                     for flight in trip['itineraries'][i]['segments']:
-                        print(flight['departure']['iataCode'], ", ",flight['arrival']['iataCode'])
+                        print(flight['departure']['iataCode'],
+                              ", ", flight['arrival']['iataCode'])
                         print(flight)
-                        AIRLINE = Airline.objects.get(iataCode = flight['carrierCode'])
+                        AIRLINE = Airline.objects.get(
+                            iataCode=flight['carrierCode'])
                         print(AIRLINE.icaoCode)
                         print('airline data here')
                         print(flight['arrival']['iataCode'])
-                        DESTINATION = Airport.objects.get(iataCode = flight['arrival']['iataCode'])
+                        DESTINATION = Airport.objects.get(
+                            iataCode=flight['arrival']['iataCode'])
                         print('airport data here')
-                        ORIGIN = Airport.objects.get(iataCode = flight['departure']['iataCode'])
+                        ORIGIN = Airport.objects.get(
+                            iataCode=flight['departure']['iataCode'])
                         print("origin data here")
                         bags_allowed = ""
                         for segmentInfo in trip['travelerPricings'][0]['fareDetailsBySegment']:
                             if segmentInfo["segmentId"] == flight['id']:
-                                bags_allowed = str(segmentInfo["includedCheckedBags"]["weight"]) + segmentInfo["includedCheckedBags"]["weightUnit"]
+                                bags_allowed = str(
+                                    segmentInfo["includedCheckedBags"]["weight"]) + segmentInfo["includedCheckedBags"]["weightUnit"]
 
                         aircraft_code = flight['aircraft']['code']
 
-                        aircraft = Aircraft.objects.get(iataCode = aircraft_code).name
-
-                        
+                        aircraft = Aircraft.objects.get(
+                            iataCode=aircraft_code).name
 
                         flights = flights[:] + [{
-                            'aircraft' : aircraft,
-                            'baggageAllowance' : bags_allowed, 
-                            'airline' : AIRLINE,
-                            'logo' : "/static/logos/" + str(AIRLINE.icaoCode) + ".png",
+                            'aircraft': aircraft,
+                            'baggageAllowance': bags_allowed,
+                            'airline': AIRLINE,
+                            'logo': "/static/logos/" + str(AIRLINE.icaoCode) + ".png",
                             'segment_id': flight['id'],
                             'flightNumber': flight['carrierCode'] + " " + flight['number'],
                             'origin': ORIGIN,
@@ -96,25 +100,26 @@ def findFlights(**kwargs):
                         }]
                         print("/static/logos/" + str(AIRLINE.icaoCode) + ".png")
 
-                    trip_dict['outboundLeg' if (i == 0) else 'returnLeg'] = flights
-                    trip_dict['outboundLegStops' if (i == 0) else 'returnLegStops'] = len(flights)
-                    trip_dict['outboundLegColor' if (i == 0) else 'returnLegColor'] = '#5c5' if (len(flights) == 1) else ('#d93' if (len(flights) == 2) else '#c55')
+                    trip_dict['outboundLeg' if (
+                        i == 0) else 'returnLeg'] = flights
+                    trip_dict['outboundLegStops' if (
+                        i == 0) else 'returnLegStops'] = len(flights)
+                    trip_dict['outboundLegColor' if (i == 0) else 'returnLegColor'] = '#5c5' if (
+                        len(flights) == 1) else ('#d93' if (len(flights) == 2) else '#c55')
 
                 options = options[:] + [trip_dict]
                 print('option validated')
 
             except:
-                
-                print('error fetching airport data')
 
+                print('error fetching airport data')
 
     except ResponseError as error:
         print(error)
-    
+
     print('worked')
     print(options)
     return options
-
 
 
 def makeBooking(trip):
@@ -127,13 +132,12 @@ def makeBooking(trip):
 
         trip.pop('outboundLeg')
 
-
         for key in trip:
             if key == 'returnLeg':
                 for segment in trip['returnLeg']:
                     returnLeg.segments.add(Segment.objects.create(**segment))
                 trip.pop(key)
 
-        current_booking = Booking.objects.create(**trip)
+        current_booking = FlightBooking.objects.create(**trip)
         current_booking.outboundLeg.add(outboundLeg)
         current_booking.returnLeg.add(returnLeg)

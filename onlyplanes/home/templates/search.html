@@ -110,7 +110,7 @@ Book a Flight
 <div class="results">
     <div class="cards_wrapper">
         {% for offer in trip_offers %}
-        <div class="card" style = "padding: 5%; margin: 5%; border-radius: 50px; position: relative;">
+        <div class="card flights" data-price = {{offer.price}} style = "padding: 5%; margin: 5%; border-radius: 50px; position: relative;">
             
             {% for flight in offer.outboundLeg %}
             <div class="card_heading">
@@ -339,7 +339,5 @@ Book a Flight
         {% endfor %}
     </div>
 </div>
-
-<script src="../static/scripts/flight_filter.js"></script>
 
 {% endblock %}
