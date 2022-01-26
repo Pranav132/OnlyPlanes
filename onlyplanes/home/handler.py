@@ -123,6 +123,7 @@ def findFlights(**kwargs):
 
 
 def makeBooking(trip):
+    trip = dict(trip)
     if trip:
         outboundLeg = OutboundLeg.objects.create()
         returnLeg = ReturnLeg.objects.create()

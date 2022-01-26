@@ -11,11 +11,13 @@ class Airline(models.Model):
     icaoCode = models.TextField()
     name = models.TextField()
 
+
 class Airport(models.Model):
     iataCode = models.TextField()
     city = models.TextField()
     country = models.TextField()
     continent = models.TextField()
+
 
 class Segment(models.Model):
     segment_id = models.TextField()
@@ -28,104 +30,115 @@ class Segment(models.Model):
     arrivalTime = models.TextField()
     duration = models.TextField()
 
+
 class OutboundLeg(models.Model):
     segments = models.ManyToManyField(Segment)
+
 
 class ReturnLeg(models.Model):
     segments = models.ManyToManyField(Segment)
 
-class FlightBooking(models.Model):
-    seats_available = models.TextField()
-    price = models.TextField()
-    travelClass = models.TextField()
-    outboundLeg = models.ManyToManyField(OutboundLeg)
-    returnLeg = models.ManyToManyField(ReturnLeg)
-    user = models.ForeignKey(User, null=False, on_delete=CASCADE)
 
+class FlightBooking(models.Model):
+    # people --  HAVE
+    # price -- HAVE
+    # cabinClass
+    # DepartureLocation  -- HAVE
+    # departureDate -- HAVE
+    # arrivalLocation -- HAVE
+    people = models.IntegerField()
+    price = models.DecimalField()
+    cabinClass = models.TextField()
+    DepartureLocation = models.TextField()
+    departureDate = models.DateField()
 
 
 class HotelCategories(models.Model):
- 
-   name = models.CharField("Hotel Category Name", max_length=50)
-  
-   def __str__(self):
-       return self.name
- 
-class RoomCategories(models.Model):
- 
-   name = models.CharField("Room Category Name", max_length=50)
-  
-   def __str__(self):
-       return self.name
- 
-class Amenities(models.Model):
- 
-   name = models.CharField("Amenity Name", max_length=50)
-  
-   def __str__(self):
-       return self.name
- 
- 
- 
-class Room(models.Model):
-   roomcategory = models.ForeignKey(RoomCategories, on_delete=CASCADE)
-   hotelcategory = models.ForeignKey(HotelCategories, on_delete=CASCADE)
-   price =  models.DecimalField(
-       "Price", default=0.00, max_digits=10, decimal_places=2)
-   available_rooms = models.IntegerField("availability")
-   max_occupancy = models.IntegerField("occupants")
-   amenities = models.ManyToManyField(Amenities)
 
- 
- 
+    name = models.CharField("Hotel Category Name", max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class RoomCategories(models.Model):
+
+    name = models.CharField("Room Category Name", max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class Amenities(models.Model):
+
+    name = models.CharField("Amenity Name", max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class Room(models.Model):
+    roomcategory = models.ForeignKey(RoomCategories, on_delete=CASCADE)
+    hotelcategory = models.ForeignKey(HotelCategories, on_delete=CASCADE)
+    price = models.DecimalField(
+        "Price", default=0.00, max_digits=10, decimal_places=2)
+    available_rooms = models.IntegerField("availability")
+    max_occupancy = models.IntegerField("occupants")
+    amenities = models.ManyToManyField(Amenities)
+
+
 class Hotel(models.Model):
-   name = models.CharField("Hotel name", max_length = 100, blank = False)
-  
-   exterior_picture = models.ImageField(
-       "Image 1",
-       upload_to='images/',
-       height_field=None,
-       width_field=None,
-       max_length=100,
-   )
-   cheaproom_picture = models.ImageField(
-       "Image 2",
-       upload_to='images/',
-       height_field=None,
-       width_field=None,
-       max_length=100,
-   )
-   mediumroom_picture = models.ImageField(
-       "Image 3",
-       upload_to='images/',
-       height_field=None,
-       width_field=None,
-       max_length=100,
-   )
-   expensiveroom_picture = models.ImageField(
-       "Image 4",
-       upload_to='images/',
-       height_field=None,
-       width_field=None,
-       max_length=100,
-   )
- 
-   category = models.ForeignKey(HotelCategories, on_delete=CASCADE)
-   location = models.CharField("Hotel city name", max_length = 50, blank = False)
-   detailed_address = models.TextField("Hotel detailed address", blank = False)
-   description = models.TextField("Hotel description", blank = False)
-   cheaproom_name = models.CharField("cheap room  name", max_length = 50, blank = False)
-   middleroom_name = models.CharField("middle room  name", max_length = 50, blank = False)
-   expensiveroom_name = models.CharField("expensive room  name", max_length = 50, blank = False)
-   starrating = models.IntegerField("Rating", default=1, validators=[
-       MaxValueValidator(5), MinValueValidator(1)],
-       null=False, blank=False)
-    
+    name = models.CharField("Hotel name", max_length=100, blank=False)
+
+    exterior_picture = models.ImageField(
+        "Image 1",
+        upload_to='images/',
+        height_field=None,
+        width_field=None,
+        max_length=100,
+    )
+    cheaproom_picture = models.ImageField(
+        "Image 2",
+        upload_to='images/',
+        height_field=None,
+        width_field=None,
+        max_length=100,
+    )
+    mediumroom_picture = models.ImageField(
+        "Image 3",
+        upload_to='images/',
+        height_field=None,
+        width_field=None,
+        max_length=100,
+    )
+    expensiveroom_picture = models.ImageField(
+        "Image 4",
+        upload_to='images/',
+        height_field=None,
+        width_field=None,
+        max_length=100,
+    )
+
+    category = models.ForeignKey(HotelCategories, on_delete=CASCADE)
+    location = models.CharField("Hotel city name", max_length=50, blank=False)
+    detailed_address = models.TextField("Hotel detailed address", blank=False)
+    description = models.TextField("Hotel description", blank=False)
+    cheaproom_name = models.CharField(
+        "cheap room  name", max_length=50, blank=False)
+    middleroom_name = models.CharField(
+        "middle room  name", max_length=50, blank=False)
+    expensiveroom_name = models.CharField(
+        "expensive room  name", max_length=50, blank=False)
+    starrating = models.IntegerField("Rating", default=1, validators=[
+        MaxValueValidator(5), MinValueValidator(1)],
+        null=False, blank=False)
+
 
 class Aircraft(models.Model):
     iataCode = models.CharField(max_length=3)
     icaoCode = models.CharField(max_length=4)
     name = models.TextField()
+
 
 class ReviewsRatings(models.Model):
 
@@ -141,13 +154,12 @@ class ReviewsRatings(models.Model):
     review = models.CharField("Review", max_length=250, blank=True, null=True)
 
 
-
 class HotelBooking(models.Model):
     checkInDate = models.DateField()
-    checkOutDate  = models.DateField()
-    user = models.ForeignKey(User, null = False, on_delete=CASCADE)
-    hotel =  models.ForeignKey(Hotel, null = False, on_delete=CASCADE)
+    checkOutDate = models.DateField()
+    user = models.ForeignKey(User, null=False, on_delete=CASCADE)
+    hotel = models.ForeignKey(Hotel, null=False, on_delete=CASCADE)
     room_selected = models.ForeignKey(Room, null=False, on_delete=CASCADE)
     numberOfNights = models.IntegerField()
-    numberOfGuests =  models.IntegerField()
-    totalPrice =   models.DecimalField(decimal_places=2, max_digits=10)
+    numberOfGuests = models.IntegerField()
+    totalPrice = models.DecimalField(decimal_places=2, max_digits=10)

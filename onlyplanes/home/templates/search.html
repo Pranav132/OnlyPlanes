@@ -46,24 +46,20 @@ Book a Flight
                 <input type="date" name="departureDate" class="form-control" required>
             </div>
             <div class="col-5 m-auto">
+                <label for="adults" class="form-label"
+                    style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
+                    People:*</label>
+                <input type="number" class="form-control" min="1" max="10" name="adults" required>
+            </div>
+            <!-- <div class="col-5 m-auto">
                 <label for="returnDate"
                     style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Return
                     Date:</label>
                 <input type="date" name="returnDate" class="form-control">
-            </div>
+            </div> -->
         </div>
         <div class="padding" style="height: 2vh;"></div>
-        <div class="form-row">
-            <div class="col-5 m-auto">
-                <label for="adults" class="form-label"
-                    style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
-                    Adults:*</label>
-                <input type="number" class="form-control" min="1" max="10" name="adults" required>
-            </div>
-
-        </div>
-        <div class="padding" style="height: 2vh;"></div>
-        <div class="form-row">
+        <!-- <div class="form-row">
             <div class="col-5 m-auto">
                 <label for="children" class="form-label"
                     style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
@@ -82,7 +78,7 @@ Book a Flight
             </div>
 
         </div>
-        <div class="padding" style="height: 2vh;"></div>
+        <div class="padding" style="height: 2vh;"></div> -->
         <div class="form-row">
             <div class="col-5 m-auto">
                 <label for="travelClass" class="form-label"
@@ -331,7 +327,7 @@ Book a Flight
             </div>
             {% endfor %}
             <div class="book" style = "position:absolute; left: 42.5vw; bottom: 1em; ">
-                <a class="bn13" href = "/flight_booking/?offer={{offer}}" >Book</a>
+                <a class="bn13" href = "/flight_booking/?people={{people}}&origin={{origin}}&destination={{destination}}&departureDate={{departureDate}}&offer={{offer}}" >Book</a>
                 
             </div>
         </div>

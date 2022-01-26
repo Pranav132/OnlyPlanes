@@ -342,8 +342,6 @@ def eachhotel(request, hotel_id):
 
 
 def search(request):
-    
-
 
     # offerdetails = request.POST.get('offerdetails')
     # if offerdetails:
@@ -351,7 +349,6 @@ def search(request):
     #     print(offerdetails)
     #     print('lol')
     #     return render(request, 'flight_booking.html', {'offer': offerdetails})
-
 
     airport_instances = Airport.objects.all().order_by('city')
 
@@ -365,10 +362,14 @@ def search(request):
     context = {
         'airports': airports,
         'search_details': request.GET,
+        'people': request.GET['adults'],
+        'origin': request.GET['originLocationCode'],
+        'destination': request.GET['destinationLocationCode'],
+        'departureDate': request.GET['departureDate']
     }
 
     if request.GET.get('originLocationCode', None) and request.GET.get('destinationLocationCode', None) and request.GET.get('departureDate', None):
-        kwargs = {'max': 1}
+        kwargs = {'max': 25}
 
         for i in request.GET:
             if request.GET[i] != "" and request.GET[i] != 0:
@@ -395,18 +396,49 @@ def search(request):
     return render(request, "search.html", context=context)
 
     # with open("home/airport-codes.csv", "r") as file:
-    #reader = csv.reader(file)
+    # reader = csv.reader(file)
     # next(reader)
     # for row in reader:
-    #City,Country ,Code,Continent
-    #Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
+    # City,Country ,Code,Continent
+    # Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
 
 
 def flight_booking(request):
 
-    params = request.GET
+    params = request.GET['offer']
+    params += '\'}'
+
+    print("\n\n\n\n\n")
     print(params)
-    
+    print("\n\n\n\n\n")
+
+    people = request.GET['people']
+    origin = request.GET['origin']
+    destination = request.GET['destination']
+    departureDate = request.GET['departureDate']
+    # people --  HAVE
+    # price -- HAVE
+    # cabinClass
+    # DepartureLocation  -- HAVE
+    # departureDate -- HAVE
+    # arrivalLocation -- HAVE
+
+    price = ""
+
+    for i in range(params.index('price')+9, len(params)):
+        if params[i] == ' ':
+            break
+        else:
+            price += params[i]
+
+    cabinClass = ""
+
+    for i in range(params.index('travelClass')+15, len(params)):
+        if params[i] == '\'':
+            break
+        else:
+            cabinClass += params[i]
+
     return render(request, 'flight_booking.html')
 
 
