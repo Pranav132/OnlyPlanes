@@ -1,6 +1,6 @@
 import pathlib
 import csv
-from unicodedata import category
+from unicodedata import category, decimal
 from black import re
 from django.shortcuts import render, redirect
 from .models import *
@@ -554,7 +554,9 @@ def hotel_booking(request, hotel_id, room_id, room_name):
                 'hotel': hotel,
                 'room': room,
                 'roomname': room_name,
+                'total_price': float((context['rooms']) * room.price)
             }
+
             return render(request, 'checkout.html', context=context)
 
 
