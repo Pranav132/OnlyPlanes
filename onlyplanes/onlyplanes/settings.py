@@ -154,6 +154,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+LOGIN_URL = '/accounts/google/login'
 
 SITE_ID = 3
 

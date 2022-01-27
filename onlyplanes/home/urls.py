@@ -14,6 +14,7 @@ urlpatterns = [
     path("index/", views.index, name="index"),
     path("search/", views.search, name='search'),
     path("contact/", views.contact, name="contact"),
+    path("user/", views.user, name="contact"),
     path('accounts/', include('allauth.urls')),
     path('hotels/', views.hotels, name="hotels"),
     path('flight_booking/', views.flight_booking, name="flight_booking"),

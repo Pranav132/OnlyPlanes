@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .handler import findFlights, makeBooking
 from .forms import *
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from datetime import datetime
 # from urllib.parse import unquote
@@ -21,6 +22,15 @@ def index(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+@login_required
+def user(request):
+    user = request.user
+    flights_booked = bookingFlight.objects.filter(user=user)
+    hotels_booked = HotelBooking.objects.filter(user=user)
+    reviews = ReviewsRatings.objects.filter(user=user).all()
+    print(reviews)
+    return render(request, "user.html", {"user": user, "flights_booked": flights_booked, "hotels_booked": hotels_booked, "reviews": reviews})
 
 
 def hotels(request):
@@ -409,7 +419,7 @@ def search(request):
     # City,Country ,Code,Continent
     # Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
 
-
+@login_required
 def flight_booking(request):
 
     if request.method == 'GET':
@@ -479,7 +489,7 @@ def flight_booking(request):
         print(context)
         return render(request, 'checkout.html', context=context)
 
-
+@login_required
 def hotel_booking(request, hotel_id, room_id, room_name):
     if request.method == 'GET':
         hotel = Hotel.objects.get(id=hotel_id)
@@ -536,7 +546,7 @@ def hotel_booking(request, hotel_id, room_id, room_name):
             }
             return render(request, 'checkout.html', context=context)
 
-
+@login_required
 def checkout(request):
     if request.method == 'POST':
         room_id = request.POST.get('room_id')
@@ -603,7 +613,7 @@ def checkout(request):
 
             return redirect('index')
 
-
+@login_required
 def newreview(request, hotel_id):
     if request.method == "POST":
         review = request.POST.get('review')
@@ -617,7 +627,7 @@ def newreview(request, hotel_id):
         hotel = Hotel.objects.get(id=hotel_id)
         return render(request, "new_review.html", {"hotel": hotel})
 
-
+@login_required
 def deleteReview(request, reviewsRatings_id):
     review = ReviewsRatings.objects.filter(id=reviewsRatings_id)
     print(review)
@@ -627,3 +637,4 @@ def deleteReview(request, reviewsRatings_id):
         review.delete()
         # deleting review
         return redirect('eachhotel', hotel_id=hotel_id)
+
