@@ -1,19 +1,25 @@
 {% extends "layout.html" %}
 {% load static %}
+{% block title %}
+{{user}}
+{% endblock %}
 
 {% block links %}
-
+<link rel="stylesheet" href="{% static 'css/style-user.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="padding" style = "height: 10vh;"></div>
+<div class="title"> 
+    <div class="details"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="No PFP" />
+        <p>Hello,{{user}}</p>
+    </div>
+    
+    <a href = "{% url 'logout' %}">Logout</a>
+</div>
 
-<br>
-<br>
-<br>
-<br>
-<p> hello {{user}}</p>
-<img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="idk why this is happening pls fix" />
-{% if hotels_booked %}
+<div class="hotelBookings">
+    {% if hotels_booked %}
     {% for hotel in hotels_booked %}
         <p>{{hotel}}</p>
     {% endfor %}
@@ -22,8 +28,10 @@
         <p>No hotels booked yet!</p>
 
 {% endif %}
+</div>
 
-{% if flights_booked %}
+<div class="flightBookings">
+    {% if flights_booked %}
     {% for flight in flights_booked %}
         <p>{{flight}}</p>
     {% endfor %}
@@ -32,8 +40,11 @@
         <p>No flights booked yet!</p>
 
 {% endif %}
+</div>
 
-{% if reviews %}
+
+<div class="reviews">
+    {% if reviews %}
     {% for review in reviews %}
         <p>{{review}}</p>
     {% endfor %}
@@ -42,5 +53,7 @@
         <p>No reviews written yet!</p>
 
 {% endif %}
+</div>
+
 
 {% endblock %}

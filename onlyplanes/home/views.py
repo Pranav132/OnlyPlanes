@@ -23,6 +23,7 @@ def index(request):
 def contact(request):
     return render(request, 'contact.html')
 
+
 @login_required
 def user(request):
     user = request.user
@@ -419,6 +420,7 @@ def search(request):
     # City,Country ,Code,Continent
     # Airport.objects.create(iataCode = row[2], city = (row[0] if "Airport" in row[0] else row[0] + " Aiport").replace("+", ","), country = row[1].replace("+", ","), continent= row[3])
 
+
 @login_required
 def flight_booking(request):
 
@@ -489,6 +491,7 @@ def flight_booking(request):
         print(context)
         return render(request, 'checkout.html', context=context)
 
+
 @login_required
 def hotel_booking(request, hotel_id, room_id, room_name):
     if request.method == 'GET':
@@ -550,6 +553,7 @@ def hotel_booking(request, hotel_id, room_id, room_name):
                 'roomname': room_name,
             }
             return render(request, 'checkout.html', context=context)
+
 
 @login_required
 def checkout(request):
@@ -614,6 +618,7 @@ def checkout(request):
 
             return redirect('index')
 
+
 @login_required
 def newreview(request, hotel_id):
     if request.method == "POST":
@@ -628,6 +633,7 @@ def newreview(request, hotel_id):
         hotel = Hotel.objects.get(id=hotel_id)
         return render(request, "new_review.html", {"hotel": hotel})
 
+
 @login_required
 def deleteReview(request, reviewsRatings_id):
     review = ReviewsRatings.objects.filter(id=reviewsRatings_id)
@@ -639,3 +645,16 @@ def deleteReview(request, reviewsRatings_id):
         # deleting review
         return redirect('eachhotel', hotel_id=hotel_id)
 
+
+@login_required
+def cancelFlightBooking(request, flightbook_id):
+    flightBooking = bookingFlight.objects.filter(id=flightbook_id)
+    flightBooking.delete()
+    return redirect('user')
+
+
+@login_required
+def cancelHotelBooking(request, hotel_id):
+    hotelBooking = HotelBooking.objects.filter(id=hotel_id)
+    hotelBooking.delete()
+    return redirect('user')

@@ -104,6 +104,7 @@ Book a Flight
 </div>
 
 <div class="results">
+    {% if trip_offers|length > 1 %}
     <div class="cards_wrapper">
         {% for offer in trip_offers %}
         <div class="card flights" data-price = {{offer.price}} style = "padding: 5%; margin: 5%; border-radius: 50px; position: relative;">
@@ -334,6 +335,9 @@ Book a Flight
         
         {% endfor %}
     </div>
+    {% else %}
+    <h1>No flights found.</h1>
+    {% endif %}
 </div>
 
 <!-- <script>
