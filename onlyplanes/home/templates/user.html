@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="padding" style = "height: 10vh; background: #ccc;"></div>
+<div class="padding" style = "height: 10vh; background: #eee;"></div>
 <div class="title"> 
     <div class="details"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="No PFP" />
         <p>Hello,&nbsp;<span>{{user}}</span></p>
@@ -20,38 +20,70 @@
 
 <div class="hotelBookings">
     {% if hotels_booked %}
+    <div class="head">Hotel Bookings</div>
         {% for hotel in hotels_booked %}
-            <p>{{hotel}}</p>
+        <div class="card">
+            <div class="hotelname">{{hotel.hotel.name}}</div>
+            <div class="padding" style = "height: 2vh;"></div>
+            <div class="dates">From <strong>{{hotel.checkInDate}}</strong> to <strong>{{hotel.checkOutDate}}</strong></div>
+            <div class="roomname">Room: <strong>{{hotel.room_selected.roomcategory.name}}</strong></div>
+            <div class="nights">Price: <strong>₹{{hotel.totalPrice}}</strong></div>
+            <div class="guests">Guests: <strong>{{hotel.numberOfGuests}}</strong></div>
             <div class="delete">
-                <i class="bi bi-trash-fill" onclick="togglePopup2('{{hotel.id}}')"></i>
+                <i class="bi bi-x-circle" onclick="togglePopup2('{{hotel.id}}')"></i>
               </div>
+            </div>
         {% endfor %}
     {% else %}
-        <p>No hotels booked yet!</p>
+        <div class = "none">No hotels booked yet! &nbsp; <a href = "{% url 'hotels' %}">Book Here.</a></div>
     {% endif %}
 </div>
+
+<hr>
 
 <div class="flightBookings">
     {% if flights_booked %}
+    <div class="head">Flight Bookings</div>
         {% for flight in flights_booked %}
-            <p>{{flight}}</p>
+        <div class="card">
+            <div class="toandfrom">
+                {{flight.DepartureLocation}} <i class = "fa fa-plane"></i> {{flight.arrivalLocation}}
+            </div>
+            <div class="seats">
+                Seats: &nbsp;<strong>{{flight.people}}
+      </strong>      </div>
+            <div class="cost">
+                Price: &nbsp;<strong>₹{{flight.price}}
+       </strong>     </div>
+            <div class="cabinClass">
+                Cabin Class: <strong>{{flight.cabinClass}}
+  </strong>          </div>
+            <div class="time">
+                Departure Date: <strong>{{flight.departureDate}}</strong>
+            </div>
             <div class="delete">
-                <i class="bi bi-trash-fill" onclick="togglePopup1('{{flight.id}}')"></i>
+                <i class="bi bi-x-circle" onclick="togglePopup1('{{flight.id}}')"></i>
               </div>
+            </div>
         {% endfor %}
     {% else %}
-        <p>No flights booked yet!</p>
+        <div class = "none">No flights booked yet! &nbsp; <a href = "{% url 'search' %}">Book Here.</a></div>
     {% endif %}
 </div>
 
+<hr>
 
 <div class="reviews">
     {% if reviews %}
+    <div class="head">Reviews</div>
         {% for review in reviews %}
-            <p>{{review}}</p>
+            <div class="card">
+                <div class="hotelname">{{review.hotel.name}}</div>
+                <div class="reviewreview">{{review.review}}</div>
+            </div>
         {% endfor %}
     {% else %}
-        <p>No reviews written yet!</p>
+        <div class = "none">No reviews written yet!</div>
     {% endif %}
 </div>
 
@@ -66,7 +98,7 @@
         <div class="form">
             <form method = "POST" action = "{% url 'cancelFlightBooking' flightbook_id=flight.id %}">
                 {% csrf_token %}
-                <input type = "submit" value = "Delete" class = "submitbutton" onclick = "alert('Booking cancelled successfully.  Your money will be refunded within 4 business days.')" />
+                <input type = "submit" value = "Cancel Booking" class = "submitbutton" onclick = "alert('Booking cancelled successfully.  Your money will be refunded within 4 business days.')" />
             </form>
         </div>
     </div>
@@ -84,7 +116,7 @@
         <div class="form">
             <form method = "POST" action = "{% url 'cancelHotelBooking' hotel_id=hotel.id %}">
                 {% csrf_token %}
-                <input type = "submit" value = "Delete" class = "submitbutton" onclick = "alert('Booking cancelled successfully. Your money will be refunded within 4 business days.')" />
+                <input type = "submit" value = "Cancel Booking" class = "submitbutton" onclick = "alert('Booking cancelled successfully. Your money will be refunded within 4 business days.')" />
             </form>
         </div>
     </div>

@@ -152,10 +152,11 @@ Complete Booking
     <h1>{{destination}}</h1>
     <h1>{{origin}}</h1>
     
-    <div class="container" action="{% url 'checkout' %}" method="POST">
-      {% csrf_token %}
-      <form class="option" id="credit">
+    <div class="container">
+      
+      <form class="option" id="credit" action="{% url 'checkout' %}" method="POST">
         <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
+        {% csrf_token %}
         <input type="hidden" name='people' value='{{people}}'>
         <input type="hidden" name='price' value='{{price}}'>
         <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
