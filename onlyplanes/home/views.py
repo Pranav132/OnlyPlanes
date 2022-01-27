@@ -510,6 +510,7 @@ def hotel_booking(request, hotel_id, room_id, room_name):
     if request.method == 'POST':
         hotel = Hotel.objects.get(id=hotel_id)
         room = Room.objects.get(id=room_id)
+        roomname = room_name
         context = {
             'booking_hotel': True,
             'date_from': request.POST.get('date_from'),
@@ -528,6 +529,7 @@ def hotel_booking(request, hotel_id, room_id, room_name):
             context = {
                 'hotel': hotel,
                 'room': room,
+                'roomname': roomname,
                 'message': "Number of guests per room should be 2 or below."
             }
 
@@ -537,6 +539,7 @@ def hotel_booking(request, hotel_id, room_id, room_name):
             context = {
                 'hotel': hotel,
                 'room': room,
+                'roomname': roomname,
                 'available_rooms': room.available_rooms,
             }
 
