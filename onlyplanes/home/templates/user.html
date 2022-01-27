@@ -11,8 +11,8 @@
 <br>
 <br>
 <br>
-<p> hello {{user.first_name}}</p>
-<img src="{{ review.user.socialaccount_set.all.0.get_avatar_url }}" alt="idk why this is happening pls fix" />
+<p> hello {{user}}</p>
+<img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="idk why this is happening pls fix" />
 {% if hotels_booked %}
     {% for hotel in hotels_booked %}
         <p>{{hotel}}</p>
