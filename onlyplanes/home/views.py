@@ -648,9 +648,10 @@ def deleteReview(request, reviewsRatings_id):
 
 @login_required
 def cancelFlightBooking(request, flightbook_id):
-    flightBooking = bookingFlight.objects.filter(id=flightbook_id)
-    flightBooking.delete()
-    return redirect('user')
+    if request.method == "POST":
+        flightBooking = bookingFlight.objects.filter(id=flightbook_id)
+        flightBooking.delete()
+        return redirect('user')
 
 
 @login_required

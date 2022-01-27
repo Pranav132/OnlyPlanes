@@ -26,9 +26,9 @@ urlpatterns = [
     path("deleteReview/<int:reviewsRatings_id>",
          views.deleteReview, name="deleteReview"),
     path('checkout/', views.checkout, name="checkout"),
-    path('cancelHotelBooking/', views.cancelHotelBooking,
+    path('cancelHotelBooking/<int:hotel_id>', views.cancelHotelBooking,
          name="cancelHotelBooking"),
-    path('cancelFlightBooking/', views.cancelFlightBooking,
+    path('cancelFlightBooking/<int:flightbook_id>', views.cancelFlightBooking,
          name="cancelFlightBooking"),
     path('logout', LogoutView.as_view(), name="logout"),
 

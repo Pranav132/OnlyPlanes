@@ -9,51 +9,103 @@
 {% endblock %}
 
 {% block content %}
-<div class="padding" style = "height: 10vh;"></div>
+<div class="padding" style = "height: 10vh; background: #ccc;"></div>
 <div class="title"> 
     <div class="details"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="No PFP" />
-        <p>Hello,{{user}}</p>
+        <p>Hello,&nbsp;<span>{{user}}</span></p>
     </div>
     
-    <a href = "{% url 'logout' %}">Logout</a>
+    <a href = "{% url 'logout' %}" class="btn btn-danger">Logout</a>
 </div>
 
 <div class="hotelBookings">
     {% if hotels_booked %}
-    {% for hotel in hotels_booked %}
-        <p>{{hotel}}</p>
-    {% endfor %}
-
+        {% for hotel in hotels_booked %}
+            <p>{{hotel}}</p>
+            <div class="delete">
+                <i class="bi bi-trash-fill" onclick="togglePopup2('{{hotel.id}}')"></i>
+              </div>
+        {% endfor %}
     {% else %}
         <p>No hotels booked yet!</p>
-
-{% endif %}
+    {% endif %}
 </div>
 
 <div class="flightBookings">
     {% if flights_booked %}
-    {% for flight in flights_booked %}
-        <p>{{flight}}</p>
-    {% endfor %}
-
+        {% for flight in flights_booked %}
+            <p>{{flight}}</p>
+            <div class="delete">
+                <i class="bi bi-trash-fill" onclick="togglePopup1('{{flight.id}}')"></i>
+              </div>
+        {% endfor %}
     {% else %}
         <p>No flights booked yet!</p>
-
-{% endif %}
+    {% endif %}
 </div>
 
 
 <div class="reviews">
     {% if reviews %}
-    {% for review in reviews %}
-        <p>{{review}}</p>
-    {% endfor %}
-
+        {% for review in reviews %}
+            <p>{{review}}</p>
+        {% endfor %}
     {% else %}
         <p>No reviews written yet!</p>
-
-{% endif %}
+    {% endif %}
 </div>
 
+{% for flight in flights_booked %}
+<section class = "popup" id = "flight{{flight.id}}">
+  <div class = "overlay1"></div>
+    <div class="content">
+        <div class="close-btn" onclick="togglePopup1('{{flight.id}}')">&times;</div>
+        <div class="text">
+            Are you sure you want to cancel this booking?
+        </div>
+        <div class="form">
+            <form method = "POST" action = "{% url 'cancelFlightBooking' flightbook_id=flight.id %}">
+                {% csrf_token %}
+                <input type = "submit" value = "Delete" class = "submitbutton" onclick = "alert('Booking cancelled successfully.  Your money will be refunded within 4 business days.')" />
+            </form>
+        </div>
+    </div>
+</section>
+{% endfor%}
+
+{% for hotel in hotels_booked %}
+<section class = "popup" id = "hotel{{hotel.id}}">
+  <div class = "overlay1"></div>
+    <div class="content">
+        <div class="close-btn" onclick="togglePopup2('{{hotel.id}}')">&times;</div>
+        <div class="text">
+            Are you sure you want to cancel this booking?
+        </div>
+        <div class="form">
+            <form method = "POST" action = "{% url 'cancelHotelBooking' hotel_id=hotel.id %}">
+                {% csrf_token %}
+                <input type = "submit" value = "Delete" class = "submitbutton" onclick = "alert('Booking cancelled successfully. Your money will be refunded within 4 business days.')" />
+            </form>
+        </div>
+    </div>
+</section>
+{% endfor%}
+
+
+<script>
+    function togglePopup1(idname)
+    {
+        idname = 'flight'+idname
+        console.log(idname)
+        document.getElementById(idname).classList.toggle("active");
+    }
+
+    function togglePopup2(idname)
+    {
+        idname = 'hotel'+idname
+        console.log(idname)
+        document.getElementById(idname).classList.toggle("active");
+    }
+  </script>
 
 {% endblock %}
