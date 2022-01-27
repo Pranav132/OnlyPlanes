@@ -189,7 +189,7 @@ Complete Booking
               <input type="hidden" name='guests' value="{{guests}}">
               <input type="hidden" name='rooms' value="{{rooms}}">
               <input type="hidden" name='numberOfNights' value="4">
-              <button class="btn btn-primary" type="submit">Pay and confirm booking</button>
+              <button class="btn btn-primary" type="submit">Pay {{total_price}} and confirm booking</button>
             </form>  
           </div>
         </div>
@@ -202,28 +202,60 @@ Complete Booking
   <div class="booking">
     
     <div class="details">
-      <h1>{{people}}</h1>
-      <h1>{{price}}</h1>
-      <h1>{{cabinClass}}</h1>
-      <h1>{{departureDate}}</h1>
-      <h1>{{destination}}</h1>
-      <h1>{{origin}}</h1>
+      <h1>Your booking details:</h1>
+      <hr>
+      <h2>From: {{origin}}</h2>
+      <h2>To: {{destination}}</h2>
+      <h2>Date of departure: {{departureDate}}</h2>
+      <h2>Cabin class: {{cabinClass}}</h2>
+      <h2>No. of passengers: {{people}}</h2>
+      <hr>
+      <h2>Total price: ₹{{price}}</h2>
     </div>
-    
-    <div class="card">
-      <div class="container" >
-        <form class="option" id="credit" action="{% url 'checkout' %}" method="POST">
-          {% csrf_token %}
-          <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
-          <input type="hidden" name='people' value='{{people}}'>
-          <input type="hidden" name='price' value='{{price}}'>
-          <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
-          <input type="hidden" name='departureDate' value='{{departureDate}}'>
-          <input type="hidden" name='destination' value='{{destination}}'>
-          <input type="hidden" name='origin' value='{{origin}}'> <button type="submit" onclick = "alert('You\'re all set for a good time!')">Pay and confirm booking</button>
-        </form>
-      </div>    </div>
+
+    <div class="paymentwrapper">
+      <div class="carddetails">
+        <div class="card px-4">
+          <p class="h8 py-3" style="color: white; margin-top: 1vh; margin-left: 1vw; font-size: 1.5em;">Payment Details</p>
+          <div class="row gx-3">
+            <form action="{% url 'checkout' %}" method="POST">
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1" style="color: white; margin-top: 1vh; font-size: 1em;">Person Name</p> <input class="form-control mb-3" type="text" placeholder="Name" value="" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1" style="color: white; margin-top: 1vh; font-size: 1em;">Card Number</p> <input class="form-control mb-3" type="number" placeholder="1234 5678 4356 5678" min="1000000000000000" max="9999999999999999" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1" style="color: white; margin-top: 1vh; font-size: 1em; width: 100%;">Expiry</p> <input class="form-control mb-3" type="month" placeholder="MM/YYYY" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1" style="color: white; margin-top: 1vh; font-size: 1em; width: 100%;">CVV/CVC</p> <input class="form-control mb-3 pt-2 " type="password" placeholder="***" min="001" max="999" required>
+              </div>
+              </div>
+              <div class="col-12">
+                  {% csrf_token %}
+                  <input type="hidden" name='people' value='{{people}}'>
+                  <input type="hidden" name='price' value='{{price}}'>
+                  <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
+                  <input type="hidden" name='departureDate' value='{{departureDate}}'>
+                  <input type="hidden" name='destination' value='{{destination}}'>
+                  <button class="btn btn-primary" type="submit">Pay {{price} and confirm booking</button>
+                </form>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  
 
 {% endif %}
 
