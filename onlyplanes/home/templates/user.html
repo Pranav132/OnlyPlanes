@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block links %}
+
+{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<br>
+<p> hello {{user}}</p>
+<img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="idk why this is happening pls fix" />
+{% if hotels_booked %}
+    {% for hotel in hotels_booked %}
+        <p>{{hotel}}</p>
+    {% endfor %}
+
+    {% else %}
+        <p>No hotels booked yet!</p>
+
+{% endif %}
+
+{% if flights_booked %}
+    {% for flight in flights_booked %}
+        <p>{{flight}}</p>
+    {% endfor %}
+
+    {% else %}
+        <p>No flights booked yet!</p>
+
+{% endif %}
+
+{% if reviews %}
+    {% for review in reviews %}
+        <p>{{review}}</p>
+    {% endfor %}
+
+    {% else %}
+        <p>No reviews written yet!</p>
+
+{% endif %}
+
+{% endblock %}

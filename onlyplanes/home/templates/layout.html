@@ -63,7 +63,7 @@
                   <li><a href="{% url 'search' %}">Flights</a></li>
                   <li><a href="/hotels">Hotels</a></li>
                   {% if user.is_authenticated %}
-                    <li><a href="#">Your Account</a></li>
+                    <li><a href="/user">Your Account</a></li>
                   {% else %}
                     <li><a href="{% provider_login_url 'google' %}">Login</a></li>
                   {% endif %}
@@ -87,7 +87,7 @@
             <li class="list-inline-item"><a href="/">Home</a></li>
             <li class="list-inline-item"><a href="{% url 'search' %}">Flights</a></li>
             <li class="list-inline-item"><a href="/hotels">Hotels</a></li>
-            <li class="list-inline-item"><a href="#">Account</a></li>
+            <li class="list-inline-item"><a href="/user">Account</a></li>
             <li class="list-inline-item"><a href="{% url 'contact' %}">contact</a></li>
         </ul>
         <p style= "color: #222; text-align: center; padding-top: 20px; text-decoration: underline;">Made by Angad, Aditya and Pranav</p>
