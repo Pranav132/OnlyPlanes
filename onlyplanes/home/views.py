@@ -591,7 +591,7 @@ def checkout(request):
                 HotelBooking.save(booking)
                 print('MADE ONE ROOM BOOKING')
 
-            return redirect('index')
+            return redirect('user')
         else:
             people = int(request.POST.get('people'))
             price = float(request.POST.get('price'))
@@ -621,7 +621,7 @@ def checkout(request):
                 'message': "You're all set for a good time!"
             }
 
-            return redirect('index')
+            return redirect('user')
 
 
 @login_required
