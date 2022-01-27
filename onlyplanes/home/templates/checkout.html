@@ -112,57 +112,62 @@ Complete Booking
 
 {% if booking_hotel %}
 <div class="booking">
+
+  <div class="details">
+    <h1>{{hotel.name}}</h1>
+    <h1>{{hotel.detailed_address}}</h1>
+    <h1>{{roomname}}</h1>
+    <h1>{{room.price}}</h1>
+    <h1>{{date_from}}</h1>
+    <h1>{{date_to}}</h1>
+    <h1>{{guests}}</h1>
+    <h1>{{rooms}}</h1>
+  </div>
   
-  <h1>{{hotel.name}}</h1>
-  <h1>{{hotel.detailed_address}}</h1>
-  <h1>{{roomname}}</h1>
-  <h1>{{room.price}}</h1>
-  <h1>{{date_from}}</h1>
-  <h1>{{date_to}}</h1>
-  <h1>{{guests}}</h1>
-  <h1>{{rooms}}</h1>
-  
-  
-  
-  <div class="container">
-    
-    <form class="option" id="credit" action="{% url 'checkout' %}" method="POST">
-      {% csrf_token %}
-      <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
-      
-      <input type="hidden" name='room_id' value="{{room.id}}">
-      <input type="hidden" name='checkInDate' value="{{date_from}}">
-      <input type="hidden" name='checkOutDate' value="{{date_to}}">
-      <input type="hidden" name='hotel_id' value="{{hotel.id}}">
-      <input type="hidden" name='price' value="{{room.price}}">
-      <input type="hidden" name='guests' value="{{guests}}">
-      <input type="hidden" name='rooms' value="{{rooms}}">
-      <input type="hidden" name='numberOfNights' value="4">
-      <button type="submit" onclick = "alert('You\'re all set for a good time!')">Pay and confirm booking</button>
-    </form>
+  <div class="card">
+    <div class="container">
+      <form class="option" id="credit" action="{% url 'checkout' %}" method="POST">
+        {% csrf_token %}
+        <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
+        
+        <input type="hidden" name='room_id' value="{{room.id}}">
+        <input type="hidden" name='checkInDate' value="{{date_from}}">
+        <input type="hidden" name='checkOutDate' value="{{date_to}}">
+        <input type="hidden" name='hotel_id' value="{{hotel.id}}">
+        <input type="hidden" name='price' value="{{room.price}}">
+        <input type="hidden" name='guests' value="{{guests}}">
+        <input type="hidden" name='rooms' value="{{rooms}}">
+        <input type="hidden" name='numberOfNights' value="4">
+        <button type="submit" onclick = "alert('You\'re all set for a good time!')">Pay and confirm booking</button>
+      </form>
+    </div>
   </div>
 </div>
   {% elif booking_flight %}
   <div class="booking">
     
-    <h1>{{people}}</h1>
-    <h1>{{price}}</h1>
-    <h1>{{cabinClass}}</h1>
-    <h1>{{departureDate}}</h1>
-    <h1>{{destination}}</h1>
-    <h1>{{origin}}</h1>
+    <div class="details">
+      <h1>{{people}}</h1>
+      <h1>{{price}}</h1>
+      <h1>{{cabinClass}}</h1>
+      <h1>{{departureDate}}</h1>
+      <h1>{{destination}}</h1>
+      <h1>{{origin}}</h1>
+    </div>
     
-    <div class="container" action="{% url 'checkout' %}" method="POST">
-      {% csrf_token %}
-      <form class="option" id="credit">
-        <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
-        <input type="hidden" name='people' value='{{people}}'>
-        <input type="hidden" name='price' value='{{price}}'>
-        <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
-        <input type="hidden" name='departureDate' value='{{departureDate}}'>
-        <input type="hidden" name='destination' value='{{destination}}'>
-        <input type="hidden" name='origin' value='{{origin}}'> <button type="submit" onclick = "alert('You\'re all set for a good time!')">Pay and confirm booking</button>
-      </form>
+    <div class="card">
+      <div class="container" action="{% url 'checkout' %}" method="POST">
+        {% csrf_token %}
+        <form class="option" id="credit">
+          <input class="cc-number" maxlength="19" name="credit-number" pattern="\d*" placeholder="Card Number" type="tel"><input class="cc-expires" maxlength="7" name="credit-expires" pattern="\d*" placeholder="MM / YY" type="tel"><input class="cc-cvc" maxlength="4" name="credit-cvc" pattern="\d*" placeholder="CVC" type="tel">
+          <input type="hidden" name='people' value='{{people}}'>
+          <input type="hidden" name='price' value='{{price}}'>
+          <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
+          <input type="hidden" name='departureDate' value='{{departureDate}}'>
+          <input type="hidden" name='destination' value='{{destination}}'>
+          <input type="hidden" name='origin' value='{{origin}}'> <button type="submit" onclick = "alert('You\'re all set for a good time!')">Pay and confirm booking</button>
+        </form>
+      </div>
     </div>
   </div>
 
