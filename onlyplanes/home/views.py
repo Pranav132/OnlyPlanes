@@ -523,8 +523,18 @@ def hotel_booking(request, hotel_id, room_id, room_name):
             }
 
             return render(request, 'hotel_booking.html', context=context)
-
-        return render(request, 'checkout.html', context=context)
+        else:
+            context = {
+                'booking_hotel': True,
+                'date_from': request.POST.get('date_from'),
+                'date_to': request.POST.get('date_to'),
+                'rooms': int(request.POST.get('rooms')),
+                'guests': int(request.POST.get('guests')),
+                'hotel': Hotel.objects.get(id=hotel_id),
+                'room': Room.objects.get(id=room_id),
+                'roomname': room_name,
+            }
+            return render(request, 'checkout.html', context=context)
 
 
 def checkout(request):
@@ -561,7 +571,7 @@ def checkout(request):
                 'message': "You're all set for a good time!"
             }
 
-            return redirect('index.html', context=context)
+            return redirect('index')
         else:
             people = int(request.POST.get('people'))
             price = float(request.POST.get('price'))
@@ -581,7 +591,7 @@ def checkout(request):
                     departureDate=departureDate,
                     arrivalLocation=destination,
                     DepartureLocation=origin,
-                    user= request.user, 
+                    user=request.user,
 
                 )
                 bookingFlight.save(booking)
@@ -591,7 +601,7 @@ def checkout(request):
                 'message': "You're all set for a good time!"
             }
 
-            return redirect('index.html', context=context)
+            return redirect('index')
 
 
 def newreview(request, hotel_id):

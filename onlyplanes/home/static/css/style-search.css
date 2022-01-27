@@ -41,7 +41,7 @@ body {
 }
 
 .card {
-  background: #111;
+  background: #555;
 }
 
 .cards_wrapper {
@@ -175,23 +175,23 @@ body {
 
 .results h1 {
   color: #eee;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 2.1em;
   margin: 0px;
 }
 
 .results h2 {
   color: #eee;
-  opacity: 0.5;
-  font-weight: 100;
+  opacity: 0.8;
+  font-weight: 300;
   font-size: 0.9em;
   margin: 0px;
 }
 
 .results h3 {
-  color: #eee;
-  opacity: 0.8;
-  font-weight: 100;
+  color: #fff;
+  opacity: 1;
+  font-weight: 300;
   font-size: 0.9em;
   margin: 0px;
 }
