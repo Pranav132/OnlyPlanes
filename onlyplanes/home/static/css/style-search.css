@@ -13,7 +13,7 @@ body {
 }
 
 .head {
-  height: 30vh;
+  height: 40vh;
   display: grid;
   place-items: center;
   text-align: center;

@@ -4,6 +4,61 @@
 
 {% block links %}
 <!-- <link rel="stylesheet" href="{% static 'css/style-search.css' %}"> -->
+<style>
+
+
+.fullwrap{
+    min-height: 100vh;
+    background: azure;
+}
+
+    .product-title {
+  height: 40vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 4em;
+  color: #eee;
+  text-shadow: 2px 2px 5px #000;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  padding-bottom: 5vh;
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 0% 85%);
+}
+
+.deets{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background:azure;
+}
+
+.deets h1{
+    padding: 2vh 0;
+    margin: 2vh 0;
+    background: #eee;
+    color: rgb(33, 35, 60);
+    border-radius:10px;
+    box-shadow: 0 0 5px rgba(0,0,0,1);
+    width: 60vw;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.deets h1 span{
+    font-weight: 300;
+    color:#333;
+}
+
+.deets form{
+    padding: 3vh 0;
+}
+
+</style>
 {% endblock %}
 
 {% block title %}
@@ -12,21 +67,32 @@ Book a Flight
 
 {% block content %}
 
-<h1>{{people}}</h1>
-<h1>{{price}}</h1>
-<h1>{{cabinClass}}</h1>
-<h1>{{departureDate}}</h1>
-<h1>{{destination}}</h1>
-<h1>{{origin}}</h1>
+<div class="fullwrap">
 
-<form method="POST" action="">
-    {% csrf_token %}
-    <input type="hidden" name='people' value='{{people}}'>
-    <input type="hidden" name='price' value='{{price}}'>
-    <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
-    <input type="hidden" name='departureDate' value='{{departureDate}}'>
-    <input type="hidden" name='destination' value='{{destination}}'>
-    <input type="hidden" name='origin' value='{{origin}}'>
-    <button type="submit">Proceed to Payment</button>
-</form>
+<div class="product-title">
+    BOOK A FLIGHT
+</div>
+
+<div class="deets">
+    <h1><span>Seats: </span>&nbsp;{{people}}</h1>
+    <h1><span>Price: </span>&nbsp;₹{{price}}</h1>
+    <h1><span>Cabin Class: </span>&nbsp;{{cabinClass}}</h1>
+    <h1><span>Departure: </span>&nbsp;{{departureDate}}</h1>
+    <h1><span>From: </span>&nbsp;{{origin}}</h1>
+    <h1><span>To: </span>&nbsp;{{destination}}</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name='people' value='{{people}}'>
+        <input type="hidden" name='price' value='{{price}}'>
+        <input type="hidden" name='cabinClass' value='{{cabinClass}}'>
+        <input type="hidden" name='departureDate' value='{{departureDate}}'>
+        <input type="hidden" name='destination' value='{{destination}}'>
+        <input type="hidden" name='origin' value='{{origin}}'>
+        <button type="submit" class = 'btn btn-primary justify-content-center align-content-center'>Proceed to Payment</button>
+    </form>
+</div>
+
+
+</div>
 {% endblock %}

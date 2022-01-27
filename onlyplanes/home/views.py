@@ -470,7 +470,7 @@ def flight_booking(request):
         context = {
             'booking_flight': True,
             'people': int(request.POST.get('people')),
-            'price': (request.POST.get('price')),
+            'price': float((request.POST.get('price'))),
             'cabinClass': request.POST.get('cabinClass'),
             'departureDate': request.POST.get('departureDate'),
             'destination': request.POST.get('destination'),
@@ -566,10 +566,6 @@ def checkout(request):
                 )
                 HotelBooking.save(booking)
                 print('MADE ONE ROOM BOOKING')
-
-            context = {
-                'message': "You're all set for a good time!"
-            }
 
             return redirect('index')
         else:
