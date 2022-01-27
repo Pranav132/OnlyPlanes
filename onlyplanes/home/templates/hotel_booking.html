@@ -3,7 +3,62 @@
 
 
 {% block links %}
-<!-- <link rel="stylesheet" href="{% static 'css/style-search.css' %}"> -->
+<link rel="stylesheet" href="{% static 'css/style-search.css' %}">
+<style>
+
+
+    .fullwrap{
+        min-height: 100vh;
+        background: azure;
+    }
+    
+        .product-title {
+      height: 40vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 4em;
+      color: #eee;
+      text-shadow: 2px 2px 5px #000;
+      font-weight: 500;
+      font-family: "Poppins", sans-serif;
+      padding-bottom: 5vh;
+      background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+      clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 0% 85%);
+    }
+    
+    .deets{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background:azure;
+    }
+    
+    .deets h1{
+        padding: 2vh 0;
+        margin: 2vh 0;
+        background: #eee;
+        color: rgb(33, 35, 60);
+        border-radius:10px;
+        box-shadow: 0 0 5px rgba(0,0,0,1);
+        width: 60vw;
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+    }
+    
+    .deets h1 span{
+        font-weight: 300;
+        color:#333;
+    }
+    
+    .deets form{
+        padding: 0.25vh 0;
+    }
+    
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -11,6 +66,7 @@ Book a Hotel
 {% endblock %}
 
 {% block content %}
+
 
 {% if message %}
 <script>
@@ -21,70 +77,72 @@ Book a Hotel
     alert("Only {{available_rooms}} rooms are available here.");
 </script>
 {% endif %}
+<div class="fullwrap">
 
-<h1>{{hotel.name}}</h1>
-<h1>{{hotel.location}}</h1>
-<h1>{{roomname}}</h1>
-<h1>{{room.price}}</h1>
+    <div class="product-title">
+        BOOK A HOTEL
+    </div>
+    <div class="deets">
 
-<div class="searchform">
-    <form class="pick-animation my-4" method="POST" action="">
-        {% csrf_token %}
-            <div class="form-row">
-                <div class="col-5 m-auto">
+        <h1>{{hotel.name}}</h1>
+        <h1>{{hotel.location}}</h1>
+        <h1>{{roomname}}</h1>
+        <h1>₹ {{room.price}}</h1>
+        
+        <div class="searchform">
+            <form class="pick-animation my-4" method="POST" action="">
+                {% csrf_token %}
+                <div class="form-row">
                     <div class="col-5 m-auto">
                         <label for="guests" class="form-label"
-                            style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
-                            Guests:*</label>
+                        style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
+                        Guests:*</label>
                         <input type="number" class="form-control" min="1" max="10" name="guests" required>
                     </div>
-                </div>
-                <div class="col-5 m-auto">
                     <div class="col-5 m-auto">
                         <label for="rooms" class="form-label"
-                            style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
-                            Rooms:*</label>
+                        style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;"># of
+                        Rooms:*</label>
                         <input type="number" class="form-control" min="1" max="10" name="rooms" required>
                     </div>
                 </div>
-            </div>
-            <div class="padding" style="height: 2vh;"></div>
-            <div class="form-row">
-                <div class="col-5 m-auto">
-                    <label for="date_from"
+                <div class="padding" style="height: 2vh;"></div>
+                <div class="form-row">
+                    <div class="col-5 m-auto">
+                        <label for="date_from"
                         style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Check-In
                         Date:*</label>
-                    <input type="date" name="date_from" class="form-control" required>
-                </div>
-                <div class="col-5 m-auto">
-                    <label for="date_to"
+                        <input type="date" name="date_from" class="form-control" required>
+                    </div>
+                    <div class="col-5 m-auto">
+                        <label for="date_to"
                         style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Check-Out
                         Date:*</label>
-                    <input type="date" name="date_to" class="form-control" required>
+                        <input type="date" name="date_to" class="form-control" required>
+                    </div>
                 </div>
-            </div>
-            <div class="padding" style="height: 2vh;"></div>
-            <!-- <div class="form-row">
-                <div class="col-5 m-auto">
-                    <label for="travelClass" class="form-label"
+                <div class="padding" style="height: 2vh;"></div>
+                <!-- <div class="form-row">
+                    <div class="col-5 m-auto">
+                        <label for="travelClass" class="form-label"
                         style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.05em;">Cabin
                         Class:</label>
-                    <select class="form-control" name="travelClass">
-                        <option value="" disabled selected>Cabin Class</option>
-                        <option value="ECONOMY">Economy</option>
-                        <option value="PREMIUM_ECONOMY">Premium Economy</option>
-                        <option value="BUSINESS">Business</option>
-                        <option value="FIRST">First Class</option>
-                    </select>
+                        <select class="form-control" name="travelClass">
+                            <option value="" disabled selected>Cabin Class</option>
+                            <option value="ECONOMY">Economy</option>
+                            <option value="PREMIUM_ECONOMY">Premium Economy</option>
+                            <option value="BUSINESS">Business</option>
+                            <option value="FIRST">First Class</option>
+                        </select>
+                    </div>
+                    
                 </div>
-    
-            </div>
-            <div class="padding" style="height: 2vh;"></div> -->
-            <div class="form-row">
-                <div class="col-1 m-auto">
-                    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                <div class="padding" style="height: 2vh;"></div> -->
+                <div class="form-row justify-content-center align-content-center">
+                    <button type="submit" class="btn btn-primary justify-content-center align-content-center">Proceed to Payment</button>
                 </div>
-            </div>
-    </form>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
