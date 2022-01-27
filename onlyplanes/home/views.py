@@ -496,40 +496,45 @@ def hotel_booking(request, hotel_id, room_id, room_name):
         room = Room.objects.get(id=room_id)
         roomname = room_name
 
-        booking_form = BookingForm()
-
         context = {
             'hotel': hotel,
             'room': room,
             'roomname': roomname,
-            'booking_form': booking_form,
         }
 
         return render(request, 'hotel_booking.html', context=context)
 
     if request.method == 'POST':
+        hotel = Hotel.objects.get(id=hotel_id)
+        room = Room.objects.get(id=room_id)
         context = {
             'booking_hotel': True,
             'date_from': request.POST.get('date_from'),
             'date_to': request.POST.get('date_to'),
             'rooms': int(request.POST.get('rooms')),
             'guests': int(request.POST.get('guests')),
-            'hotel': Hotel.objects.get(id=hotel_id),
-            'room': Room.objects.get(id=room_id),
+            'hotel': hotel,
+            'room': room,
             'roomname': room_name,
         }
 
-        if context['guests']/context['rooms'] > 2:
-            hotel = Hotel.objects.get(id=hotel_id)
-            room = Room.objects.get(id=room_id)
+        print("THESE ARE THE AVAILABLE ROOMS: ", room.available_rooms)
 
-            booking_form = BookingForm()
+        if context['guests']/context['rooms'] > 2:
 
             context = {
                 'hotel': hotel,
                 'room': room,
-                'booking_form': booking_form,
                 'message': "Number of guests per room should be 2 or below."
+            }
+
+            return render(request, 'hotel_booking.html', context=context)
+
+        elif context['rooms'] > room.available_rooms:
+            context = {
+                'hotel': hotel,
+                'room': room,
+                'available_rooms': room.available_rooms,
             }
 
             return render(request, 'hotel_booking.html', context=context)
@@ -540,8 +545,8 @@ def hotel_booking(request, hotel_id, room_id, room_name):
                 'date_to': request.POST.get('date_to'),
                 'rooms': int(request.POST.get('rooms')),
                 'guests': int(request.POST.get('guests')),
-                'hotel': Hotel.objects.get(id=hotel_id),
-                'room': Room.objects.get(id=room_id),
+                'hotel': hotel,
+                'room': room,
                 'roomname': room_name,
             }
             return render(request, 'checkout.html', context=context)
